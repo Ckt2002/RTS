@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Data;
+﻿using Assets.Scripts.Data;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitController : MonoBehaviour
@@ -23,13 +23,17 @@ public class UnitController : MonoBehaviour
         if (IsDead)
         {
             deathTimer += Time.deltaTime;
-            if (deathTimer >= timeToHideAfterDied) ResetStatus();
+            if (deathTimer >= timeToHideAfterDied)
+                ResetStatus();
 
             return;
         }
 
         if (IsAlive())
+        {
+            Debug.Log("Controller running");
             return;
+        }
 
         IsDead = true;
         unitManager.UnitsSelected.Remove(this);

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2078098305141565662}
   - component: {fileID: 3584459497957033642}
   - component: {fileID: 2623067458637207230}
-  - component: {fileID: 8717040345919704033}
-  - component: {fileID: 7151167953380812642}
-  m_Layer: 7
+  - component: {fileID: 4625485262686755796}
+  - component: {fileID: 6395766706888632885}
+  m_Layer: 6
   m_Name: land 01
   m_TagString: Plane
   m_Icon: {fileID: 0}
@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5229229712626057214}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 50, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 25, y: 5, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2442ce0cd8f6a534c842e7c4c8b4e935, type: 2}
+  - {fileID: 2100000, guid: 4528866854a8e3a4c8b82279ca805c07, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8717040345919704033
+--- !u!114 &4625485262686755796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 576
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -113,11 +113,11 @@ MonoBehaviour:
   m_TileSize: 256
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 61c66fb1f8e1f15439b62f39047f0da2, type: 2}
-  m_BuildHeightMesh: 0
---- !u!64 &7151167953380812642
-MeshCollider:
+  m_MinRegionArea: 1
+  m_NavMeshData: {fileID: 23800000, guid: ef73ced584e7a8a4791cd3d4196926d3, type: 2}
+  m_BuildHeightMesh: 1
+--- !u!65 &6395766706888632885
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -134,7 +134,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3206721267917250997, guid: 261ff3dd765c6b44c99b090fa252965d, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 50, y: 0.01, z: 50}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -12,6 +12,5 @@ public class UnitInfor : ObjectInfor
     public int Speed => speed;
     public float FireRate => fireRate;
     public float BuyTime => buyTime;
-    public int Armor => armor;
     public float ResearchTime => researchTime;
 }

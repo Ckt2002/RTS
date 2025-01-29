@@ -1,20 +1,26 @@
-using System.Linq;
 using Assets.Scripts.Data;
+using System.Linq;
 using UnityEngine;
 
 public class UnitCombat : MonoBehaviour
 {
     [SerializeField] private float attackRange = 10f;
     [SerializeField] private UnitController unitController;
-    private string targetTag = Tags.PlayerUnit;
-    private UnitManager unitManager;
 
-    public UnitController target { get; private set; }
+    // Change following to use for attacking building too
+    private string targetUnitTag = Tags.PlayerUnit;
+    private string targetBuildingTag = Tags.PlayerBuilding;
+    private UnitManager unitManager;
+    private BuildingManager buildingManager;
+
+    public ObjectInfor target { get; set; }
 
     private void Start()
     {
         unitManager = UnitManager.Instance;
-        targetTag = CompareTag(Tags.PlayerUnit) ? Tags.EnemyUnit : Tags.PlayerUnit;
+        buildingManager = BuildingManager.Instance;
+        targetUnitTag = CompareTag(Tags.PlayerUnit) ? Tags.EnemyUnit : Tags.PlayerUnit;
+        targetBuildingTag = CompareTag(Tags.PlayerUnit) ? Tags.EnemyBuilding : Tags.PlayerBuilding;
     }
 
     private void Update()
@@ -26,10 +32,15 @@ public class UnitCombat : MonoBehaviour
         }
 
         CheckCurrentTarget();
-        foreach (var unit in from unit in unitManager.UnitsOnMap
-                 where unit.CompareTag(targetTag)
-                 select unit)
-            GetTargetInRange(unit);
+
+        var combinedUnits = unitManager.UnitsOnMap
+            .Where(unit => unit.CompareTag(targetUnitTag))
+            .Concat(buildingManager.BuildingsOnMap.Where(unit => unit.CompareTag(targetBuildingTag)));
+
+        foreach (var unit in combinedUnits)
+        {
+            GetTargetInRange(unit.GetComponent<ObjectInfor>());
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -43,19 +54,24 @@ public class UnitCombat : MonoBehaviour
         if (target == null)
             return;
 
-        // Debug.Log(target.gameObject.activeInHierarchy);
         if (Vector3.Distance(transform.position, target.transform.position) > attackRange
-            || target.IsDead || !target.gameObject.activeInHierarchy)
+            || target.CurrentHealth <= 0 || !target.gameObject.activeInHierarchy)
         {
-            Debug.Log("Running here");
+            //Debug.Log("Running here");
             target = null;
         }
     }
 
-    private void GetTargetInRange(UnitController unit)
+    private void GetTargetInRange(ObjectInfor obj)
     {
-        if (Vector3.Distance(transform.position, unit.transform.position) <= attackRange
-            && target == null && !unit.IsDead && unit.gameObject.activeInHierarchy)
-            target = unit;
+        if (Vector3.Distance(transform.position, obj.transform.position) <= attackRange
+            && target == null && (obj.CurrentHealth > 0) && obj.gameObject.activeInHierarchy)
+            target = obj;
+    }
+
+    public float AttackRange
+    {
+        get { return attackRange; }
+        set { attackRange = value; }
     }
 }

@@ -32,9 +32,8 @@ public class UnitFormation : MonoBehaviour
             var finalPosition = formationCenter - unitNewPos;
 
             var unitMovement = unitsSelected[index].GetComponent<UnitMovement>();
-            unitMovement.Move(finalPosition);
+            unitMovement.Move(finalPosition, 0f);
             var playerRing = unitsSelected[index].GetComponent<PlayerRing>();
-            playerRing.ShowLine(finalPosition);
         }
     }
 }

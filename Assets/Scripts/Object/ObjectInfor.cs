@@ -8,7 +8,7 @@ public class ObjectInfor : MonoBehaviour
     [SerializeField] protected int armor;
     [SerializeField] protected int money;
 
-    protected int currentHealth;
+    protected int currentHealth = 1;
 
     public int CurrentHealth
     {
@@ -19,8 +19,9 @@ public class ObjectInfor : MonoBehaviour
     public int Money => money;
     public string Description => description;
     public Sprite Icon => icon;
+    public int Armor => armor;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         currentHealth = maxHealth;
     }

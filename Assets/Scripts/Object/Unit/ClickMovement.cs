@@ -12,7 +12,10 @@ public class ClickMovement : MonoBehaviour
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, planeLayer))
+            {
                 unitFormation.GetInFormationAndMove(hit.point);
+                Debug.Log("Clicked Pos: " + hit.point);
+            }
         }
     }
 }

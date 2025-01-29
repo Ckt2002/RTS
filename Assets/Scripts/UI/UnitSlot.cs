@@ -39,7 +39,8 @@ public class UnitSlot : ObjectSlot
                 var currentBuilding = buildingsQueue.Dequeue();
                 buildingsQueue.Enqueue(currentBuilding);
 
-                if (unitCountPerBuilding[currentBuilding] <= 0) continue;
+                if (unitCountPerBuilding[currentBuilding] <= 0)
+                    continue;
 
                 #region Unit create time
 
@@ -71,8 +72,8 @@ public class UnitSlot : ObjectSlot
                 unit.transform.rotation = spawnRotation;
                 unit.SetActive(true);
                 unit.GetComponent<UnitMovement>()
-                    .Move(currentBuilding.GetComponent<FactoryController>().RallyPoint.position);
-                unitManager.AddNewUnitOnMap(unit.GetComponent<UnitController>());
+                    .Move(currentBuilding.GetComponent<FactoryController>().RallyPoint.position, 0f);
+                unitManager.AddNewUnitOnMap(unit.GetComponent<ObjectInfor>());
 
                 #endregion
 

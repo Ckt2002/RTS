@@ -1,3 +1,4 @@
+using Assets.Scripts.Data;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class UnitManager : MonoBehaviour
     public static UnitManager Instance;
 
     [SerializeField] private List<PlayerUnitStatus> playerUnitsPrefab;
-    public List<UnitController> UnitsOnMap = new();
+    public List<ObjectInfor> UnitsOnMap = new();
     public List<UnitController> UnitsSelected { get; } = new();
 
     public List<PlayerUnitStatus> PlayerUnitsPrefab => playerUnitsPrefab;
@@ -19,10 +20,12 @@ public class UnitManager : MonoBehaviour
 
     private void Start()
     {
-        UnitsOnMap = FindObjectsOfType<UnitController>().ToList();
+        UnitsOnMap = FindObjectsOfType<ObjectInfor>()
+            .Where(unit => unit.CompareTag(Tags.PlayerUnit) || unit.CompareTag(Tags.EnemyUnit))
+            .ToList();
     }
 
-    public void AddNewUnitOnMap(UnitController newUnit)
+    public void AddNewUnitOnMap(ObjectInfor newUnit)
     {
         UnitsOnMap.Add(newUnit);
     }

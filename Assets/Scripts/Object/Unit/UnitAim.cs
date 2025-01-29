@@ -12,7 +12,10 @@ public class UnitAim : MonoBehaviour
     private void Update()
     {
         if (!unitController.IsAlive())
+        {
+            Debug.Log("AI running");
             return;
+        }
 
         Vector3 directionToTarget = transform.forward;
         if (unitCombat.target != null)

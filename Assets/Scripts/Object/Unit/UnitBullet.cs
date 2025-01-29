@@ -6,14 +6,18 @@ public abstract class UnitBullet : MonoBehaviour
     [SerializeField] protected float speed = 10f;
     [SerializeField] protected float lifetime = 30f;
     protected int damage;
-    protected string targetTag = Tags.EnemyUnit;
+    protected string targetUnitTag = Tags.EnemyUnit;
+    protected string targetBuildingTag = Tags.EnemyUnit;
 
     protected float timer;
 
     public void BulletOwner(bool isPlayer)
     {
         if (!isPlayer)
-            targetTag = Tags.PlayerUnit;
+        {
+            targetUnitTag = Tags.PlayerUnit;
+            targetBuildingTag = Tags.PlayerBuilding;
+        }
     }
 
     public void SetupDamage(int damage)
@@ -36,15 +40,15 @@ public abstract class UnitBullet : MonoBehaviour
         var hitColliders = Physics.OverlapSphere(transform.position, 1f);
         foreach (var hitCollider in hitColliders)
         {
-            if (!hitCollider.CompareTag(targetTag))
+            if (!hitCollider.CompareTag(targetUnitTag) && !hitCollider.CompareTag(targetBuildingTag))
                 continue;
 
-            var takeDamageComponent = hitCollider.GetComponentInParent<UnitTakeDamage>();
+            var takeDamageComponent = hitCollider.GetComponentInParent<ObjectTakeDamage>();
             HitTarget(takeDamageComponent);
         }
     }
 
-    protected void HitTarget(UnitTakeDamage target)
+    protected void HitTarget(ObjectTakeDamage target)
     {
         if (target != null)
         {

@@ -8,9 +8,12 @@ public class UnitMovement : MonoBehaviour
     [SerializeField] private UnitInfor stat;
     [SerializeField] private UnitController unitController;
 
+    private Vector3 targetPos;
+
     private void Start()
     {
         agent.speed = stat.Speed;
+        targetPos = agent.transform.position;
     }
 
     private void Update()
@@ -18,18 +21,29 @@ public class UnitMovement : MonoBehaviour
         if (!unitController.IsAlive())
         {
             agent.isStopped = false;
+            targetPos = transform.position;
             return;
         }
+        agent.SetDestination(targetPos);
 
         if (!agent.pathPending)
+        {
             if (agent.remainingDistance <= stoppingDistance)
                 agent.isStopped = true;
+        }
     }
 
-    public void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition, float stoppingDistance)
     {
         if (agent.isStopped)
             agent.isStopped = false;
-        agent.SetDestination(targetPosition);
+        targetPos = targetPosition;
+        this.stoppingDistance = stoppingDistance;
+    }
+
+    public float StoppingDistance
+    {
+        get { return agent.stoppingDistance; }
+        set { this.stoppingDistance = value; }
     }
 }

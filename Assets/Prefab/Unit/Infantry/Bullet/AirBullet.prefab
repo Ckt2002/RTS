@@ -238,9 +238,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1584032992975643473}
   - component: {fileID: 911904042164038180}
-  - component: {fileID: 5714479236429169911}
+  - component: {fileID: -3290236566193107259}
   m_Layer: 0
-  m_Name: GroundBullet
+  m_Name: AirBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,7 +287,7 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5714479236429169911
+--- !u!114 &-3290236566193107259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,11 +296,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5715679845171327766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747b18ad10c51084085ebb17336db698, type: 3}
+  m_Script: {fileID: 11500000, guid: 126bf2d6e01b5d343a883b5a0921c7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
-  lifetime: 30
+  lifetime: 5
 --- !u!1 &6859063602566463453
 GameObject:
   m_ObjectHideFlags: 0

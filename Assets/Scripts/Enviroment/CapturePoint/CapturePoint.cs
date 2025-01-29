@@ -7,7 +7,7 @@ public class CapturePoint : MonoBehaviour
     [SerializeField] private Image captureCircle;
 
     [SerializeField] private float captureTime = 1f;
-    [SerializeField] private float timeToGetMoney = 1f;
+    //[SerializeField] private float timeToGetMoney = 1f;
     [SerializeField] private float radius = 1f;
     [SerializeField] private int moneyPerSeccond = 5;
 
@@ -49,7 +49,8 @@ public class CapturePoint : MonoBehaviour
 
     private IEnumerator StopCapturing()
     {
-        if (elapsedTime == 0 && captureCircle.fillAmount == 0) yield break;
+        if (elapsedTime == 0 && captureCircle.fillAmount == 0)
+            yield break;
         while (elapsedTime > 0)
         {
             elapsedTime -= Time.deltaTime; // Cập nhật thời gian
@@ -60,7 +61,8 @@ public class CapturePoint : MonoBehaviour
 
     private IEnumerator StartCapturing()
     {
-        if (captured) yield break;
+        if (captured)
+            yield break;
 
         while (elapsedTime < captureTime)
         {

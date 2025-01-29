@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Assets.Scripts.Data;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitGun : MonoBehaviour
@@ -21,6 +21,12 @@ public class UnitGun : MonoBehaviour
 
     private void Update()
     {
+        if (unitStat.CurrentHealth <= 0)
+        {
+            fireCooldown = 0f;
+            return;
+        }
+
         fireCooldown += Time.deltaTime;
     }
 

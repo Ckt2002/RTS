@@ -19,8 +19,8 @@ public class AirBullet : UnitBullet
     protected override void CheckCollision()
     {
         if (Vector3.Distance(transform.position, target.transform.position) < 0.1f)
-            if (target.GetComponent<UnitTakeDamage>() != null)
-                HitTarget(target.GetComponent<UnitTakeDamage>());
+            if (target.GetComponent<ObjectTakeDamage>() != null)
+                HitTarget(target.GetComponent<ObjectTakeDamage>());
     }
 
     public void SetTarget(GameObject target)

@@ -6,6 +6,7 @@ public class PlaceBuildingSystem : MonoBehaviour
     public static PlaceBuildingSystem Instance;
 
     [SerializeField] private LayerMask planeLayer;
+    [SerializeField] private BuildingManager buildingsManager;
 
     private GameObject buildingSelected;
 
@@ -67,6 +68,8 @@ public class PlaceBuildingSystem : MonoBehaviour
             }
 
         buildingSelected.GetComponent<BuildingController>().SetBuldingOpaque();
+        var objectInfor = buildingSelected.GetComponent<ObjectInfor>();
+        buildingsManager.AddNewBuildingOnMap(objectInfor);
         buildingSelected = null;
         IsPlacingBuilding = false;
     }

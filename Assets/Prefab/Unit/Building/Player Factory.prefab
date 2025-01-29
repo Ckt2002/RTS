@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2468217776701396474}
   - component: {fileID: -2876503424667190840}
   - component: {fileID: 4014172479510459648}
+  - component: {fileID: 2319719631909736433}
   m_Layer: 9
   m_Name: Player Factory
   m_TagString: PlayerBuilding
@@ -147,7 +148,22 @@ MonoBehaviour:
   - {fileID: 7311973415406777559}
   - {fileID: 546902902590975740}
   - {fileID: 2840081501861281410}
+  renderers: []
+  buildingInfor: {fileID: -2876503424667190840}
   rallyPoint: {fileID: 7512124382474595617}
+--- !u!114 &2319719631909736433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55975176535752055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6be8ddb9e80ad4489edbd4537c42dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectInfor: {fileID: -2876503424667190840}
 --- !u!1 &3116572029334711771
 GameObject:
   m_ObjectHideFlags: 0

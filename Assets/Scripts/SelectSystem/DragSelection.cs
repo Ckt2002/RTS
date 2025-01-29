@@ -23,10 +23,10 @@ public class DragSelection : MonoBehaviour
             var isInRange = posToScreen.x < max.x && posToScreen.x > min.x
                                                   && posToScreen.y < max.y && posToScreen.y > min.y;
 
-            if (isInRange && unit.CompareTag(Tags.PlayerUnit) && unit.IsAlive())
-                unitManager.AddToSelectedList(unit);
+            if (isInRange && unit.CompareTag(Tags.PlayerUnit) && unit.CurrentHealth > 0)
+                unitManager.AddToSelectedList(unit.GetComponent<UnitController>());
             else if (!Input.GetKey(KeyCode.LeftControl))
-                unitManager.RemoveFromSelectedList(unit);
+                unitManager.RemoveFromSelectedList(unit.GetComponent<UnitController>());
         }
     }
 }
