@@ -9,7 +9,5 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         movement.HandleMovement();
-        // rotation.HandleRotation();
-        zoom.HandleZoom();
     }
 }

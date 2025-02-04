@@ -36,4 +36,23 @@ public class UnitFormation : MonoBehaviour
             var playerRing = unitsSelected[index].GetComponent<PlayerRing>();
         }
     }
+
+    public void GetInAttackStatusAndMove(Vector3? targetPosition = null)
+    {
+        var unitsSelected = unitManager.UnitsSelected;
+        if (unitsSelected.Count == 0 || targetPosition == null)
+            return;
+
+        var unitCount = unitsSelected.Count;
+
+        for (var index = 0; index < unitsSelected.Count; index++)
+        {
+            var unitMovement = unitsSelected[index].GetComponent<UnitMovement>();
+            var unitAttackRange = unitsSelected[index].GetComponent<UnitCombat>().AttackRange;
+
+            unitMovement.Move(targetPosition.Value, unitAttackRange);
+
+            var playerRing = unitsSelected[index].GetComponent<PlayerRing>();
+        }
+    }
 }

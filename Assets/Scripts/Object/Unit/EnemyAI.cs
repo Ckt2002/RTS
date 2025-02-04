@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float sensorRange;
     [SerializeField] private List<GameObject> playerHqs;
     [SerializeField] private GameObject mainTarget = null;
+    [SerializeField] private Rigidbody rb;
 
     // main target is nearest player HQ
     // if don't have any player unit or building in sensor range,
@@ -26,10 +27,7 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         if (!controller.IsAlive())
-        {
-            Debug.Log("AI running");
             return;
-        }
 
         FindNearestMainTarget();
         if (mainTarget)
@@ -77,15 +75,13 @@ public class EnemyAI : MonoBehaviour
     {
         if (col.CompareTag(Tags.PlayerUnit) || col.CompareTag(Tags.PlayerBuilding))
         {
-            if (col.GetComponent<ObjectInfor>().CurrentHealth <= 0)
+            if (col.GetComponentInParent<ObjectInfor>().CurrentHealth <= 0)
                 return;
 
             if (combat.target == null || combat.target.GetComponent<ObjectInfor>().CurrentHealth <= 0)
             {
                 combat.target = col.gameObject.GetComponent<ObjectInfor>();
-                Debug.Log(col.name);
                 mainTarget = col.gameObject;
-                Debug.Log(mainTarget.name);
             }
         }
     }

@@ -22,6 +22,7 @@ public class UnitMovement : MonoBehaviour
         {
             agent.isStopped = false;
             targetPos = transform.position;
+            agent.SetDestination(targetPos);
             return;
         }
         agent.SetDestination(targetPos);

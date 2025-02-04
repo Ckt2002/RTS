@@ -21,7 +21,9 @@ public class CameraZoom : MonoBehaviour
 
         var scrollData = Input.GetAxis("Mouse ScrollWheel");
         newZoom.y -= speed * scrollData * 10;
-        newZoom.y = Mathf.Clamp(newZoom.y, -41f, 70f);
+        newZoom.z += speed * scrollData * 10;
+        //newZoom.y = Mathf.Clamp(newZoom.y, -41f, 70f);
+        //newZoom.x = Mathf.Clamp(newZoom.x, -41f, 70f);
         cam.localPosition = Vector3.Lerp(cam.localPosition, newZoom, Time.deltaTime * smooth);
     }
 }

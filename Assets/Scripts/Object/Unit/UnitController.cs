@@ -31,7 +31,6 @@ public class UnitController : MonoBehaviour
 
         if (IsAlive())
         {
-            Debug.Log("Controller running");
             return;
         }
 
