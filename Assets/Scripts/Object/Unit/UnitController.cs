@@ -1,11 +1,13 @@
-﻿using Assets.Scripts.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Data;
 using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
     [SerializeField] private UnitInfor unitStat;
     [SerializeField] private List<Renderer> renderers;
+    [SerializeField] private bool isVisible;
+
     private readonly float timeToHideAfterDied = 2f;
     private float deathTimer;
 
@@ -15,6 +17,7 @@ public class UnitController : MonoBehaviour
 
     private void Start()
     {
+        Visible(isVisible);
         unitManager = UnitManager.Instance;
     }
 
@@ -29,10 +32,7 @@ public class UnitController : MonoBehaviour
             return;
         }
 
-        if (IsAlive())
-        {
-            return;
-        }
+        if (IsAlive()) return;
 
         IsDead = true;
         unitManager.UnitsSelected.Remove(this);
@@ -67,5 +67,12 @@ public class UnitController : MonoBehaviour
 
         IsDead = false;
         gameObject.SetActive(false);
+    }
+
+    public void Visible(bool visible)
+    {
+        foreach (var renderer in renderers)
+            // renderer.transform.GetComponent<MeshCollider>().enabled = visible;
+            renderer.enabled = visible;
     }
 }

@@ -317,7 +317,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2679641070963076595}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.41351417
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -348,6 +348,7 @@ MonoBehaviour:
   - {fileID: 7260263698934266001}
   - {fileID: 471932350092765498}
   - {fileID: 3073609156519095748}
+  isVisible: 0
 --- !u!114 &272193105188068925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +627,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5272949118382670460}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a07e69d0526418439df9b13a6ed4177, type: 3}
   m_Name: 
@@ -637,7 +638,6 @@ MonoBehaviour:
   sensorRange: 15
   playerHqs: []
   mainTarget: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!135 &1046424538480121324
 SphereCollider:
   m_ObjectHideFlags: 0

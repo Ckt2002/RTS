@@ -1,6 +1,6 @@
-using Assets.Scripts.Data;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -11,8 +11,8 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private float sensorRange;
     [SerializeField] private List<GameObject> playerHqs;
-    [SerializeField] private GameObject mainTarget = null;
-    [SerializeField] private Rigidbody rb;
+
+    [SerializeField] private GameObject mainTarget;
 
     // main target is nearest player HQ
     // if don't have any player unit or building in sensor range,
@@ -30,10 +30,7 @@ public class EnemyAI : MonoBehaviour
             return;
 
         FindNearestMainTarget();
-        if (mainTarget)
-        {
-            movement.Move(mainTarget.transform.position, combat.AttackRange);
-        }
+        if (mainTarget) movement.Move(mainTarget.transform.position, combat.AttackRange);
     }
 
     private void FixedUpdate()
@@ -41,34 +38,10 @@ public class EnemyAI : MonoBehaviour
         FindAllPlayerHQ();
     }
 
-    private void FindAllPlayerHQ()
+    private void OnDrawGizmosSelected()
     {
-        playerHqs = FindObjectsOfType<GameObject>()
-        .Where(obj => obj.name.Contains("Player Headquarters"))
-        .ToList();
-    }
-
-    // Find nearest player HQ
-    private void FindNearestMainTarget()
-    {
-        if (playerHqs.Count == 0)
-            return;
-
-        var targetTemp = playerHqs[0];
-        foreach (var HQ in playerHqs)
-        {
-            var nearest = Vector3.Distance(transform.position, targetTemp.transform.position);
-            var nearestTemp = Vector3.Distance(transform.position, HQ.transform.position);
-            if (nearest > nearestTemp)
-            {
-                targetTemp = HQ;
-            }
-        }
-
-        if (mainTarget == null || mainTarget.GetComponent<ObjectInfor>().CurrentHealth <= 0)
-        {
-            mainTarget = targetTemp;
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, sensorRange);
     }
 
     private void OnTriggerEnter(Collider col)
@@ -86,9 +59,35 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void FindAllPlayerHQ()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, sensorRange);
+        playerHqs = FindObjectsOfType<GameObject>()
+            .Where(obj => obj.name.Contains("Player Headquarters"))
+            .ToList();
+    }
+
+    // Find nearest player HQ
+    private void FindNearestMainTarget()
+    {
+        if (playerHqs.Count == 0)
+            return;
+
+        var targetTemp = playerHqs[0];
+        foreach (var HQ in playerHqs)
+        {
+            var nearest = Vector3.Distance(transform.position, targetTemp.transform.position);
+            var nearestTemp = Vector3.Distance(transform.position, HQ.transform.position);
+            if (nearest > nearestTemp) targetTemp = HQ;
+        }
+
+        if (mainTarget == null)
+        {
+            mainTarget = targetTemp;
+        }
+        else
+        {
+            var mainTargetComponent = mainTarget.GetComponent<ObjectInfor>();
+            if (mainTargetComponent == null || mainTargetComponent.CurrentHealth <= 0f) mainTarget = targetTemp;
+        }
     }
 }

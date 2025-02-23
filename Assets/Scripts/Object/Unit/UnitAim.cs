@@ -13,7 +13,6 @@ public class UnitAim : MonoBehaviour
     {
         if (!unitController.IsAlive())
         {
-            Debug.Log("AI running");
             return;
         }
 
