@@ -44,9 +44,8 @@ public class PlaceBuildingSystem : MonoBehaviour
     private void MoveBuildingWithMouse()
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit) && !hit.transform.tag.Equals(Tags.PlayerUnit))
+        if (Physics.Raycast(ray, out var hit, Mathf.Infinity, planeLayer))
             buildingSelected.transform.position = hit.point;
     }
 
@@ -60,16 +59,14 @@ public class PlaceBuildingSystem : MonoBehaviour
         );
 
         foreach (var buildingCollider in buildingsCollider)
-            if (buildingCollider.gameObject != buildingSelected && !buildingCollider.CompareTag(Tags.Plane))
+            if (buildingCollider.gameObject != buildingSelected && !buildingCollider.CompareTag(Tags.Plane.ToString()))
             {
                 buildingSelected.GetComponent<Collider>().enabled = false;
                 Debug.Log("Cannot place building here. It overlaps with another building.");
                 return;
             }
 
-        buildingSelected.GetComponent<BuildingController>().SetBuldingOpaque();
-        var objectInfor = buildingSelected.GetComponent<ObjectInfor>();
-        buildingsManager.AddNewBuildingOnMap(objectInfor);
+        buildingSelected.GetComponent<BuildingController>().SetBuildingOpaque();
         buildingSelected = null;
         IsPlacingBuilding = false;
     }

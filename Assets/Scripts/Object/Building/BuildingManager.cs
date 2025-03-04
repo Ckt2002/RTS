@@ -1,6 +1,4 @@
-using Assets.Scripts.Data;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
@@ -14,11 +12,7 @@ public class BuildingManager : MonoBehaviour
 
     [SerializeField] private UnitManager unitManager;
 
-    public List<ObjectInfor> BuildingsOnMap = new();
-
     public BuildingController buildingSelected { get; private set; }
-
-    public List<GameObject> PlayerBuildingsPrefab => playerBuildingsPrefab;
 
     private void Awake()
     {
@@ -30,16 +24,16 @@ public class BuildingManager : MonoBehaviour
 
     private void Start()
     {
-        BuildingsOnMap = FindObjectsOfType<ObjectInfor>()
-            .Where(unit => unit.CompareTag(Tags.PlayerBuilding) || unit.CompareTag(Tags.EnemyBuilding))
-            .ToList();
-        buildingPanel.SetObjectPanel(PlayerBuildingsPrefab);
+        var buildingLst = new List<GameObject>();
+        foreach (var building in BuildingPooling.Instance.BuildingPrefabs) buildingLst.Add(building.objectPrefab);
+
+        buildingPanel.SetObjectPanel(buildingLst);
     }
 
     public void GetBuildingSelected(BuildingController buildingController)
     {
         buildingSelected = buildingController;
-        if (buildingController.transform.name.Contains("Player Factory"))
+        if (buildingController.transform.name.Contains(Names.PlayerFactory))
         {
             panelsManager.ShowUnitPanel();
             var unitsUnlocked = new List<GameObject>();
@@ -51,7 +45,7 @@ public class BuildingManager : MonoBehaviour
             return;
         }
 
-        if (buildingController.transform.name.Contains("Player Research Lab"))
+        if (buildingController.transform.name.Contains(Names.PlayerResearchLab))
         {
             panelsManager.ShowResearchPanel();
             var unitsLocked = new List<GameObject>();
@@ -68,10 +62,5 @@ public class BuildingManager : MonoBehaviour
     {
         buildingSelected = null;
         panelsManager.ShowBuildingPanel();
-    }
-
-    public void AddNewBuildingOnMap(ObjectInfor newBuilding)
-    {
-        BuildingsOnMap.Add(newBuilding);
     }
 }

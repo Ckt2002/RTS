@@ -6,12 +6,12 @@ public class PlayerRing : MonoBehaviour
 
     public bool isSelected { get; private set; }
 
-    public void UnitSelected()
+    public void ShowRing()
     {
         unitRing.SetActive(isSelected = true);
     }
 
-    public void UnitDeselected()
+    public void HideRing()
     {
         unitRing.SetActive(isSelected = false);
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class Objects
 {
-    public GameObject buildingPrefab;
+    public GameObject objectPrefab;
     public int spawnNumber;
 }
 
@@ -13,4 +13,11 @@ public class PlayerUnitStatus
 {
     public GameObject unitPrefab;
     public bool unlocked;
+}
+
+[Serializable]
+public class PlayerBuildingStatus
+{
+    public GameObject unitPrefab;
+    public int number;
 }

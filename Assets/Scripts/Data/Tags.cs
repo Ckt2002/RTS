@@ -1,11 +1,11 @@
 namespace Assets.Scripts.Data
 {
-    public static class Tags
+    public enum Tags
     {
-        public const string PlayerUnit = "PlayerUnit";
-        public const string EnemyUnit = "EnemyUnit";
-        public const string PlayerBuilding = "PlayerBuilding";
-        public const string EnemyBuilding = "EnemyBuilding";
-        public const string Plane = "Plane";
+        PlayerUnit,
+        EnemyUnit,
+        PlayerBuilding,
+        EnemyBuilding,
+        Plane
     }
 }

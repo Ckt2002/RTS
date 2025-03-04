@@ -7,6 +7,7 @@ public class CapturePoint : MonoBehaviour
     [SerializeField] private Image captureCircle;
 
     [SerializeField] private float captureTime = 1f;
+
     //[SerializeField] private float timeToGetMoney = 1f;
     [SerializeField] private float radius = 1f;
     [SerializeField] private int moneyPerSeccond = 5;
@@ -30,7 +31,7 @@ public class CapturePoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Player"))
+        if (other.gameObject.name.Contains(Names.Player))
         {
             StopAllCoroutines();
             StartCoroutine(StartCapturing());
@@ -40,7 +41,7 @@ public class CapturePoint : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         // Leave while capturing
-        if (other.gameObject.name.Contains("Player") && !captured)
+        if (other.gameObject.name.Contains(Names.Player) && !captured)
         {
             StopAllCoroutines();
             StartCoroutine(StopCapturing());
@@ -53,9 +54,9 @@ public class CapturePoint : MonoBehaviour
             yield break;
         while (elapsedTime > 0)
         {
-            elapsedTime -= Time.deltaTime; // Cập nhật thời gian
-            captureCircle.fillAmount = elapsedTime / captureTime; // Cập nhật giá trị fillAmount
-            yield return null; // Đợi frame tiếp theo
+            elapsedTime -= Time.deltaTime;
+            captureCircle.fillAmount = elapsedTime / captureTime;
+            yield return null;
         }
     }
 
@@ -78,10 +79,8 @@ public class CapturePoint : MonoBehaviour
 
     private IEnumerator StartGetMoney()
     {
-        Debug.Log("Get in here");
         while (captured)
         {
-            Debug.Log("Get money");
             resourcesManager.CurrentMoney(moneyPerSeccond);
             yield return new WaitForSeconds(1f);
         }

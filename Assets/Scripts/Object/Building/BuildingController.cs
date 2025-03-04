@@ -1,53 +1,27 @@
-﻿using Assets.Scripts.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingController : MonoBehaviour
 {
-    [SerializeField] private List<Transform> childTransforms;
-    [SerializeField] private List<Renderer> renderers;
-    [SerializeField] private BuildingInfor buildingInfor;
-
-
-    private BuildingManager buildingManager;
-    private readonly float timeToHideAfterDied = 2f;
-    private float deathTimer;
-
-    private void Start()
-    {
-        buildingManager = BuildingManager.Instance;
-    }
+    [SerializeField] private BuildingInfor stat;
+    [SerializeField] private ObjectDieStatus dieStatus;
+    [SerializeField] private List<Renderer> childrenRenderer;
+    [SerializeField] private PlayerObjectVision vision;
 
     private void Update()
     {
-        if (buildingInfor.CurrentHealth <= 0)
+        if (!stat.IsAlive())
         {
-            deathTimer += Time.deltaTime;
-            if (deathTimer >= timeToHideAfterDied)
-                ResetStatus();
-
+            DieStatusCalculator();
             return;
         }
 
-        if (buildingInfor.CurrentHealth > 0)
-            return;
-
-        buildingManager.BuildingsOnMap.Remove(this.GetComponent<ObjectInfor>());
-
-        if (CompareTag(Tags.PlayerUnit))
-            transform.GetComponent<PlayerRing>().UnitDeselected();
-
-        foreach (var unitRenderer in renderers)
-        {
-            var originalColor = unitRenderer.material.color;
-            var darkerColor = originalColor * 0.5f;
-            unitRenderer.material.color = darkerColor;
-        }
+        vision.SensorEnemy();
     }
 
     public void SetBuildingTransparent()
     {
-        foreach (var child in childTransforms)
+        foreach (var child in childrenRenderer)
         {
             var mat = child.GetComponent<Renderer>().material;
             mat.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
@@ -57,9 +31,9 @@ public class BuildingController : MonoBehaviour
         }
     }
 
-    public void SetBuldingOpaque()
+    public void SetBuildingOpaque()
     {
-        foreach (var child in childTransforms)
+        foreach (var child in childrenRenderer)
         {
             var mat = child.GetComponent<Renderer>().material;
             mat.shader = Shader.Find("Legacy Shaders/Diffuse");
@@ -69,17 +43,11 @@ public class BuildingController : MonoBehaviour
         }
     }
 
-    private void ResetStatus()
+    private void DieStatusCalculator()
     {
-        deathTimer = 0f;
-        buildingInfor.ResetStat();
-
-        foreach (var unitRenderer in renderers)
-        {
-            var originalColor = unitRenderer.material.color;
-            var resetColor = originalColor / 0.5f;
-            unitRenderer.material.color = resetColor;
-        }
-        gameObject.SetActive(true);
+        dieStatus.PlaySoundAndParticle();
+        dieStatus.DarkRenderer();
+        dieStatus.ResetCalculator();
+        dieStatus.ResetStatus(stat);
     }
 }

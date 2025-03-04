@@ -10,20 +10,20 @@ public class UnitFormation : MonoBehaviour
 
     public void GetInFormationAndMove(Vector3? targetPosition = null)
     {
-        var unitsSelected = unitManager.UnitsSelected;
-        if (unitsSelected.Count == 0)
+        var unitsSelectedTemp = unitManager.UnitsSelected;
+        if (unitsSelectedTemp.Count == 0)
             return;
 
-        var unitCount = unitsSelected.Count;
+        var unitCount = unitsSelectedTemp.Count;
         var rowColCount = Mathf.CeilToInt(Mathf.Sqrt(unitCount));
 
-        var formationCenter = targetPosition ?? unitsSelected[0].transform.position;
+        var formationCenter = targetPosition ?? unitsSelectedTemp[0].transform.position;
         var moveDirection = targetPosition.HasValue
-            ? (targetPosition.Value - unitsSelected[0].transform.position).normalized
+            ? (targetPosition.Value - unitsSelectedTemp[0].transform.position).normalized
             : Vector3.forward;
         var formationRotation = Quaternion.LookRotation(moveDirection);
 
-        for (var index = 0; index < unitsSelected.Count; index++)
+        for (var index = 0; index < unitsSelectedTemp.Count; index++)
         {
             var row = index / rowColCount;
             var col = index % rowColCount;
@@ -31,28 +31,23 @@ public class UnitFormation : MonoBehaviour
             var unitNewPos = formationRotation * new Vector3(col * unitSpacing, 0, row * unitSpacing);
             var finalPosition = formationCenter - unitNewPos;
 
-            var unitMovement = unitsSelected[index].GetComponent<UnitMovement>();
-            unitMovement.Move(finalPosition, 0f);
-            var playerRing = unitsSelected[index].GetComponent<PlayerRing>();
+            var unitMovement = unitsSelectedTemp[index].GetComponent<UnitMovement>();
+            unitMovement.SetTargetPosition(finalPosition, 0f);
         }
     }
 
     public void GetInAttackStatusAndMove(Vector3? targetPosition = null)
     {
-        var unitsSelected = unitManager.UnitsSelected;
-        if (unitsSelected.Count == 0 || targetPosition == null)
+        var unitsSelectedTemp = unitManager.UnitsSelected;
+        if (unitsSelectedTemp.Count == 0 || targetPosition == null)
             return;
 
-        var unitCount = unitsSelected.Count;
-
-        for (var index = 0; index < unitsSelected.Count; index++)
+        foreach (var unit in unitsSelectedTemp)
         {
-            var unitMovement = unitsSelected[index].GetComponent<UnitMovement>();
-            var unitAttackRange = unitsSelected[index].GetComponent<UnitCombat>().AttackRange;
+            var unitMovement = unit.GetComponent<UnitMovement>();
+            var unitAttackRange = unit.GetComponent<UnitInfor>().AttackRange;
 
-            unitMovement.Move(targetPosition.Value, unitAttackRange);
-
-            var playerRing = unitsSelected[index].GetComponent<PlayerRing>();
+            unitMovement.SetTargetPosition(targetPosition.Value, unitAttackRange);
         }
     }
 }

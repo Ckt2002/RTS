@@ -12,6 +12,13 @@ public class SelectManager : MonoBehaviour
     [SerializeField] private BuildingManager buildingManager;
     [SerializeField] private GraphicRaycaster raycaster;
 
+    private UnitPooling unitPooling;
+
+    private void Start()
+    {
+        unitPooling = UnitPooling.Instance;
+    }
+
     private void Update()
     {
         var UIObj = GetClickedUIObject();
@@ -42,7 +49,7 @@ public class SelectManager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && clickedUI == null)
         {
-            dragSelection.Select(unitManager);
+            dragSelection.Select(unitPooling, unitManager);
             drawSelectionSquare.ResetBoxSize();
             drawSelectionSquare.HideSquare();
         }

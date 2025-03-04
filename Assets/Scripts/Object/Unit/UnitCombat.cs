@@ -1,77 +1,88 @@
-using Assets.Scripts.Data;
+using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data;
 using UnityEngine;
 
 public class UnitCombat : MonoBehaviour
 {
-    [SerializeField] private float attackRange = 10f;
-    [SerializeField] private UnitController unitController;
+    [SerializeField] private UnitInfor stat;
 
-    // Change following to use for attacking building too
-    private string targetUnitTag = Tags.PlayerUnit;
-    private string targetBuildingTag = Tags.PlayerBuilding;
-    private UnitManager unitManager;
-    private BuildingManager buildingManager;
-
-    public ObjectInfor target { get; set; }
+    private BuildingPooling buildingPooling;
+    private ObjectInfor target;
+    private Tags targetBuildingTag = Tags.PlayerBuilding;
+    private Tags targetUnitTag = Tags.PlayerUnit;
+    private UnitPooling unitPooling;
 
     private void Start()
     {
-        unitManager = UnitManager.Instance;
-        buildingManager = BuildingManager.Instance;
-        targetUnitTag = CompareTag(Tags.PlayerUnit) ? Tags.EnemyUnit : Tags.PlayerUnit;
-        targetBuildingTag = CompareTag(Tags.PlayerUnit) ? Tags.EnemyBuilding : Tags.PlayerBuilding;
-    }
-
-    private void Update()
-    {
-        if (!unitController.IsAlive())
-        {
-            target = null;
-            return;
-        }
-
-        CheckCurrentTarget();
-
-        var combinedUnits = unitManager.UnitsOnMap
-            .Where(unit => unit.CompareTag(targetUnitTag))
-            .Concat(buildingManager.BuildingsOnMap.Where(unit => unit.CompareTag(targetBuildingTag)));
-
-        foreach (var unit in combinedUnits)
-        {
-            GetTargetInRange(unit.GetComponent<ObjectInfor>());
-        }
+        unitPooling = UnitPooling.Instance;
+        buildingPooling = BuildingPooling.Instance;
+        targetUnitTag = CompareTag(Tags.PlayerUnit.ToString()) ? Tags.EnemyUnit : Tags.PlayerUnit;
+        targetBuildingTag = CompareTag(Tags.PlayerUnit.ToString()) ? Tags.EnemyBuilding : Tags.PlayerBuilding;
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, stat.AttackRange);
     }
 
-    public void CheckCurrentTarget()
+    public ObjectInfor FindTargetInRange()
+    {
+        CheckCurrentTarget();
+
+        foreach (var unit in CombineUnits())
+            if (unit.CompareTag(targetUnitTag.ToString()) || unit.CompareTag(targetBuildingTag.ToString()))
+                GetTargetInRange(unit.GetComponent<ObjectInfor>());
+
+        return target;
+    }
+
+    public ObjectInfor FindNearestTargetInMap()
+    {
+        CheckCurrentTarget();
+
+        var nearestTarget = Mathf.Infinity;
+        foreach (var unit in CombineUnits())
+            if (unit.CompareTag(targetUnitTag.ToString()) || unit.CompareTag(targetBuildingTag.ToString()))
+            {
+                var distance = Vector3.Distance(transform.position, unit.transform.position);
+                if (distance < nearestTarget)
+                {
+                    nearestTarget = distance;
+                    target = unit.GetComponent<ObjectInfor>();
+                }
+            }
+
+        return target;
+    }
+
+    private List<GameObject> CombineUnits()
+    {
+        return unitPooling.GetAllActiveObject()
+            .Concat(buildingPooling.GetAllActiveObject())
+            .ToList();
+    }
+
+    private void CheckCurrentTarget()
     {
         if (target == null)
             return;
 
-        if (Vector3.Distance(transform.position, target.transform.position) > attackRange
+        if (Vector3.Distance(transform.position, target.transform.position) > stat.AttackRange
             || target.CurrentHealth <= 0 || !target.gameObject.activeInHierarchy)
-        {
-            //Debug.Log("Running here");
             target = null;
-        }
     }
 
     private void GetTargetInRange(ObjectInfor obj)
     {
-        if (Vector3.Distance(transform.position, obj.transform.position) <= attackRange
-            && target == null && (obj.CurrentHealth > 0) && obj.gameObject.activeInHierarchy)
+        if (Vector3.Distance(transform.position, obj.transform.position) <= stat.AttackRange
+            && target == null && obj.CurrentHealth > 0 && obj.gameObject.activeInHierarchy)
             target = obj;
     }
 
-    public float AttackRange
+    public bool CheckTargetInRange(GameObject currentTarget)
     {
-        get { return attackRange; }
-        set { attackRange = value; }
+        return Vector3.Distance(transform.position, currentTarget.transform.position) <= stat.AttackRange;
     }
 }

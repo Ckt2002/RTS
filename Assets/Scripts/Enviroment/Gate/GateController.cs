@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class GateController : MonoBehaviour
 {
-    [SerializeField] Gate leftGate;
-    [SerializeField] Gate rightGate;
+    [SerializeField] private Gate leftGate;
+    [SerializeField] private Gate rightGate;
 
-    private int playerUnitInRange = 0;
+    private int playerUnitInRange;
 
     private void Update()
     {
@@ -23,17 +23,11 @@ public class GateController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Player"))
-        {
-            playerUnitInRange++;
-        }
+        if (other.gameObject.name.Contains(Names.Player)) playerUnitInRange++;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name.Contains("Player"))
-        {
-            playerUnitInRange--;
-        }
+        if (other.gameObject.name.Contains(Names.Player)) playerUnitInRange--;
     }
 }

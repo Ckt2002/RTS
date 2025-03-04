@@ -1,78 +1,43 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Data;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
-    [SerializeField] private UnitInfor unitStat;
-    [SerializeField] private List<Renderer> renderers;
-    [SerializeField] private bool isVisible;
+    [SerializeField] protected UnitInfor stat;
+    [SerializeField] protected UnitMovement movement;
+    [SerializeField] protected UnitCombat combat;
+    [SerializeField] protected UnitAim aiming;
+    [SerializeField] protected UnitGun gun;
+    [SerializeField] protected ObjectDieStatus dieStatus;
 
-    private readonly float timeToHideAfterDied = 2f;
-    private float deathTimer;
-
-    private UnitManager unitManager;
-
-    public bool IsDead { get; private set; }
-
-    private void Start()
+    protected virtual void Update()
     {
-        Visible(isVisible);
-        unitManager = UnitManager.Instance;
-    }
-
-    private void Update()
-    {
-        if (IsDead)
+        if (!stat.IsAlive())
         {
-            deathTimer += Time.deltaTime;
-            if (deathTimer >= timeToHideAfterDied)
-                ResetStatus();
-
+            DieStatusCalculator();
+            gun.ResetCoolDown();
             return;
         }
 
-        if (IsAlive()) return;
-
-        IsDead = true;
-        unitManager.UnitsSelected.Remove(this);
-
-        if (CompareTag(Tags.PlayerUnit))
-            transform.GetComponent<PlayerRing>().UnitDeselected();
-
-        foreach (var unitRenderer in renderers)
-        {
-            var originalColor = unitRenderer.material.color;
-            var darkerColor = originalColor * 0.5f;
-            unitRenderer.material.color = darkerColor;
-        }
+        MovementCalculator();
+        CombatCalculator();
     }
 
-    public bool IsAlive()
+    protected virtual void MovementCalculator()
     {
-        return unitStat.CurrentHealth > 0;
+        movement.Move();
     }
 
-    private void ResetStatus()
+    protected virtual void CombatCalculator()
     {
-        deathTimer = 0f;
-        unitStat.ResetStat();
-
-        foreach (var unitRenderer in renderers)
-        {
-            var originalColor = unitRenderer.material.color;
-            var resetColor = originalColor / 0.5f;
-            unitRenderer.material.color = resetColor;
-        }
-
-        IsDead = false;
-        gameObject.SetActive(false);
+        aiming.RotateGun(combat.FindTargetInRange());
+        gun.CoolDownCalculator();
     }
 
-    public void Visible(bool visible)
+    protected virtual void DieStatusCalculator()
     {
-        foreach (var renderer in renderers)
-            // renderer.transform.GetComponent<MeshCollider>().enabled = visible;
-            renderer.enabled = visible;
+        dieStatus.PlaySoundAndParticle();
+        dieStatus.DarkRenderer();
+        dieStatus.ResetCalculator();
+        dieStatus.ResetStatus(stat);
     }
 }

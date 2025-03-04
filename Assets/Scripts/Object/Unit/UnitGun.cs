@@ -1,12 +1,13 @@
-using Assets.Scripts.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitGun : MonoBehaviour
 {
     [SerializeField] private List<Transform> firePoints;
+
     [SerializeField] private UnitInfor unitStat;
-    [SerializeField] private int ammo;
+
+    [SerializeField] private ObjectSound sound;
 
     private BulletPooling bulletPooling;
 
@@ -15,31 +16,34 @@ public class UnitGun : MonoBehaviour
     private void Start()
     {
         bulletPooling = BulletPooling.instance;
-        var groundUnit = gameObject.name.Contains("Aircraft") || gameObject.name.Contains("Anti Air");
-        bulletPooling.CreateBullets(CompareTag(Tags.PlayerUnit), groundUnit, ammo);
     }
 
-    private void Update()
+    public void ResetCoolDown()
     {
-        if (unitStat.CurrentHealth <= 0)
-        {
-            fireCooldown = 0f;
-            return;
-        }
+        fireCooldown = 0f;
+    }
 
+    public void CoolDownCalculator()
+    {
         fireCooldown += Time.deltaTime;
     }
 
     public void Fire()
     {
-        if (fireCooldown > 1 / unitStat.FireRate)
+        if (fireCooldown >= 1 / unitStat.FireRate)
         {
             foreach (var firePoint in firePoints)
             {
-                var groundUnit = gameObject.name.Contains("Aircraft") || gameObject.name.Contains("Anti Air");
-                var bullet = bulletPooling.GetBullet(CompareTag(Tags.PlayerUnit), groundUnit);
+                var bulletName = transform.name.Contains(Names.Player)
+                    ? Names.PlayerGroundBullet
+                    : Names.EnemyGroundBullet;
+                var bullet = bulletPooling.GetObjectPool(bulletName);
                 if (bullet == null)
+                {
+                    Debug.LogWarning("Can't find available bullet");
                     return;
+                }
+
                 bullet.GetComponent<UnitBullet>().SetupDamage(unitStat.Damage);
                 bullet.transform.position = firePoint.transform.position;
                 bullet.transform.rotation = firePoint.transform.rotation;
@@ -47,6 +51,8 @@ public class UnitGun : MonoBehaviour
             }
 
             fireCooldown = 0f;
+            if (sound != null)
+                sound.PlayAttackSound();
         }
     }
 }

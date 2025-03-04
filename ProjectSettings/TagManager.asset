@@ -9,6 +9,7 @@ TagManager:
   - PlayerBuilding
   - EnemyUnit
   - EnemyBuilding
+  - Death
   layers:
   - Default
   - TransparentFX

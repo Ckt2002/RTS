@@ -1,32 +1,46 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MatchController : MonoBehaviour
 {
-    public static MatchController Instance;
+    [SerializeField] private float timeToNextLevel;
+    [SerializeField] private int maxGround;
+    private readonly int enemyNumber = 1;
 
-    //[SerializeField] float timeToNextRound = 5;
-    //[SerializeField] float timeOffset = 5;
-    public int level = 1;
-    public float counter = 0f;
+    private int ground = 1;
+    private List<SpawnEnemy> spawnEnemiesLst;
 
-    private void Awake()
+    private void Start()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(Instance);
-        counter = level * 60;
+        spawnEnemiesLst = FindObjectsOfType<SpawnEnemy>().ToList();
+        CoroutineManager.Instance.StartManagedCoroutine(CreateEnemy(spawnEnemiesLst));
     }
 
-    void Update()
+    private IEnumerator CreateEnemy(List<SpawnEnemy> spawnEnemiesLst)
     {
-        counter -= Time.deltaTime;
+        var enemyUnitNames = Names.enemyUnitNameLst;
+        var nameInd = 0;
 
-        if (counter <= 0)
+        yield return new WaitForSeconds(10f);
+
+        var HQ = BuildingPooling.Instance.GetObjectPool(Names.PlayerHeadquarter);
+        HQ.transform.position = new Vector3(0, 0, 0);
+
+        yield return new WaitForSeconds(30f);
+        while (ground <= maxGround)
         {
-            Debug.Log("Next Round");
-            level++;
-            counter = 60 * level;
+            foreach (var spawnEnemy in spawnEnemiesLst)
+                while (nameInd <= ground)
+                {
+                    for (var i = 0; i < enemyNumber; i++)
+                        spawnEnemy.SpawnUnit(enemyUnitNames[nameInd]);
+                    nameInd++;
+                }
+
+            yield return new WaitForSeconds(timeToNextLevel);
+            ground++;
         }
     }
 }
