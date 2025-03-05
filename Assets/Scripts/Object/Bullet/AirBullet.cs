@@ -1,3 +1,4 @@
+using GameSystem;
 using UnityEngine;
 
 public class AirBullet : UnitBullet
@@ -6,6 +7,12 @@ public class AirBullet : UnitBullet
 
     private void Update()
     {
+        if (PauseSystem.isPausing)
+        {
+            Debug.Log("Paused");
+            return;
+        }
+
         if (target != null)
         {
             var direction = (target.transform.position - transform.position).normalized;

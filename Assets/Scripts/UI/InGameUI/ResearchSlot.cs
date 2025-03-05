@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using GameSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class ResearchSlot : ObjectSlot
     public override void BuyObject()
     {
         base.BuyObject();
-        researchCoroutine ??= CoroutineManager.Instance.StartManagedCoroutine(ResearchCoroutine());
+        researchCoroutine ??= CoroutineManager.Instance?.StartManagedCoroutine(ResearchCoroutine());
     }
 
     private IEnumerator ResearchCoroutine()
@@ -21,6 +22,13 @@ public class ResearchSlot : ObjectSlot
 
         while (elapsedTime < buyTime)
         {
+            if (PauseSystem.isPausing)
+            {
+                Debug.Log("Coroutine Paused");
+                yield return null;
+                continue;
+            }
+
             elapsedTime += Time.deltaTime;
             loading.fillAmount = elapsedTime / buyTime;
             yield return null;

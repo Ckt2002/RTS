@@ -1,4 +1,5 @@
 using System.Collections;
+using GameSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,6 +55,12 @@ public class CapturePoint : MonoBehaviour
             yield break;
         while (elapsedTime > 0)
         {
+            if (PauseSystem.isPausing)
+            {
+                yield return null;
+                continue;
+            }
+
             elapsedTime -= Time.deltaTime;
             captureCircle.fillAmount = elapsedTime / captureTime;
             yield return null;
@@ -67,6 +74,12 @@ public class CapturePoint : MonoBehaviour
 
         while (elapsedTime < captureTime)
         {
+            if (PauseSystem.isPausing)
+            {
+                yield return null;
+                continue;
+            }
+
             elapsedTime += Time.deltaTime;
             captureCircle.fillAmount = elapsedTime / captureTime;
             yield return null;
@@ -81,6 +94,12 @@ public class CapturePoint : MonoBehaviour
     {
         while (captured)
         {
+            if (PauseSystem.isPausing)
+            {
+                yield return null;
+                continue;
+            }
+
             resourcesManager.CurrentMoney(moneyPerSeccond);
             yield return new WaitForSeconds(1f);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public abstract class ObjectPool : MonoBehaviour
     {
         objectsSpawned = new List<GameObject>();
         objectDictionary = new Dictionary<string, List<GameObject>>();
-        StartCoroutine(nameof(SpawnObjects));
+        // StartCoroutine(nameof(SpawnObjects));
     }
 
     public GameObject GetObjectPool(string objectName)
@@ -23,42 +24,12 @@ public abstract class ObjectPool : MonoBehaviour
         if (objectDictionary == null || objectDictionary.Count == 0)
             return null;
 
-        // Debug.Log(objectName);
-        // Debug.Log(objectDictionary.TryGetValue(objectName, out var value2));
         if (objectDictionary.TryGetValue(objectName, out var value))
             foreach (var obj in value)
                 if (!obj.activeInHierarchy)
                     return obj;
 
         return null;
-    }
-
-    public List<GameObject> GetActiveObjectByName(string objectName)
-    {
-        if (objectDictionary == null || objectDictionary.Count == 0)
-            return null;
-
-        List<GameObject> activeObjects = new();
-        if (objectDictionary.TryGetValue(objectName, out var value))
-            foreach (var obj in value)
-                if (obj.activeInHierarchy)
-                    activeObjects.Add(obj);
-
-        return activeObjects;
-    }
-
-    public List<GameObject> GetNonActiveObjectByName(string objectName)
-    {
-        if (objectDictionary == null || objectDictionary.Count == 0)
-            return null;
-
-        List<GameObject> nonActiveObjects = new();
-        if (objectDictionary.TryGetValue(objectName, out var value))
-            foreach (var obj in value)
-                if (!obj.activeInHierarchy)
-                    nonActiveObjects.Add(obj);
-
-        return nonActiveObjects;
     }
 
     public List<GameObject> GetAllActiveObject()
@@ -74,7 +45,12 @@ public abstract class ObjectPool : MonoBehaviour
         return activeObjects;
     }
 
-    protected IEnumerator SpawnObjects()
+    public void RunSpawnObjects(Action action)
+    {
+        StartCoroutine(SpawnObjects(action));
+    }
+
+    protected virtual IEnumerator SpawnObjects(Action action)
     {
         foreach (var objectPrefab in objectPrefabs)
         {
@@ -101,5 +77,10 @@ public abstract class ObjectPool : MonoBehaviour
 
             yield return new WaitForSeconds(0.0001f);
         }
+    }
+
+    protected void CallBackAction(Action action)
+    {
+        action?.Invoke();
     }
 }

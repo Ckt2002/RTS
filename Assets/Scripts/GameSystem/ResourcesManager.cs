@@ -1,3 +1,4 @@
+using GameSystem;
 using TMPro;
 using UnityEngine;
 
@@ -25,6 +26,12 @@ public class ResourcesManager : MonoBehaviour
 
     private void Update()
     {
+        if (PauseSystem.isPausing)
+        {
+            Debug.Log("Paused");
+            return;
+        }
+
         moneyText.text = $"{Money}$";
     }
 

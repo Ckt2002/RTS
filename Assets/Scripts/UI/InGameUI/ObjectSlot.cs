@@ -29,7 +29,7 @@ public abstract class ObjectSlot : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         stat = objectToGet.GetComponent<ObjectInfor>();
         icon.sprite = stat.Icon;
-        icon.color = new Color32(225, 225, 225, 225);
+        icon.color = new Color32(225, 225, 225, 255);
         GetComponent<Button>().interactable = true;
     }
 
@@ -41,7 +41,7 @@ public abstract class ObjectSlot : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public virtual void BuyObject()
     {
-        // if (resourcesManager.Money < stat.Money)
-        //     return;
+        if (resourcesManager.Money < stat.Money)
+            return;
     }
 }

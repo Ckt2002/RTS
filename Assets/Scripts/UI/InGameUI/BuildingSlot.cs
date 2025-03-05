@@ -8,6 +8,8 @@ public class BuildingSlot : ObjectSlot
 
     public override void BuyObject()
     {
+        base.BuyObject();
+
         if (stat.CompareTag(Tags.PlayerBuilding.ToString()))
         {
             var obj = buildingPooling.GetObjectPool(stat.name);

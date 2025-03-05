@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameSystem;
 using UnityEngine;
 
 public class MatchController : MonoBehaviour
 {
+    public static MatchController Instance;
+
     [SerializeField] private float timeToNextLevel;
     [SerializeField] private int maxGround;
     private readonly int enemyNumber = 1;
@@ -12,10 +15,23 @@ public class MatchController : MonoBehaviour
     private int ground = 1;
     private List<SpawnEnemy> spawnEnemiesLst;
 
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
+
     private void Start()
     {
         spawnEnemiesLst = FindObjectsOfType<SpawnEnemy>().ToList();
-        CoroutineManager.Instance.StartManagedCoroutine(CreateEnemy(spawnEnemiesLst));
+    }
+
+    public void StartMatch()
+    {
+        if (CoroutineManager.Instance != null)
+            CoroutineManager.Instance.StartManagedCoroutine(CreateEnemy(spawnEnemiesLst));
     }
 
     private IEnumerator CreateEnemy(List<SpawnEnemy> spawnEnemiesLst)
@@ -25,12 +41,16 @@ public class MatchController : MonoBehaviour
 
         yield return new WaitForSeconds(10f);
 
-        var HQ = BuildingPooling.Instance.GetObjectPool(Names.PlayerHeadquarter);
-        HQ.transform.position = new Vector3(0, 0, 0);
-
-        yield return new WaitForSeconds(30f);
+        // yield return new WaitForSeconds(30f);
         while (ground <= maxGround)
         {
+            if (PauseSystem.isPausing)
+            {
+                Debug.Log("Coroutine Paused");
+                yield return null;
+                continue;
+            }
+
             foreach (var spawnEnemy in spawnEnemiesLst)
                 while (nameInd <= ground)
                 {

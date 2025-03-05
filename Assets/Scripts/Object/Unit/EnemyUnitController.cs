@@ -1,18 +1,12 @@
 using System.Collections;
 using Assets.Scripts.Data;
+using GameSystem;
 using UnityEngine;
 
 public class EnemyUnitController : UnitController
 {
     private static GameObject mainTarget;
 
-    /*
-     * Main target: player HQ. D
-     * If enemy find any player building or unit on path, stop and destroy it.
-     * If main target destroyed: Find nearest remain target.
-     * If no target remain, do nothing.
-     * Find target then send it to combat controller
-     */
     [SerializeField] private GameObject currentTarget;
 
     private void Start()
@@ -24,13 +18,20 @@ public class EnemyUnitController : UnitController
     {
         while (true)
         {
+            if (PauseSystem.isPausing)
+            {
+                Debug.Log("Coroutine Paused");
+                yield return null;
+                continue;
+            }
+
             if (mainTarget != null && mainTarget.TryGetComponent(out ObjectInfor comp))
                 if (!comp.IsAlive())
                     mainTarget = null;
 
             var playerObjects = GameObject.FindGameObjectsWithTag(Tags.PlayerBuilding.ToString());
             foreach (var playerObject in playerObjects)
-                if (playerObject.name.Contains(Names.PlayerHeadquarter))
+                if (playerObject.name.Contains(Names.PlayerHeadquarters))
                 {
                     mainTarget = playerObject;
                     break;
@@ -59,8 +60,6 @@ public class EnemyUnitController : UnitController
         if (currentTarget != null)
             if (combat.CheckTargetInRange(currentTarget))
                 aiming.RotateGun(currentTarget.GetComponent<ObjectInfor>());
-        // else
-        //     Debug.Log("Out of Range");
 
         gun.CoolDownCalculator();
     }

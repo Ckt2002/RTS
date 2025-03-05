@@ -7,7 +7,7 @@ public static class Names
     public const string Enemy = "Enemy";
 
     // Player objects
-    public const string PlayerHeadquarter = "Player Headquarter";
+    public const string PlayerHeadquarters = "Player Headquarters";
     public const string PlayerFactory = "Player Factory";
     public const string PlayerResearchLab = "Player Research Lab";
     public const string PlayerInfantry = "Player Infantry";

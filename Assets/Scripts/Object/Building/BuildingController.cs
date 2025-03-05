@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameSystem;
 using UnityEngine;
 
 public class BuildingController : MonoBehaviour
@@ -10,6 +11,12 @@ public class BuildingController : MonoBehaviour
 
     private void Update()
     {
+        if (PauseSystem.isPausing)
+        {
+            Debug.Log("Paused");
+            return;
+        }
+
         if (!stat.IsAlive())
         {
             DieStatusCalculator();

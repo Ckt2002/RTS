@@ -1,3 +1,4 @@
+using GameSystem;
 using UnityEngine;
 
 public class GateController : MonoBehaviour
@@ -9,6 +10,12 @@ public class GateController : MonoBehaviour
 
     private void Update()
     {
+        if (PauseSystem.isPausing)
+        {
+            Debug.Log("Paused");
+            return;
+        }
+
         if (playerUnitInRange > 0)
         {
             leftGate.OpenGate();

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Data;
+using GameSystem;
 using UnityEngine;
 
 public class PlaceBuildingSystem : MonoBehaviour
@@ -19,6 +20,12 @@ public class PlaceBuildingSystem : MonoBehaviour
 
     private void Update()
     {
+        if (PauseSystem.isPausing)
+        {
+            Debug.Log("Paused");
+            return;
+        }
+
         if (IsPlacingBuilding && buildingSelected != null)
         {
             MoveBuildingWithMouse();

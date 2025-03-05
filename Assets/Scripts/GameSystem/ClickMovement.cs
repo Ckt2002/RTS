@@ -1,4 +1,5 @@
 using Assets.Scripts.Data;
+using GameSystem;
 using UnityEngine;
 
 public class ClickMovement : MonoBehaviour
@@ -10,6 +11,12 @@ public class ClickMovement : MonoBehaviour
 
     private void Update()
     {
+        if (PauseSystem.isPausing)
+        {
+            Debug.Log("Paused");
+            return;
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);

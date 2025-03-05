@@ -1,4 +1,7 @@
-﻿public class UnitPooling : ObjectPool
+﻿using System;
+using System.Collections;
+
+public class UnitPooling : ObjectPool
 {
     public static UnitPooling Instance;
 
@@ -8,5 +11,11 @@
             Instance = this;
         else
             Destroy(gameObject);
+    }
+
+    protected override IEnumerator SpawnObjects(Action action)
+    {
+        yield return base.SpawnObjects(action);
+        CallBackAction(action);
     }
 }

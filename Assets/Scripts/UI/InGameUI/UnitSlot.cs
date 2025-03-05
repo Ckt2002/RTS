@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class UnitSlot : ObjectSlot
 
     public override void BuyObject()
     {
+        base.BuyObject();
         var selectedBuilding = buildingManager.buildingSelected;
 
         if (unitCountPerBuilding.TryAdd(selectedBuilding, 0))
@@ -33,12 +35,20 @@ public class UnitSlot : ObjectSlot
         unitCountPerBuilding[selectedBuilding]++;
         unitCountText.text = totalUnitNumber.ToString();
 
-        buyUnitCoroutine ??= CoroutineManager.Instance.StartManagedCoroutine(CreateUnitsCoroutine());
+        buyUnitCoroutine ??= CoroutineManager.Instance?.StartManagedCoroutine(CreateUnitsCoroutine());
     }
 
     private IEnumerator CreateUnitsCoroutine()
     {
         while (totalUnitNumber > 0)
+        {
+            if (PauseSystem.isPausing)
+            {
+                Debug.Log("Coroutine Paused");
+                yield return null;
+                continue;
+            }
+
             if (buildingsQueue.Count > 0)
             {
                 var currentBuilding = buildingsQueue.Dequeue();
@@ -85,6 +95,7 @@ public class UnitSlot : ObjectSlot
                 totalUnitNumber--;
                 unitCountText.text = totalUnitNumber.ToString();
             }
+        }
 
         loading.fillAmount = 0f;
         unitCountText.text = "";

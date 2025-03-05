@@ -15,7 +15,7 @@ public class UnitGun : MonoBehaviour
 
     private void Start()
     {
-        bulletPooling = BulletPooling.instance;
+        bulletPooling = BulletPooling.Instance;
     }
 
     public void ResetCoolDown()

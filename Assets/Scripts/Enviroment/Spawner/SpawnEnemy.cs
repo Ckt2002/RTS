@@ -9,7 +9,6 @@ public class SpawnEnemy : MonoBehaviour
         var enemy = unitPooling.GetObjectPool(enemyName);
 
         if (enemy == null)
-            // Debug.LogWarning($"Not enough {enemyName} Spawn");
             return;
 
         enemy.transform.position = transform.position;

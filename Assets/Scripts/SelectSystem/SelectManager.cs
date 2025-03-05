@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,6 +22,12 @@ public class SelectManager : MonoBehaviour
 
     private void Update()
     {
+        if (PauseSystem.isPausing)
+        {
+            Debug.Log("Paused");
+            return;
+        }
+
         var UIObj = GetClickedUIObject();
         ObjectSlot clickedUI = null;
 
