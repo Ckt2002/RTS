@@ -8,12 +8,13 @@ public abstract class UnitBullet : MonoBehaviour
     [SerializeField] protected Tags targetBuildingTag;
     [SerializeField] protected Tags targetUnitTag;
 
-    private int damage;
     private float timer;
+
+    public int Damage { get; private set; }
 
     public void SetupDamage(int damage)
     {
-        this.damage = damage;
+        this.Damage = damage;
     }
 
     protected void CheckLifetime()
@@ -44,8 +45,8 @@ public abstract class UnitBullet : MonoBehaviour
     {
         if (target != null)
         {
-            target.TakeDamage(damage);
-            damage = 0;
+            target.TakeDamage(Damage);
+            Damage = 0;
             gameObject.SetActive(false);
         }
     }

@@ -6,7 +6,6 @@ namespace GameSave
     public class SpawnEnemyData
     {
         public int SpawnerIndex;
-        public ObjectData CurrentEnemySpawn;
-        public CoroutineProgressData Coroutine;
+        public string EnemyName;
     }
 }

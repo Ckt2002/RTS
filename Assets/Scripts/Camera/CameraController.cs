@@ -1,3 +1,4 @@
+using GameSystem;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -8,6 +9,7 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (PauseSystem.isPausing) return;
         movement.HandleMovement();
     }
 }

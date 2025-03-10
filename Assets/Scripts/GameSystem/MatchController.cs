@@ -12,7 +12,7 @@ public class MatchController : MonoBehaviour
     [SerializeField] private int maxRound;
     private readonly int enemyNumber = 1;
 
-    private int round = 1;
+    private int round;
     private List<SpawnEnemy> spawnEnemiesLst;
 
     private void Awake()
@@ -37,14 +37,14 @@ public class MatchController : MonoBehaviour
     private IEnumerator CreateEnemy(List<SpawnEnemy> spawnEnemiesLst)
     {
         var enemyUnitNames = Names.enemyUnitNameLst;
-        var nameInd = 0;
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Running here");
 
         while (round <= maxRound)
         {
             var timer = 0f;
-            nameInd = 0;
+            var nameInd = 0;
 
             foreach (var spawnEnemy in spawnEnemiesLst)
             {
@@ -55,10 +55,9 @@ public class MatchController : MonoBehaviour
                     {
                         if (PauseSystem.isPausing)
                         {
-                            SaveMatchSystem.GetMatchData(round, timer);
-                            SaveCreateEnemySystem.SaveCreateEnemyProgress(
+                            SaveMatchSystem.GetMatchData(round, timer, SaveCreateEnemySystem.SaveCreateEnemyProgress(
                                 spawnEnemiesLst.IndexOf(spawnEnemy),
-                                enemyUnitNames[nameInd]);
+                                enemyUnitNames[nameInd]));
                             yield return null;
                             continue;
                         }
@@ -79,7 +78,7 @@ public class MatchController : MonoBehaviour
             {
                 if (PauseSystem.isPausing)
                 {
-                    SaveMatchSystem.GetMatchData(round, timer);
+                    SaveMatchSystem.GetMatchData(round, timer, null);
                     yield return null;
                     continue;
                 }

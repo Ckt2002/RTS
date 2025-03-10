@@ -7,5 +7,6 @@ namespace GameSave
     {
         public int CurrentRound;
         public float TimeToNexRound;
+        public SpawnEnemyData SpawnEnemyData;
     }
 }

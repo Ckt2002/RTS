@@ -22,10 +22,12 @@ public class BuildingPooling : ObjectPool
     {
         yield return base.SpawnObjects(action);
 
+        yield return CreateHQ();
+
         CallBackAction(action);
     }
 
-    public void CreateHQ()
+    public IEnumerator CreateHQ()
     {
         var HQ = GetObjectPool(Names.PlayerHeadquarters);
         if (HQ != null)
@@ -33,5 +35,7 @@ public class BuildingPooling : ObjectPool
             HQ.SetActive(true);
             HQ.transform.position = Vector3.up;
         }
+
+        yield return null;
     }
 }

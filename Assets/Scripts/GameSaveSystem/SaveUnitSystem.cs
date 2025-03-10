@@ -1,24 +1,23 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameSave;
 using UnityEngine;
 
-public class SaveBuildingSystem : MonoBehaviour
+public class SaveUnitSystem : MonoBehaviour
 {
-    public static List<BuildingData> SaveUnits()
+    public static List<UnitData> SaveUnits()
     {
-        var unitsActivedOnMap = BuildingPooling.Instance.GetObjectsToSave();
-        var unitDatas = new List<BuildingData>();
+        var unitsActivedOnMap = UnitPooling.Instance.GetObjectsToSave();
+        var unitDatas = new List<UnitData>();
         foreach (var unitType in unitsActivedOnMap)
         foreach (var unit in unitType.Value)
         {
-            var data = new BuildingData
+            var data = new UnitData
             {
                 Obj = new ObjectData(),
                 Stat = new StatData(),
                 Position = new PositionData(),
                 Rotation = new RotationData(),
-                ParticleData = new ExplodeParticleData(),
-                BuyOrResearch = new BuyOrResearchData()
+                ParticleData = new ExplodeParticleData()
             };
             data.Obj.Name = unitType.Key;
             data.Obj.LstIndex = unit.Key;

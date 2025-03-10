@@ -910,6 +910,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 267090043}
+  - {fileID: 963194228}
   m_Father: {fileID: 277810348}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
 --- !u!1 &87956253
@@ -2121,7 +2122,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &179206041
 Transform:
   m_ObjectHideFlags: 0
@@ -2405,6 +2406,7 @@ GameObject:
   - component: {fileID: 217671772}
   - component: {fileID: 217671773}
   - component: {fileID: 217671774}
+  - component: {fileID: 217671775}
   m_Layer: 0
   m_Name: Game System
   m_TagString: Untagged
@@ -2469,7 +2471,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToNextLevel: 60
-  maxGround: 5
+  maxRound: 0
+--- !u!114 &217671775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217671770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a1df4db5554515a141fe202962054e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &236440422
 GameObject:
   m_ObjectHideFlags: 0
@@ -10656,12 +10670,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5372997, y: -0, z: 0.000000007450581, w: 0.8433915}
-  m_LocalPosition: {x: 0, y: 70, z: -73.4}
-  m_LocalScale: {x: 10, y: 1.0699011, z: 8.630617}
+  m_LocalRotation: {x: -0.1530459, y: 0.1530459, z: -0.6903456, w: 0.6903456}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.4999998, y: 0.26982045, z: 5.285878}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 85646485}
   m_LocalEulerAnglesHint: {x: 0, y: 25, z: -90}
 --- !u!114 &963194229
 MonoBehaviour:
@@ -16161,7 +16175,7 @@ MonoBehaviour:
   - unitPrefab: {fileID: 811119095935803216, guid: 779be3d1612a991419af61219825a0f8, type: 3}
     unlocked: 1
   - unitPrefab: {fileID: 4797867709216861310, guid: 52b652637d10c0d41a94b8e30880f7e3, type: 3}
-    unlocked: 1
+    unlocked: 0
   - unitPrefab: {fileID: 5075939664198315149, guid: c78bbbba93866c84e931bdca2d6f02df, type: 3}
     unlocked: 0
 --- !u!114 &1503724326
@@ -18727,7 +18741,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1263370803}
+      - m_Target: {fileID: 178083321}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -21805,7 +21819,6 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 963194228}
   - {fileID: 277810348}
   - {fileID: 705507995}
   - {fileID: 648428668}

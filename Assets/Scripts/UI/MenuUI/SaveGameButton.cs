@@ -8,6 +8,8 @@ public class SaveGameButton : MonoBehaviour, IButton
 
     public void ButtonAction()
     {
-        if (inputName.Equals("")) return;
+        if (inputName.text.Equals("")) return;
+        FileSaveSystem.SaveGameLocal(
+            LoadGameSystem.SaveGame(), inputName.text);
     }
 }

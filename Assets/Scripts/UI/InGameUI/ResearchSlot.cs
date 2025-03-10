@@ -8,6 +8,7 @@ public class ResearchSlot : ObjectSlot
 {
     [SerializeField] private Image loading;
     private Coroutine researchCoroutine;
+    private bool isSaved;
 
     public override void BuyObject()
     {
@@ -24,10 +25,12 @@ public class ResearchSlot : ObjectSlot
         {
             if (PauseSystem.isPausing)
             {
-                PlayerPrefs.SetFloat(PlayerPrefsName.ResearchProgress, elapsedTime);
-                PlayerPrefs.SetString(PlayerPrefsName.UnitResearch + stat.GetComponent<UnitInfor>().name,
-                    stat.GetComponent<UnitInfor>().name);
-                PlayerPrefs.Save();
+                if (!isSaved)
+                {
+                    SaveResearchSystem.SaveResearchPref(stat.GetComponent<UnitInfor>().name, elapsedTime);
+                    isSaved = true;
+                }
+
                 yield return null;
                 continue;
             }
@@ -44,9 +47,5 @@ public class ResearchSlot : ObjectSlot
         UnableSlot();
         loading.fillAmount = 0f;
         researchCoroutine = null;
-
-        PlayerPrefs.DeleteKey(PlayerPrefsName.ResearchProgress);
-        PlayerPrefs.DeleteKey(PlayerPrefsName.UnitResearch + stat.GetComponent<UnitInfor>().name);
-        PlayerPrefs.Save();
     }
 }
