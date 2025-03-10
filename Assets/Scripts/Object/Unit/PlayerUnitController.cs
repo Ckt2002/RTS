@@ -7,11 +7,7 @@ public class PlayerUnitController : UnitController
 
     protected override void Update()
     {
-        if (PauseSystem.isPausing)
-        {
-            Debug.Log("Paused");
-            return;
-        }
+        if (PauseSystem.isPausing) return;
 
         base.Update();
         vision.SensorEnemy();

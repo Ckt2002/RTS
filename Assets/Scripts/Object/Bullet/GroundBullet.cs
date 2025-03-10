@@ -7,7 +7,6 @@ public class GroundBullet : UnitBullet
     {
         if (PauseSystem.isPausing)
         {
-            Debug.Log("Paused");
             return;
         }
 

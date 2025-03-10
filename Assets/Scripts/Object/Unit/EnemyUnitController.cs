@@ -20,7 +20,6 @@ public class EnemyUnitController : UnitController
         {
             if (PauseSystem.isPausing)
             {
-                Debug.Log("Coroutine Paused");
                 yield return null;
                 continue;
             }

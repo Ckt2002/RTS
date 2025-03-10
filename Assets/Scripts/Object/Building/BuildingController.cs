@@ -11,11 +11,7 @@ public class BuildingController : MonoBehaviour
 
     private void Update()
     {
-        if (PauseSystem.isPausing)
-        {
-            Debug.Log("Paused");
-            return;
-        }
+        if (PauseSystem.isPausing) return;
 
         if (!stat.IsAlive())
         {

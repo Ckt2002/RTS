@@ -25,7 +25,8 @@ public class BuildingManager : MonoBehaviour
     private void Start()
     {
         var buildingLst = new List<GameObject>();
-        foreach (var building in BuildingPooling.Instance.BuildingPrefabs) buildingLst.Add(building.objectPrefab);
+        foreach (var building in BuildingPooling.Instance.BuildingPrefabs) 
+            buildingLst.Add(building.objectPrefab);
 
         buildingPanel.SetObjectPanel(buildingLst);
     }

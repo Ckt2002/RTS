@@ -10,13 +10,19 @@ public abstract class ObjectPool : MonoBehaviour
 
     [HideInInspector] public List<GameObject> objectsSpawned;
 
-    private Dictionary<string, List<GameObject>> objectDictionary;
+    protected Dictionary<string, List<GameObject>> objectDictionary;
 
     protected void Start()
     {
         objectsSpawned = new List<GameObject>();
         objectDictionary = new Dictionary<string, List<GameObject>>();
-        // StartCoroutine(nameof(SpawnObjects));
+    }
+
+    public List<GameObject> GetObjectByName(string name)
+    {
+        if (objectDictionary.ContainsKey(name))
+            return objectDictionary[name];
+        return null;
     }
 
     public GameObject GetObjectPool(string objectName)
@@ -82,5 +88,22 @@ public abstract class ObjectPool : MonoBehaviour
     protected void CallBackAction(Action action)
     {
         action?.Invoke();
+    }
+
+    public Dictionary<string, Dictionary<int, GameObject>> GetObjectsToSave()
+    {
+        var dictionaryToSave = new Dictionary<string, Dictionary<int, GameObject>>();
+        foreach (var key in objectDictionary.Keys)
+            if (!dictionaryToSave.ContainsKey(key))
+                dictionaryToSave.Add(key, new Dictionary<int, GameObject>());
+
+        foreach (var key in dictionaryToSave.Keys)
+        foreach (var obj in objectDictionary[key])
+        {
+            if (!obj.activeInHierarchy) continue;
+            dictionaryToSave[key].Add(objectDictionary[key].IndexOf(obj), obj);
+        }
+
+        return dictionaryToSave;
     }
 }

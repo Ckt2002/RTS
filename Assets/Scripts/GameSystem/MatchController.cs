@@ -9,10 +9,10 @@ public class MatchController : MonoBehaviour
     public static MatchController Instance;
 
     [SerializeField] private float timeToNextLevel;
-    [SerializeField] private int maxGround;
+    [SerializeField] private int maxRound;
     private readonly int enemyNumber = 1;
 
-    private int ground = 1;
+    private int round = 1;
     private List<SpawnEnemy> spawnEnemiesLst;
 
     private void Awake()
@@ -41,26 +41,54 @@ public class MatchController : MonoBehaviour
 
         yield return new WaitForSeconds(10f);
 
-        // yield return new WaitForSeconds(30f);
-        while (ground <= maxGround)
+        while (round <= maxRound)
         {
-            if (PauseSystem.isPausing)
-            {
-                Debug.Log("Coroutine Paused");
-                yield return null;
-                continue;
-            }
+            var timer = 0f;
+            nameInd = 0;
 
             foreach (var spawnEnemy in spawnEnemiesLst)
-                while (nameInd <= ground)
+            {
+                while (nameInd <= round)
                 {
-                    for (var i = 0; i < enemyNumber; i++)
+                    var i = 0;
+                    for (; i < enemyNumber;)
+                    {
+                        if (PauseSystem.isPausing)
+                        {
+                            SaveMatchSystem.GetMatchData(round, timer);
+                            SaveCreateEnemySystem.SaveCreateEnemyProgress(
+                                spawnEnemiesLst.IndexOf(spawnEnemy),
+                                enemyUnitNames[nameInd]);
+                            yield return null;
+                            continue;
+                        }
+
+                        i++;
                         spawnEnemy.SpawnUnit(enemyUnitNames[nameInd]);
+                        yield return null;
+                    }
+
                     nameInd++;
+                    yield return null;
                 }
 
-            yield return new WaitForSeconds(timeToNextLevel);
-            ground++;
+                yield return null;
+            }
+
+            while (timer < timeToNextLevel)
+            {
+                if (PauseSystem.isPausing)
+                {
+                    SaveMatchSystem.GetMatchData(round, timer);
+                    yield return null;
+                    continue;
+                }
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            round++;
         }
     }
 }

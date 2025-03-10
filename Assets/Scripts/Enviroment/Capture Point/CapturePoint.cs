@@ -6,19 +6,17 @@ using UnityEngine.UI;
 public class CapturePoint : MonoBehaviour
 {
     [SerializeField] private Image captureCircle;
-
     [SerializeField] private float captureTime = 1f;
-
-    //[SerializeField] private float timeToGetMoney = 1f;
     [SerializeField] private float radius = 1f;
-    [SerializeField] private int moneyPerSeccond = 5;
+    [SerializeField] private int moneyPerSecond = 5;
 
     private bool captured;
-    private float elapsedTime; // Thời gian đã trôi qua
+    public float elapsedTime { get; private set; }
     private ResourcesManager resourcesManager;
 
     private void Start()
     {
+        CapturePointManager.Instance.AddNewCapturePoint(this);
         resourcesManager = ResourcesManager.Instance;
         captureCircle.fillAmount = 0f;
         elapsedTime = 0;
@@ -41,7 +39,6 @@ public class CapturePoint : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Leave while capturing
         if (other.gameObject.name.Contains(Names.Player) && !captured)
         {
             StopAllCoroutines();
@@ -100,7 +97,7 @@ public class CapturePoint : MonoBehaviour
                 continue;
             }
 
-            resourcesManager.CurrentMoney(moneyPerSeccond);
+            resourcesManager.CurrentMoney(moneyPerSecond);
             yield return new WaitForSeconds(1f);
         }
     }

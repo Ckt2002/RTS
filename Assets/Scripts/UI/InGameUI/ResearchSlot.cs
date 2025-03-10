@@ -24,7 +24,10 @@ public class ResearchSlot : ObjectSlot
         {
             if (PauseSystem.isPausing)
             {
-                Debug.Log("Coroutine Paused");
+                PlayerPrefs.SetFloat(PlayerPrefsName.ResearchProgress, elapsedTime);
+                PlayerPrefs.SetString(PlayerPrefsName.UnitResearch + stat.GetComponent<UnitInfor>().name,
+                    stat.GetComponent<UnitInfor>().name);
+                PlayerPrefs.Save();
                 yield return null;
                 continue;
             }
@@ -41,5 +44,9 @@ public class ResearchSlot : ObjectSlot
         UnableSlot();
         loading.fillAmount = 0f;
         researchCoroutine = null;
+
+        PlayerPrefs.DeleteKey(PlayerPrefsName.ResearchProgress);
+        PlayerPrefs.DeleteKey(PlayerPrefsName.UnitResearch + stat.GetComponent<UnitInfor>().name);
+        PlayerPrefs.Save();
     }
 }

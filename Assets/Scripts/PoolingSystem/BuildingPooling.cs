@@ -8,6 +8,7 @@ public class BuildingPooling : ObjectPool
     public static BuildingPooling Instance;
 
     public List<Objects> BuildingPrefabs => objectPrefabs;
+    public Dictionary<string, List<GameObject>> BuildingDictionary => objectDictionary;
 
     private void Awake()
     {

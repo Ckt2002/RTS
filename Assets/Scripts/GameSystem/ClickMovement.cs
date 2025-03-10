@@ -11,11 +11,7 @@ public class ClickMovement : MonoBehaviour
 
     private void Update()
     {
-        if (PauseSystem.isPausing)
-        {
-            Debug.Log("Paused");
-            return;
-        }
+        if (PauseSystem.isPausing) return;
 
         if (Input.GetMouseButtonDown(1))
         {
