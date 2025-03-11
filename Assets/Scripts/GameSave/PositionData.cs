@@ -16,5 +16,10 @@ namespace GameSave
             Y = pos.y;
             Z = pos.z;
         }
+
+        public Vector3 SetPosition()
+        {
+            return new Vector3(X, Y, Z);
+        }
     }
 }

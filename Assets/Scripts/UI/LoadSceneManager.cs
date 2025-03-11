@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,13 +24,13 @@ namespace UI
             }
         }
 
-        public void StartLoadScene(string sceneName)
+        public void StartLoadScene(string sceneName, bool isLoadGameSave)
         {
             SceneManager.LoadScene(sceneName);
-            StartCoroutine(RunLoadingSceneProgress(sceneName));
+            StartCoroutine(RunLoadingSceneProgress(sceneName, isLoadGameSave));
         }
 
-        private IEnumerator RunLoadingSceneProgress(string sceneName)
+        private IEnumerator RunLoadingSceneProgress(string sceneName, bool isLoadGameSave)
         {
             LoadScene loadScene = null;
 
@@ -48,7 +47,7 @@ namespace UI
                 case nameof(Scenes.Map1):
                 case nameof(Scenes.Map2):
                 case nameof(Scenes.Map3):
-                    yield return LoadingMap();
+                    yield return LoadingMap(isLoadGameSave);
                     break;
 
                 case nameof(Scenes.MainMenu):
@@ -63,30 +62,61 @@ namespace UI
 
         private void RunPoolingSystem(Action action)
         {
-            StringBuilder a = new();
             action?.Invoke();
         }
 
-        private IEnumerator LoadingMap()
+        private void RunLoadGameSystem(Action action)
+        {
+            action?.Invoke();
+        }
+
+        private IEnumerator LoadingMap(bool isLoadGameSave)
         {
             var poolingCompleted = 0;
             var loadProgress = 0f;
             var totalPoolingSystem = 3;
+            var loadSaveGameCompleted = false;
             yield return new WaitForSeconds(1f);
 
             RunPoolingSystem(() => BuildingPooling.Instance.RunSpawnObjects(() => poolingCompleted++));
             RunPoolingSystem(() => UnitPooling.Instance.RunSpawnObjects(() => poolingCompleted++));
             RunPoolingSystem(() => BulletPooling.Instance.RunSpawnObjects(() => poolingCompleted++));
 
-            while (loadProgress <= 1f)
+            while (poolingCompleted < totalPoolingSystem)
             {
-                var progressValue = loadProgress / 1;
-                LoadScene.Instance.SetSliderValue(progressValue);
-                loadProgress += Time.deltaTime * 2;
-                if ((loadProgress >= 0.3f && loadProgress <= 0.32f) || poolingCompleted < totalPoolingSystem)
-                    yield return new WaitForSeconds(3f);
-                else
+                if (loadProgress <= 0.31f)
+                {
+                    loadProgress += Time.deltaTime;
+                    LoadScene.Instance.SetSliderValue(loadProgress);
+                }
+
+                yield return null;
+            }
+
+
+            if (isLoadGameSave)
+            {
+                // RunLoad game here
+                RunLoadGameSystem(() => GameLoadSystem.StartLoadGame(() => loadSaveGameCompleted = true));
+
+                // Đợi cho đến khi LoadGame hoàn thành
+                while (!loadSaveGameCompleted)
+                {
+                    if (loadProgress <= 0.8f)
+                    {
+                        loadProgress += Time.deltaTime;
+                        LoadScene.Instance.SetSliderValue(loadProgress);
+                    }
+
                     yield return null;
+                }
+            }
+
+            while (loadProgress < 1f)
+            {
+                loadProgress += Time.deltaTime * 2;
+                LoadScene.Instance.SetSliderValue(loadProgress);
+                yield return null;
             }
 
             LoadScene.Instance.SetSliderValue(1f);

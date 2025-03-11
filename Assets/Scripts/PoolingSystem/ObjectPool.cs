@@ -11,6 +11,7 @@ public abstract class ObjectPool : MonoBehaviour
     [HideInInspector] public List<GameObject> objectsSpawned;
 
     protected Dictionary<string, List<GameObject>> objectDictionary;
+    public Dictionary<string, List<GameObject>> GetObjectDictionary => objectDictionary;
 
     protected void Start()
     {

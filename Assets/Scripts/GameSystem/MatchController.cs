@@ -39,7 +39,6 @@ public class MatchController : MonoBehaviour
         var enemyUnitNames = Names.enemyUnitNameLst;
 
         yield return new WaitForSeconds(1f);
-        Debug.Log("Running here");
 
         while (round <= maxRound)
         {

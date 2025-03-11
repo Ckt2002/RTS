@@ -11,7 +11,7 @@ namespace GameSave
         public List<BulletData> BulletDatas;
 
         public MatchData MatchData;
-        public BuyUnitData BuyUnitData;
+        public List<BuyUnitData> BuyUnitDatas;
         public List<ResearchData> ResearchDatas;
         public List<CapturePointData> CapturePointDatas;
     }

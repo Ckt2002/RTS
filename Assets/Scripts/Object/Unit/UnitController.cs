@@ -10,6 +10,23 @@ public class UnitController : MonoBehaviour
     [SerializeField] protected UnitGun gun;
     [SerializeField] protected ObjectDieStatus dieStatus;
 
+    private ParticleSystem exposion;
+
+    private void Start()
+    {
+        exposion = GetComponentInChildren<ParticleSystem>();
+    }
+
+    public void SetParticle(float runTime)
+    {
+        if (runTime > 0f)
+        {
+            exposion.Stop();
+            exposion.time = runTime;
+            exposion.Play();
+        }
+    }
+
     protected virtual void Update()
     {
         if (PauseSystem.isPausing) return;

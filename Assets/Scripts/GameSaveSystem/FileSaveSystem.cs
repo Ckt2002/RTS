@@ -12,13 +12,10 @@ public class FileSaveSystem : MonoBehaviour
             var json = JsonUtility.ToJson(gameData);
             // var filePath = Application.persistentDataPath + "/" + fileName + ".json";
 
-            var encryptedData = EncryptionSystem.EncryptStringToBytes_Aes(json);
-
-
             var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var filePath = Path.Combine(desktopPath, fileName + ".save");
+            var filePath = Path.Combine(desktopPath, fileName + ".json");
 
-            File.WriteAllBytes(filePath, encryptedData);
+            File.WriteAllText(filePath, json);
             Debug.Log("Data saved to: " + filePath);
         }
         catch (Exception ex)

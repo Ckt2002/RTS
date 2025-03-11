@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
 public class EncryptionSystem : MonoBehaviour
 {
+    // Fix later
     public static byte[] EncryptStringToBytes_Aes(string data)
     {
         var hash = ComputeHash(data);
@@ -13,6 +15,9 @@ public class EncryptionSystem : MonoBehaviour
         using var aesAlg = Aes.Create();
         aesAlg.GenerateKey();
         aesAlg.GenerateIV();
+
+        var key = Convert.ToBase64String(aesAlg.Key);
+        var iv = Convert.ToBase64String(aesAlg.IV);
 
         var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 

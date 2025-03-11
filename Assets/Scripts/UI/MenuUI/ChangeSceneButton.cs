@@ -8,6 +8,6 @@ public class ChangeSceneButton : MonoBehaviour, IButton
 
     public void ButtonAction()
     {
-        LoadSceneManager.Instance.StartLoadScene(scenes.ToString());
+        LoadSceneManager.Instance.StartLoadScene(scenes.ToString(), false);
     }
 }

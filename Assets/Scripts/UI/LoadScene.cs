@@ -17,7 +17,10 @@ namespace UI
                 Instance = this;
             else
                 Destroy(gameObject);
+        }
 
+        private void Start()
+        {
             slider.value = 0f;
         }
 

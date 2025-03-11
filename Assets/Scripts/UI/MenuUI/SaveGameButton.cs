@@ -10,6 +10,6 @@ public class SaveGameButton : MonoBehaviour, IButton
     {
         if (inputName.text.Equals("")) return;
         FileSaveSystem.SaveGameLocal(
-            LoadGameSystem.SaveGame(), inputName.text);
+            GameSaveSystem.SaveGame(), inputName.text);
     }
 }
