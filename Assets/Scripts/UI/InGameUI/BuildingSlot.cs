@@ -8,7 +8,8 @@ public class BuildingSlot : ObjectSlot
 
     public override void BuyObject()
     {
-        base.BuyObject();
+        if (resourcesManager.Money < stat.Money)
+            return;
 
         if (stat.CompareTag(Tags.PlayerBuilding.ToString()))
         {

@@ -6,7 +6,7 @@ public class LoadMatchSystem : MonoBehaviour
 {
     public static IEnumerator LoadMatch(MatchData matchData)
     {
-        Debug.Log(matchData.CurrentRound);
+        MatchController.Instance.LoadMatch(matchData.CurrentRound, matchData.TimeToNexRound);
         yield return LoadCreateEnemySystem.LoadCreateEnemy(matchData.SpawnEnemyData);
         yield return null;
     }

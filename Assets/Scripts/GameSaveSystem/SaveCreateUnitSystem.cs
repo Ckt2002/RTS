@@ -26,9 +26,6 @@ public class SaveCreateUnitSystem : MonoBehaviour
             ClearBuyUnitPref(unitName);
         }
 
-        var json2 = JsonConvert.SerializeObject(buyUnitDatas, Formatting.Indented);
-        Debug.Log(json2);
-
         return buyUnitDatas;
     }
 

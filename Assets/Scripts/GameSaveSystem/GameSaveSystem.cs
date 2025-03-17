@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameSaveSystem : MonoBehaviour
 {
-    public static GameSaveData SaveGame()
+    public static GameSaveData GameData()
     {
         var saveData = new GameSaveData
         {
@@ -11,13 +11,14 @@ public class GameSaveSystem : MonoBehaviour
             BuildingDatas = SaveBuildingSystem.SaveBuildings(),
             BulletDatas = SaveBulletSystem.SaveBullets(),
             ResearchDatas = SaveResearchSystem.SaveResearchDatas(),
+            ResourcesData = SaveResourcesSystem.SaveResourcesData(),
             MatchData = SaveMatchSystem.matchData,
             BuyUnitDatas = SaveCreateUnitSystem.SaveCreateUnit(),
             CapturePointDatas = SaveCapturePointSystem.SaveCapturePoint()
         };
 
-        var json = JsonUtility.ToJson(saveData, true);
-        Debug.Log(json);
+        // var json = JsonUtility.ToJson(saveData, true);
+        // Debug.Log(json);
         return saveData;
     }
 }

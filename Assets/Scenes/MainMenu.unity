@@ -2716,6 +2716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadGameSlotButton: {fileID: 232926898175336869, guid: 236fd82d94b422d45aabea581eb70f56, type: 3}
   content: {fileID: 830098511}
+  isSave: 0
 --- !u!1 &814172410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2797,6 +2798,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814172410}
   m_CullTransparentMesh: 1
+--- !u!1 &818931559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 818931561}
+  - component: {fileID: 818931560}
+  m_Layer: 0
+  m_Name: Firebase System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &818931560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818931559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6bf0a2c42a46a6b07548bdf9cb62f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &818931561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818931559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 973.37195, y: 500.5896, z: 212.04106}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827967053
 GameObject:
   m_ObjectHideFlags: 0
@@ -7182,5 +7227,6 @@ SceneRoots:
   - {fileID: 248273375}
   - {fileID: 165543683}
   - {fileID: 1133027411}
+  - {fileID: 818931561}
   - {fileID: 553479792}
   - {fileID: 1260370312}

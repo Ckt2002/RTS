@@ -7,5 +7,6 @@ namespace GameSave
     {
         public float elapsedTime;
         public string unitName;
+        public bool researchCompleted;
     }
 }

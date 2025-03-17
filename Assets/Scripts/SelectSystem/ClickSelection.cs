@@ -13,6 +13,6 @@ public class ClickSelection : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, unitLayer))
             unitManager.AddToSelectedList(hit.transform.GetComponent<UnitController>());
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, buildingLayer))
-            buildingManager.GetBuildingSelected(hit.transform.GetComponentInParent<BuildingController>());
+            buildingManager.GetBuildingSelected(hit.transform.gameObject);
     }
 }

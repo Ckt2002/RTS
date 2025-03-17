@@ -11,7 +11,7 @@ public class CapturePoint : MonoBehaviour
     [SerializeField] private int moneyPerSecond = 5;
 
     private bool captured;
-    public float elapsedTime { get; private set; }
+    public float elapsedTime { get; set; }
     private ResourcesManager resourcesManager;
 
     private void Start()

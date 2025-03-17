@@ -7,19 +7,39 @@ using UnityEngine.UI;
 public class ResearchSlot : ObjectSlot
 {
     [SerializeField] private Image loading;
+
     private Coroutine researchCoroutine;
     private bool isSaved;
+    public bool unlocked { get; set; }
 
     public override void BuyObject()
     {
-        base.BuyObject();
-        researchCoroutine ??= CoroutineManager.Instance?.StartManagedCoroutine(ResearchCoroutine());
+        if (resourcesManager.Money < stat.Money)
+            return;
+        SetResearchCoroutine();
     }
 
-    private IEnumerator ResearchCoroutine()
+    public void SetResearchCoroutine(float elapsedTime = 0f)
+    {
+        researchCoroutine ??= CoroutineManager.Instance?.StartManagedCoroutine(ResearchCoroutine(elapsedTime));
+    }
+
+    public void SetCompleted()
+    {
+        var matchingUnit =
+            UnitManager.Instance.PlayerUnitsPrefab.FirstOrDefault(unit => unit.unitPrefab.name == stat.name);
+        if (matchingUnit != null)
+            matchingUnit.unlocked = true;
+        loading.fillAmount = 0f;
+        researchCoroutine = null;
+        unlocked = true;
+        SaveResearchSystem.SaveResearchPref(stat.GetComponent<UnitInfor>().name, 0, true);
+        UnableSlot();
+    }
+
+    private IEnumerator ResearchCoroutine(float elapsedTime)
     {
         var buyTime = stat.GetComponent<UnitInfor>().ResearchTime;
-        var elapsedTime = 0f;
 
         while (elapsedTime < buyTime)
         {
@@ -27,7 +47,7 @@ public class ResearchSlot : ObjectSlot
             {
                 if (!isSaved)
                 {
-                    SaveResearchSystem.SaveResearchPref(stat.GetComponent<UnitInfor>().name, elapsedTime);
+                    SaveResearchSystem.SaveResearchPref(stat.GetComponent<UnitInfor>().name, elapsedTime, false);
                     isSaved = true;
                 }
 
@@ -40,12 +60,7 @@ public class ResearchSlot : ObjectSlot
             yield return null;
         }
 
-        var matchingUnit =
-            UnitManager.Instance.PlayerUnitsPrefab.FirstOrDefault(unit => unit.unitPrefab.name == stat.name);
-        if (matchingUnit != null)
-            matchingUnit.unlocked = true;
-        UnableSlot();
-        loading.fillAmount = 0f;
-        researchCoroutine = null;
+        SetCompleted();
+        yield return null;
     }
 }

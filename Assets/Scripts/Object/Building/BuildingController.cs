@@ -9,6 +9,23 @@ public class BuildingController : MonoBehaviour
     [SerializeField] private List<Renderer> childrenRenderer;
     [SerializeField] private PlayerObjectVision vision;
 
+    private ParticleSystem explosion;
+
+    private void Start()
+    {
+        explosion = GetComponentInChildren<ParticleSystem>();
+    }
+
+    public void SetParticle(float runTime)
+    {
+        if (runTime > 0f)
+        {
+            explosion.Stop();
+            explosion.time = runTime;
+            explosion.Play();
+        }
+    }
+
     private void Update()
     {
         if (PauseSystem.isPausing) return;

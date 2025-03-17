@@ -9,7 +9,10 @@ public class SaveLoadGameUI : MonoBehaviour
 
     private void Start()
     {
-        var saveFiles = SaveLoadSystem.Instance.GetAllSaveFile();
+        var saveFiles = SaveLoadSystem.Instance?.GetAllSaveFile();
+        if (saveFiles == null) return;
+        if (saveFiles.Length == 0) return;
+
         foreach (var filePath in saveFiles)
         {
             var fileName = Path.GetFileName(filePath);

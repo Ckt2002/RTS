@@ -7,7 +7,7 @@ public class ResourcesManager : MonoBehaviour
     public static ResourcesManager Instance;
     [SerializeField] private TMP_Text moneyText;
 
-    public int Money { get; private set; }
+    public int Money { get; set; }
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class ResourcesManager : MonoBehaviour
 
     private void Start()
     {
-        Money = 5000;
+        Money = 10;
     }
 
     private void Update()

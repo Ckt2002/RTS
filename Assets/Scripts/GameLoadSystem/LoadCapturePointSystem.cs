@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class LoadCapturePointSystem : MonoBehaviour
 {
-    public static IEnumerable LoadCapturePoint(List<CapturePointData> capturePointDatas)
+    public static IEnumerator LoadCapturePoint(List<CapturePointData> capturePointDatas)
     {
-        foreach (var data in capturePointDatas) Debug.Log(data.CapturePointIndex);
+        CapturePointManager.Instance.LoadCapturePoint(capturePointDatas);
+
         yield return null;
     }
 }

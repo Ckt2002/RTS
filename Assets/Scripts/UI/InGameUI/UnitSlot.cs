@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameSave;
 using GameSystem;
 using TMPro;
 using UnityEngine;
@@ -14,18 +15,14 @@ public class UnitSlot : ObjectSlot
 
     private readonly Queue<KeyValuePair<string, int>> buildingsQueue = new();
     private Coroutine buyUnitCoroutine;
-    private UnitPooling unitPooling;
-
-    private void Start()
-    {
-        unitPooling = UnitPooling.Instance;
-    }
+    private float timer;
 
     public override void BuyObject()
     {
-        base.BuyObject();
-        var selectedBuilding = buildingManager.buildingSelected;
+        if (resourcesManager.Money < stat.Money)
+            return;
 
+        var selectedBuilding = buildingManager.buildingSelected;
         var buildingName = selectedBuilding.name.Replace("(Clone)", "");
         var buildingIndex = GetBuildingIndexFromPooling(buildingName, selectedBuilding);
         if (buildingIndex < 0)
@@ -38,6 +35,16 @@ public class UnitSlot : ObjectSlot
 
         unitCountText.text = buildingsQueue.Count.ToString();
 
+        buyUnitCoroutine ??= CoroutineManager.Instance?.StartManagedCoroutine(CreateUnitsCoroutine());
+    }
+
+    public void SetBuyUnit(List<ObjectData> buildingsLst, float timer)
+    {
+        this.timer = timer;
+        foreach (var building in buildingsLst)
+            buildingsQueue.Enqueue(new KeyValuePair<string, int>(building.Name, building.LstIndex));
+
+        unitCountText.text = buildingsQueue.Count.ToString();
         buyUnitCoroutine ??= CoroutineManager.Instance?.StartManagedCoroutine(CreateUnitsCoroutine());
     }
 
@@ -56,7 +63,9 @@ public class UnitSlot : ObjectSlot
             {
                 #region Unit create time
 
-                var unit = unitPooling.GetObjectPool(stat.name);
+                if (UnitPooling.Instance == null) Debug.Log("Pooling is null");
+
+                var unit = UnitPooling.Instance.GetObjectPool(stat.name);
                 if (unit is null)
                 {
                     buyUnitCoroutine = null;
@@ -64,19 +73,19 @@ public class UnitSlot : ObjectSlot
                 }
 
                 var buyTime = unit.GetComponent<UnitInfor>().BuyTime;
-                var elapsedTime = 0f;
+                timer = 0;
 
-                while (elapsedTime < buyTime)
+                while (timer < buyTime)
                 {
                     if (PauseSystem.isPausing)
                     {
-                        SaveCreateUnitSystem.SaveBuyUnitPref(stat.name, buildingsQueue, elapsedTime);
+                        SaveCreateUnitSystem.SaveBuyUnitPref(stat.name, buildingsQueue, timer);
                         yield return null;
                         continue;
                     }
 
-                    // elapsedTime += Time.deltaTime;
-                    loading.fillAmount = elapsedTime / buyTime;
+                    timer += Time.deltaTime;
+                    loading.fillAmount = timer / buyTime;
                     yield return null;
                 }
 

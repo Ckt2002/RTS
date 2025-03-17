@@ -6,7 +6,8 @@ public class LoadCreateEnemySystem : MonoBehaviour
 {
     public static IEnumerator LoadCreateEnemy(SpawnEnemyData spawnEnemyData)
     {
-        Debug.Log(spawnEnemyData.EnemyName);
+        if (spawnEnemyData.EnemyName.Equals("")) yield break;
+        MatchController.Instance.LoadCreateEnemy(spawnEnemyData.SpawnerIndex, spawnEnemyData.EnemyName);
         yield return null;
     }
 }

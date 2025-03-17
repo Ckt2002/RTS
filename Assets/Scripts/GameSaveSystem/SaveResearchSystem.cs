@@ -12,13 +12,14 @@ public class SaveResearchSystem : MonoBehaviour
         return researchDatas;
     }
 
-    public static void SaveResearchPref(string unitName, float elapsedTime)
+    public static void SaveResearchPref(string unitName, float elapsedTime, bool unlocked)
     {
         if (researchDatas.All(data => data.unitName != unitName))
             researchDatas.Add(new ResearchData
             {
                 elapsedTime = elapsedTime,
-                unitName = unitName
+                unitName = unitName,
+                researchCompleted = unlocked
             });
     }
 

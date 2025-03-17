@@ -5,6 +5,8 @@ public class SelectPanel : MonoBehaviour
 {
     [SerializeField] private List<ObjectSlot> slots;
 
+    public List<ObjectSlot> Slots => slots;
+
     public void SetObjectPanel(List<GameObject> objects)
     {
         var index = 0;

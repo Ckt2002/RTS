@@ -5,9 +5,18 @@ using UnityEngine;
 
 public class LoadBulletSystem : MonoBehaviour
 {
-    public static IEnumerable LoadBullet(List<BulletData> bulletDatas)
+    public static IEnumerator LoadBullet(List<BulletData> bulletDatas)
     {
-        foreach (var data in bulletDatas) Debug.Log(data.Obj.Name);
+        var bulletDictionary = BulletPooling.Instance.GetObjectDictionary;
+        foreach (var data in bulletDatas)
+        {
+            var bullet = bulletDictionary[data.Obj.Name][data.Obj.LstIndex];
+            bullet.transform.position = data.Position.SetPosition();
+            bullet.transform.localRotation = data.Rotation.SetRotation();
+            bullet.GetComponent<UnitBullet>().SetupDamage(data.CurrentDamage);
+            bullet.SetActive(true);
+        }
+
         yield return null;
     }
 }

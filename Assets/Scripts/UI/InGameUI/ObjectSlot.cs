@@ -9,6 +9,8 @@ public abstract class ObjectSlot : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] protected ResourcesManager resourcesManager;
     protected ObjectInfor stat;
 
+    public ObjectInfor Stat => stat;
+
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         if (!GetComponent<Button>().interactable)
@@ -41,7 +43,5 @@ public abstract class ObjectSlot : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public virtual void BuyObject()
     {
-        if (resourcesManager.Money < stat.Money)
-            return;
     }
 }

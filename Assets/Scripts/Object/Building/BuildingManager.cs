@@ -9,9 +9,11 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private SelectPanel buildingPanel;
     [SerializeField] private SelectPanel unitPanel;
     [SerializeField] private SelectPanel researchPanel;
-
     [SerializeField] private UnitManager unitManager;
 
+    public SelectPanel BuildingPanel => buildingPanel;
+    public SelectPanel UnitPanel => unitPanel;
+    public SelectPanel ResearchPanel => researchPanel;
     public BuildingController buildingSelected { get; private set; }
 
     private void Awake()
@@ -24,39 +26,60 @@ public class BuildingManager : MonoBehaviour
 
     private void Start()
     {
-        var buildingLst = new List<GameObject>();
-        foreach (var building in BuildingPooling.Instance.BuildingPrefabs) 
-            buildingLst.Add(building.objectPrefab);
+        SetPanels();
+    }
 
+    private void SetPanels()
+    {
+        SetBuildingPanel();
+        SetResearchPanel();
+        SetUnitPanel();
+        researchPanel.gameObject.SetActive(false);
+        unitPanel.gameObject.SetActive(false);
+    }
+
+    private void SetBuildingPanel()
+    {
+        var buildingLst = new List<GameObject>();
+        foreach (var building in BuildingPooling.Instance.BuildingPrefabs)
+            buildingLst.Add(building.objectPrefab);
         buildingPanel.SetObjectPanel(buildingLst);
     }
 
-    public void GetBuildingSelected(BuildingController buildingController)
+    private void SetResearchPanel()
     {
-        buildingSelected = buildingController;
-        if (buildingController.transform.name.Contains(Names.PlayerFactory))
+        researchPanel.gameObject.SetActive(true);
+        var unitsLocked = new List<GameObject>();
+
+        foreach (var playerUnitPrefab in unitManager.PlayerUnitsPrefab)
+            if (!playerUnitPrefab.unlocked && !unitsLocked.Contains(playerUnitPrefab.unitPrefab))
+                unitsLocked.Add(playerUnitPrefab.unitPrefab);
+
+        researchPanel.SetObjectPanel(unitsLocked);
+    }
+
+    private void SetUnitPanel()
+    {
+        unitPanel.gameObject.SetActive(true);
+        var unitsUnlocked = new List<GameObject>();
+
+        foreach (var playerUnitPrefab in unitManager.PlayerUnitsPrefab)
+            if (playerUnitPrefab.unlocked && !unitsUnlocked.Contains(playerUnitPrefab.unitPrefab))
+                unitsUnlocked.Add(playerUnitPrefab.unitPrefab);
+        unitPanel.SetObjectPanel(unitsUnlocked);
+    }
+
+    public void GetBuildingSelected(GameObject building)
+    {
+        buildingSelected = building.GetComponent<BuildingController>();
+        if (building.name.Contains(Names.PlayerFactory))
         {
             panelsManager.ShowUnitPanel();
-            var unitsUnlocked = new List<GameObject>();
-
-            foreach (var playerUnitPrefab in unitManager.PlayerUnitsPrefab)
-                if (playerUnitPrefab.unlocked && !unitsUnlocked.Contains(playerUnitPrefab.unitPrefab))
-                    unitsUnlocked.Add(playerUnitPrefab.unitPrefab);
-            unitPanel.SetObjectPanel(unitsUnlocked);
+            SetUnitPanel();
             return;
         }
 
-        if (buildingController.transform.name.Contains(Names.PlayerResearchLab))
-        {
-            panelsManager.ShowResearchPanel();
-            var unitsLocked = new List<GameObject>();
-
-            foreach (var playerUnitPrefab in unitManager.PlayerUnitsPrefab)
-                if (!playerUnitPrefab.unlocked && !unitsLocked.Contains(playerUnitPrefab.unitPrefab))
-                    unitsLocked.Add(playerUnitPrefab.unitPrefab);
-
-            researchPanel.SetObjectPanel(unitsLocked);
-        }
+        if (building.name.Contains(Names.PlayerResearchLab)) panelsManager.ShowResearchPanel();
     }
 
     public void DeselectBuilding()
