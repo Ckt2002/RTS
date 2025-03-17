@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class FirebaseSignIn : MonoBehaviour
+public class FirebaseSignIn
 {
     public static IEnumerator StartSignin(string API_KEY, Action<string, string, string> onSuccess,
         Action<string> onError)

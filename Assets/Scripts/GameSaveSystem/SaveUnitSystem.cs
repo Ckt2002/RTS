@@ -2,7 +2,7 @@
 using GameSave;
 using UnityEngine;
 
-public class SaveUnitSystem : MonoBehaviour
+public class SaveUnitSystem
 {
     public static List<UnitData> SaveUnits()
     {

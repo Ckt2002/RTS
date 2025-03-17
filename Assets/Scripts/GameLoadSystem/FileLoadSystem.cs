@@ -3,7 +3,7 @@ using System.IO;
 using GameSave;
 using UnityEngine;
 
-public class FileLoadSystem : MonoBehaviour
+public class FileLoadSystem
 {
     public static GameSaveData LoadGameLocal(string fileName)
     {

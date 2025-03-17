@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using GameSave;
-using Newtonsoft.Json;
 using UnityEngine;
 
-public class SaveCreateUnitSystem : MonoBehaviour
+public class SaveCreateUnitSystem
 {
     private static readonly HashSet<string> unitNames = new();
 

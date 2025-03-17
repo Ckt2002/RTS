@@ -1,7 +1,6 @@
 ﻿using GameSave;
-using UnityEngine;
 
-public class GameSaveSystem : MonoBehaviour
+public class GameSaveSystem
 {
     public static GameSaveData GameData()
     {

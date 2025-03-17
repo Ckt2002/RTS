@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameSave;
 using UnityEngine;
 
-public class LoadUnitSystem : MonoBehaviour
+public class LoadUnitSystem
 {
     public static IEnumerator LoadUnit(List<UnitData> unitDatas)
     {

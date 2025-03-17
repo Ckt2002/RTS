@@ -3,7 +3,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class FirebaseSaveData : MonoBehaviour
+public class FirebaseSaveData
 {
     public static IEnumerator SaveData(string fileName, string jsonData)
     {

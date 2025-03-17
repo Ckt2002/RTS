@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameSave;
 using UnityEngine;
 
-public class LoadBuildingSystem : MonoBehaviour
+public class LoadBuildingSystem
 {
     public static IEnumerator LoadBuilding(List<BuildingData> buildingDatas)
     {

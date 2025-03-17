@@ -3,7 +3,7 @@ using System.Linq;
 using GameSave;
 using UnityEngine;
 
-public class SaveResearchSystem : MonoBehaviour
+public class SaveResearchSystem
 {
     private static readonly List<ResearchData> researchDatas = new();
 

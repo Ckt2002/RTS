@@ -2,7 +2,7 @@
 using GameSave;
 using UnityEngine;
 
-public class LoadMatchSystem : MonoBehaviour
+public class LoadMatchSystem
 {
     public static IEnumerator LoadMatch(MatchData matchData)
     {

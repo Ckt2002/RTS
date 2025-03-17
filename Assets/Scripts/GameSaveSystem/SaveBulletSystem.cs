@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameSave;
-using UnityEngine;
 
-public class SaveBulletSystem : MonoBehaviour
+public class SaveBulletSystem
 {
     public static List<BulletData> SaveBullets()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameSave;
 using UnityEngine;
 
-public class LoadBulletSystem : MonoBehaviour
+public class LoadBulletSystem
 {
     public static IEnumerator LoadBullet(List<BulletData> bulletDatas)
     {

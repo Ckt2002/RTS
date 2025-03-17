@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class FirebaseRefreshToken : MonoBehaviour
+public class FirebaseRefreshToken
 {
     private const string REFRESH_TOKEN_URL = "https://securetoken.googleapis.com/v1/token?key=";
 

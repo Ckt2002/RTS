@@ -1,7 +1,6 @@
 ﻿using GameSave;
-using UnityEngine;
 
-public class SaveMatchSystem : MonoBehaviour
+public class SaveMatchSystem
 {
     public static MatchData matchData;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameSave;
 using UnityEngine;
 
-public class LoadCapturePointSystem : MonoBehaviour
+public class LoadCapturePointSystem
 {
     public static IEnumerator LoadCapturePoint(List<CapturePointData> capturePointDatas)
     {

@@ -2,7 +2,7 @@
 
 namespace GameSystem
 {
-    public class PauseSystem : MonoBehaviour
+    public class PauseSystem
     {
         public static bool isPausing { get; private set; }
 

@@ -3,7 +3,7 @@ using System.Collections;
 using GameSave;
 using UnityEngine;
 
-public class GameLoadSystem : MonoBehaviour
+public class GameLoadSystem
 {
     private static GameSaveData gameData;
 

@@ -3,7 +3,7 @@ using System.IO;
 using GameSave;
 using UnityEngine;
 
-public class FileSaveSystem : MonoBehaviour
+public class FileSaveSystem
 {
     public static bool isCloud { private get; set; }
 

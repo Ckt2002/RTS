@@ -1,7 +1,7 @@
 ﻿using GameSave;
 using UnityEngine;
 
-public class SaveResourcesSystem : MonoBehaviour
+public class SaveResourcesSystem
 {
     public static ResourcesData SaveResourcesData()
     {

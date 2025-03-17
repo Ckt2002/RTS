@@ -2,7 +2,7 @@
 using GameSave;
 using UnityEngine;
 
-public class LoadResourcesSystem : MonoBehaviour
+public class LoadResourcesSystem
 {
     public static IEnumerator LoadResources(ResourcesData resourcesData)
     {

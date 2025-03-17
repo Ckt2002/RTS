@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using GameSave;
 using UnityEngine;
 
-public class SaveBuildingSystem : MonoBehaviour
+public class SaveBuildingSystem
 {
     public static List<BuildingData> SaveBuildings()
     {

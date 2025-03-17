@@ -1,7 +1,6 @@
 ﻿using GameSave;
-using UnityEngine;
 
-public class SaveCreateEnemySystem : MonoBehaviour
+public class SaveCreateEnemySystem
 {
     public static SpawnEnemyData SaveCreateEnemyProgress(int spawnPosIndex, string currentEnemySpawnName)
     {

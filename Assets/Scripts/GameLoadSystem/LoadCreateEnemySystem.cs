@@ -2,7 +2,7 @@
 using GameSave;
 using UnityEngine;
 
-public class LoadCreateEnemySystem : MonoBehaviour
+public class LoadCreateEnemySystem
 {
     public static IEnumerator LoadCreateEnemy(SpawnEnemyData spawnEnemyData)
     {

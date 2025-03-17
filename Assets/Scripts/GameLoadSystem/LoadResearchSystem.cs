@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameSave;
 using UnityEngine;
 
-public class LoadResearchSystem : MonoBehaviour
+public class LoadResearchSystem
 {
     public static IEnumerator LoadResearch(List<ResearchData> researchDatas)
     {

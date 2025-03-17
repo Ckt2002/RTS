@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadCreateUnitSystem : MonoBehaviour
+public class LoadCreateUnitSystem
 {
     public static IEnumerator LoadCreateUnitProgress(List<BuyUnitData> buyUnitDatas)
     {
