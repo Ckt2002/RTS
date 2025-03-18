@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using GameSave;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SaveLoadGameUI : MonoBehaviour
@@ -10,65 +7,48 @@ public class SaveLoadGameUI : MonoBehaviour
     [SerializeField] private Transform content;
     [SerializeField] private bool isSave;
 
-    private Dictionary<string, CloudData> cloudSaveData;
-    private Dictionary<string, GameSaveData> localSaveData;
+    private readonly List<GameObject> slotPool = new();
 
-    private void Start()
+    private void OnEnable()
     {
-        GetLocalSaveFiles();
-        GetCloudSaveFiles();
+        SaveLoadSystem.Instance.OnSlotsUpdated += UpdateUI;
+        UpdateUI();
     }
 
-    private void GetLocalSaveFiles()
+    private void OnDisable()
     {
-        var saveFiles = SaveLoadSystem.Instance?.GetAllSaveFile();
-        if (saveFiles == null) return;
-        if (saveFiles.Length == 0) return;
+        SaveLoadSystem.Instance.OnSlotsUpdated -= UpdateUI;
+    }
 
-        foreach (var filePath in saveFiles)
+    private void UpdateUI()
+    {
+        ClearSlots();
+
+        foreach (var slotData in SaveLoadSystem.Instance.LoadGameSlots)
         {
-            var fileName = Path.GetFileName(filePath);
-            var creationTime = File.GetCreationTime(filePath);
-            var formattedCreationTime = creationTime.ToString("HH:mm-dd/MM/yyyy");
+            GameObject slot;
+            if (slotPool.Count > 0)
+            {
+                slot = slotPool[0];
+                slotPool.RemoveAt(0);
+            }
+            else
+            {
+                slot = Instantiate(loadGameSlotButton, content);
+            }
 
-            var slot = Instantiate(loadGameSlotButton, content);
-            slot.GetComponent<LoadGameSlot>().SetSlotInfor(formattedCreationTime, fileName, isSave);
+            slot.SetActive(true);
+            var slotComponent = slot.GetComponent<LoadGameSlot>();
+            slotComponent.SetSlotInfor(slotData.Date, slotData.Name, isSave, slotData.IsCloud);
         }
     }
 
-    private void GetFileName(Dictionary<string, CloudData> cloudData)
+    private void ClearSlots()
     {
-        if (cloudData == null || cloudData.Count == 0)
-            return;
-
-        foreach (var data in cloudData)
+        foreach (Transform child in content)
         {
-            var slot = Instantiate(loadGameSlotButton, content);
-            slot.GetComponent<LoadGameSlot>().SetSlotInfor(data.Value.saveTime, data.Key, isSave, true);
+            child.gameObject.SetActive(false);
+            slotPool.Add(child.gameObject);
         }
-
-        cloudSaveData = cloudData;
-    }
-
-    private async void GetCloudSaveFiles()
-    {
-        try
-        {
-            await FirebaseGetData.GetFileNames(GetFileName);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Error getting file save: {e.Message}");
-        }
-    }
-
-    public void ShowSlot(GameObject go)
-    {
-        go.SetActive(true);
-    }
-
-    public void HideSlot(GameObject go)
-    {
-        go.SetActive(false);
     }
 }

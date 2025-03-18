@@ -22,19 +22,17 @@ public class FirebaseGetData
 
         var url = $"{DATABASE_URL}users/{userId}.json?auth={authToken}";
 
-        using (var request = UnityWebRequest.Get(url))
-        {
-            await request.SendWebRequest();
+        using var request = UnityWebRequest.Get(url);
+        await request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.Success)
-            {
-                var jsonData = request.downloadHandler.text;
-                ProcessFileNames(jsonData, action);
-            }
-            else
-            {
-                Debug.LogError("Failed to load data: " + request.error);
-            }
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            var jsonData = request.downloadHandler.text;
+            ProcessFileNames(jsonData, action);
+        }
+        else
+        {
+            Debug.LogError("Failed to load data: " + request.error);
         }
     }
 

@@ -34,18 +34,25 @@ public class FirebaseSystem : MonoBehaviour
 
     private async void LoadSavedCredentials()
     {
-        if (PlayerPrefs.HasKey("userIdToken") && PlayerPrefs.HasKey("localId") && PlayerPrefs.HasKey("tokenExpiry"))
+        try
         {
-            idToken = PlayerPrefs.GetString("userIdToken");
-            localId = PlayerPrefs.GetString("localId");
-            refreshToken = PlayerPrefs.GetString("refreshToken");
-            tokenExpiryTime = PlayerPrefs.GetFloat("tokenExpiry");
+            if (PlayerPrefs.HasKey("userIdToken") && PlayerPrefs.HasKey("localId") && PlayerPrefs.HasKey("tokenExpiry"))
+            {
+                idToken = PlayerPrefs.GetString("userIdToken");
+                localId = PlayerPrefs.GetString("localId");
+                refreshToken = PlayerPrefs.GetString("refreshToken");
+                tokenExpiryTime = PlayerPrefs.GetFloat("tokenExpiry");
 
-            await RefreshToken();
+                await RefreshToken();
+            }
+            else
+            {
+                await FirebaseSignIn.StartSignin(API_KEY, OnSignInSuccess, OnSignInError);
+            }
         }
-        else
+        catch (Exception e)
         {
-            await FirebaseSignIn.StartSignin(API_KEY, OnSignInSuccess, OnSignInError);
+            Debug.LogError(e.Message);
         }
     }
 

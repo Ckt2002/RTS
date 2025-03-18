@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using Assets.Scripts.Data;
 using GameSave;
 using UnityEngine;
 
-public class FileSaveSystem
+public static class FileSaveSystem
 {
     public static bool isCloud { private get; set; }
 
@@ -26,6 +27,8 @@ public class FileSaveSystem
             var filePath = Path.Combine(desktopPath, fileName + ".json");
 
             File.WriteAllText(filePath, json);
+            var saveTime = DateTime.Now.ToString("HH:mm-dd/MM/yyyy");
+            UpdateSaveLoadSystem(fileName, saveTime, false);
         }
         catch (Exception ex)
         {
@@ -38,11 +41,20 @@ public class FileSaveSystem
         try
         {
             var json = JsonUtility.ToJson(gameData, true);
-            await FirebaseSaveData.SaveData(fileName, json);
+            var saveTime = DateTime.Now.ToString("HH:mm-dd/MM/yyyy");
+            await FirebaseSaveData.SaveData(fileName, json, saveTime);
+            UpdateSaveLoadSystem(fileName, saveTime, true);
         }
         catch (Exception ex)
         {
             Debug.LogError("Error saving data: " + ex.Message);
         }
+    }
+
+    private static void UpdateSaveLoadSystem(string fileName, string saveTime, bool isCloud)
+    {
+        var slotInfo = new LoadSlotInfor();
+        slotInfo.SetInfor(fileName, saveTime, isCloud);
+        SaveLoadSystem.Instance.AddNewSlot(slotInfo);
     }
 }

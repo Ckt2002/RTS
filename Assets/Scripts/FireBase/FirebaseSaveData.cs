@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using FireBase;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.Networking;
 
 public class FirebaseSaveData
 {
-    public static async Task SaveData(string fileName, string jsonData)
+    public static async Task SaveData(string fileName, string jsonData, string saveTime)
     {
         string userId = "", authToken = "";
         FirebaseCheckToken.CheckToken((uId, token) =>
@@ -23,7 +22,6 @@ public class FirebaseSaveData
             "https://unity-rts-28cae-default-rtdb.asia-southeast1.firebasedatabase.app/" +
             $"users/{userId}/{fileName}.json?auth={authToken}";
 
-        var saveTime = DateTime.Now.ToString("HH:mm-dd/MM/yyyy");
         var wrappedJsonData = $"{{\"gameData\": {jsonData}, \"saveTime\": \"{saveTime}\"}}";
 
         using (var request = CreateWebRequest(url, "PUT", wrappedJsonData))
