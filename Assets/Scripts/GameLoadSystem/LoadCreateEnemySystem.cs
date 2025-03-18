@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class LoadCreateEnemySystem
 {
-    public static IEnumerator LoadCreateEnemy(SpawnEnemyData spawnEnemyData)
+    public static Task LoadCreateEnemy(SpawnEnemyData spawnEnemyData)
     {
-        if (spawnEnemyData.EnemyName.Equals("")) yield break;
+        if (spawnEnemyData == null) return Task.CompletedTask;
+
+        if (spawnEnemyData.EnemyName.Equals("")) return Task.CompletedTask;
         MatchController.Instance.LoadCreateEnemy(spawnEnemyData.SpawnerIndex, spawnEnemyData.EnemyName);
-        yield return null;
+        return Task.CompletedTask;
     }
 }

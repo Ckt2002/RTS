@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using GameSystem;
 using UI;
 using UnityEngine;
@@ -62,16 +61,6 @@ public class LoadSceneManager : MonoBehaviour
         PauseSystem.ResumeGame();
     }
 
-    private void RunPoolingSystem(Action action)
-    {
-        action?.Invoke();
-    }
-
-    private void RunLoadGameSystem(Action action)
-    {
-        action?.Invoke();
-    }
-
     private IEnumerator LoadingMap(bool isLoadGameSave)
     {
         var poolingCompleted = 0;
@@ -81,9 +70,10 @@ public class LoadSceneManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         PauseSystem.PauseGame();
 
-        RunPoolingSystem(() => BuildingPooling.Instance.RunSpawnObjects(() => poolingCompleted++));
-        RunPoolingSystem(() => UnitPooling.Instance.RunSpawnObjects(() => poolingCompleted++));
-        RunPoolingSystem(() => BulletPooling.Instance.RunSpawnObjects(() => poolingCompleted++));
+        // Run coroutine
+        BuildingPooling.Instance.RunSpawnObjects(() => poolingCompleted++);
+        UnitPooling.Instance.RunSpawnObjects(() => poolingCompleted++);
+        BulletPooling.Instance.RunSpawnObjects(() => poolingCompleted++);
 
         while (poolingCompleted < totalPoolingSystem)
         {
@@ -96,14 +86,10 @@ public class LoadSceneManager : MonoBehaviour
             yield return null;
         }
 
-
         if (isLoadGameSave)
         {
-            // RunLoad game here
-            Debug.Log("Loading game");
-            RunLoadGameSystem(() => GameLoadSystem.StartLoadGame(() => loadSaveGameCompleted = true));
+            GameLoadSystem.StartLoadGame(() => loadSaveGameCompleted = true);
 
-            // Đợi cho đến khi LoadGame hoàn thành
             while (!loadSaveGameCompleted)
             {
                 if (loadProgress <= 0.8f)

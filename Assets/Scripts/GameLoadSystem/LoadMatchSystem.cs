@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class LoadMatchSystem
 {
-    public static IEnumerator LoadMatch(MatchData matchData)
+    public static async Task LoadMatch(MatchData matchData)
     {
+        if (matchData == null) return;
+
         MatchController.Instance.LoadMatch(matchData.CurrentRound, matchData.TimeToNexRound);
-        yield return LoadCreateEnemySystem.LoadCreateEnemy(matchData.SpawnEnemyData);
-        yield return null;
+        await LoadCreateEnemySystem.LoadCreateEnemy(matchData.SpawnEnemyData);
     }
 }

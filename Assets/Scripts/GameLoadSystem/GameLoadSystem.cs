@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
+using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class GameLoadSystem
 {
@@ -12,32 +11,28 @@ public class GameLoadSystem
         gameData = gameSaveData;
     }
 
-    public static void StartLoadGame(Action action)
+    public static async void StartLoadGame(Action action)
     {
-        CoroutineManager.Instance.StartManagedCoroutine(LoadGame(action));
+        await LoadGame(action);
     }
 
-    public static IEnumerator LoadGame(Action action)
+    public static async Task LoadGame(Action action)
     {
-        Debug.Log("Unit Loading");
+        await LoadUnitSystem.LoadUnit(gameData.UnitDatas);
 
-        yield return LoadUnitSystem.LoadUnit(gameData.UnitDatas);
+        await LoadBuildingSystem.LoadBuilding(gameData.BuildingDatas);
 
-        Debug.Log("Unit Loaded");
+        await LoadBulletSystem.LoadBullet(gameData.BulletDatas);
 
-        yield return LoadBuildingSystem.LoadBuilding(gameData.BuildingDatas);
+        await LoadMatchSystem.LoadMatch(gameData.MatchData);
 
-        yield return LoadBulletSystem.LoadBullet(gameData.BulletDatas);
+        await LoadResourcesSystem.LoadResources(gameData.ResourcesData);
 
-        yield return LoadMatchSystem.LoadMatch(gameData.MatchData);
+        await LoadCreateUnitSystem.LoadCreateUnitProgress(gameData.BuyUnitDatas);
 
-        yield return LoadResourcesSystem.LoadResources(gameData.ResourcesData);
+        await LoadResearchSystem.LoadResearch(gameData.ResearchDatas);
 
-        yield return LoadCreateUnitSystem.LoadCreateUnitProgress(gameData.BuyUnitDatas);
-
-        yield return LoadResearchSystem.LoadResearch(gameData.ResearchDatas);
-
-        yield return LoadCapturePointSystem.LoadCapturePoint(gameData.CapturePointDatas);
+        await LoadCapturePointSystem.LoadCapturePoint(gameData.CapturePointDatas);
 
         action?.Invoke();
     }

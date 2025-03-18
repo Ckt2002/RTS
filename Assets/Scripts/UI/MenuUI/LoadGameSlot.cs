@@ -1,5 +1,6 @@
-﻿using Interface;
-using UI;
+﻿using System;
+using FireBase;
+using Interface;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,33 +13,46 @@ public class LoadGameSlot : MonoBehaviour, IButton
     [SerializeField] private Image cloudIcon;
 
     private bool isSaveSlot;
+    public bool isCloudData { get; private set; }
+    public string fileName { get; private set; }
 
-    // Save to cloud (firebase) and local
     public void ButtonAction()
     {
         if (isSaveSlot) return;
 
-        // Run load game here
         RunLoadGame();
     }
 
-    public void SetSlotInfor(string createdDate, string fileName, bool isSave)
+    public void SetSlotInfor(string createdDate, string fileName, bool isSave, bool isCloud = false)
     {
         // slotImage = img;
         slotFileCreatedDate.text = createdDate;
         slotFileName.text = fileName;
+        this.fileName = fileName;
         isSaveSlot = isSave;
-
-        // If save in firebase, show cloud icon
-
-        // Get round by access file data
+        isCloudData = isCloud;
+        cloudIcon.gameObject.SetActive(isCloud);
     }
 
-    private void RunLoadGame()
+    private async void RunLoadGame()
     {
-        GameLoadSystem.GetGameSaveData(FileLoadSystem.LoadGameLocal(slotFileName.text));
+        try
+        {
+            if (cloudIcon.IsActive())
+            {
+                var gameData = await FirebaseLoadData.LoadFile(slotFileName.text);
+                GameLoadSystem.GetGameSaveData(gameData);
+            }
+            else
+            {
+                GameLoadSystem.GetGameSaveData(FileLoadSystem.LoadGameLocal(slotFileName.text));
+            }
 
-        // Start Load Scene
-        LoadSceneManager.Instance.StartLoadScene(nameof(Scenes.Map1), true);
+            LoadSceneManager.Instance.StartLoadScene(nameof(Scenes.Map1), true);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error loading game: {e.Message}");
+        }
     }
 }

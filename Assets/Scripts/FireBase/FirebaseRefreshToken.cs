@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Text;
+using System.Threading.Tasks;
+using FireBase;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,13 +9,13 @@ public class FirebaseRefreshToken
 {
     private const string REFRESH_TOKEN_URL = "https://securetoken.googleapis.com/v1/token?key=";
 
-    public static IEnumerator RefreshToken(string apiKey, string refreshToken, Action<string, string> onSuccess,
+    public static async Task RefreshToken(string apiKey, string refreshToken, Action<string, string> onSuccess,
         Action<string> onError)
     {
         if (string.IsNullOrEmpty(refreshToken))
         {
             onError?.Invoke("No refresh token available.");
-            yield break;
+            return;
         }
 
         var requestBody = $"{{\"grant_type\": \"refresh_token\", \"refresh_token\": \"{refreshToken}\"}}";
@@ -27,7 +28,7 @@ public class FirebaseRefreshToken
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
 
-            yield return request.SendWebRequest();
+            await request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {

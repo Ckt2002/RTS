@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class LoadUnitSystem
 {
-    public static IEnumerator LoadUnit(List<UnitData> unitDatas)
+    public static Task LoadUnit(List<UnitData> unitDatas)
     {
-        Debug.Log("Running here");
+        if (unitDatas == null) return Task.CompletedTask;
+
         var unitDictionary = UnitPooling.Instance.GetObjectDictionary;
-        Debug.Log(unitDictionary.Count);
         foreach (var data in unitDatas)
         {
-            Debug.Log($"Loaded {data.Obj.Name}");
             var unit = unitDictionary[data.Obj.Name][data.Obj.LstIndex];
             unit.transform.position = data.Position.SetPosition();
             unit.transform.localRotation = data.Rotation.SetRotation();
@@ -21,6 +19,6 @@ public class LoadUnitSystem
             unit.SetActive(true);
         }
 
-        yield return null;
+        return Task.CompletedTask;
     }
 }

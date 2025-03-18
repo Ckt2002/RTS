@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class LoadCreateUnitSystem
 {
-    public static IEnumerator LoadCreateUnitProgress(List<BuyUnitData> buyUnitDatas)
+    public static Task LoadCreateUnitProgress(List<BuyUnitData> buyUnitDatas)
     {
+        if (buyUnitDatas == null) return Task.CompletedTask;
+
         var unitSlots = BuildingManager.Instance.UnitPanel.Slots;
 
         var slotDictionary = new Dictionary<string, UnitSlot>();
@@ -28,6 +30,6 @@ public class LoadCreateUnitSystem
                 Debug.LogWarning($"No matching ResearchSlot found for {data.unitName}");
             }
 
-        yield return null;
+        return Task.CompletedTask;
     }
 }

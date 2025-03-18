@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class FirebaseSystem : MonoBehaviour
@@ -7,11 +8,11 @@ public class FirebaseSystem : MonoBehaviour
 
     private const string API_KEY = "AIzaSyC-FfGTwi-hr9bxJQGIPP6vgY-yjQ7f_Qo";
 
-    public string IdToken { get; private set; }
-    public string LocalId { get; private set; }
+    public string idToken { get; private set; }
+    public string localId { get; private set; }
+    public float tokenExpiryTime { get; private set; }
 
-    private string _refreshToken;
-    private float _tokenExpiryTime;
+    private string refreshToken;
 
     private void Awake()
     {
@@ -31,55 +32,56 @@ public class FirebaseSystem : MonoBehaviour
         LoadSavedCredentials();
     }
 
-    private void LoadSavedCredentials()
+    private async void LoadSavedCredentials()
     {
         if (PlayerPrefs.HasKey("userIdToken") && PlayerPrefs.HasKey("localId") && PlayerPrefs.HasKey("tokenExpiry"))
         {
-            IdToken = PlayerPrefs.GetString("userIdToken");
-            LocalId = PlayerPrefs.GetString("localId");
-            _tokenExpiryTime = PlayerPrefs.GetFloat("tokenExpiry");
+            idToken = PlayerPrefs.GetString("userIdToken");
+            localId = PlayerPrefs.GetString("localId");
+            refreshToken = PlayerPrefs.GetString("refreshToken");
+            tokenExpiryTime = PlayerPrefs.GetFloat("tokenExpiry");
 
-            if (Time.time < _tokenExpiryTime)
-                Debug.Log("Loaded saved credentials.");
-            else
-                StartCoroutine(RefreshToken());
+            await RefreshToken();
         }
         else
         {
-            StartCoroutine(FirebaseSignIn.StartSignin(API_KEY, OnSignInSuccess, OnSignInError));
+            await FirebaseSignIn.StartSignin(API_KEY, OnSignInSuccess, OnSignInError);
         }
     }
 
-    public IEnumerator RefreshToken()
+    public async Task RefreshToken()
     {
-        yield return FirebaseRefreshToken.RefreshToken(API_KEY, _refreshToken, OnRefreshSuccess, OnRefreshError);
+        await FirebaseRefreshToken.RefreshToken(API_KEY, refreshToken, OnRefreshSuccess, OnRefreshError);
     }
 
     private void OnRefreshSuccess(string newIdToken, string newRefreshToken)
     {
-        IdToken = newIdToken;
-        _refreshToken = newRefreshToken;
-        _tokenExpiryTime = Time.time + 3600; // Token expires in 1 hour
+        idToken = newIdToken;
+        refreshToken = newRefreshToken;
+        tokenExpiryTime = Time.time + 3600;
 
         SaveCredentials();
-        Debug.Log("Token refreshed successfully.");
     }
 
-    private void OnRefreshError(string error)
+    private async void OnRefreshError(string error)
     {
-        Debug.LogError("Failed to refresh token: " + error);
-        StartCoroutine(FirebaseSignIn.StartSignin(API_KEY, OnSignInSuccess, OnSignInError));
+        try
+        {
+            Debug.LogError("Failed to refresh token: " + error);
+            await FirebaseSignIn.StartSignin(API_KEY, OnSignInSuccess, OnSignInError);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error while trying to signin: {e.Message}");
+        }
     }
 
     private void OnSignInSuccess(string idToken, string localId, string refreshToken)
     {
-        IdToken = idToken;
-        LocalId = localId;
-        _refreshToken = refreshToken;
-        _tokenExpiryTime = Time.time + 3600; // Token expires in 1 hour
-
-        SaveCredentials();
-        Debug.Log("Authenticated successfully! User ID: " + localId);
+        this.idToken = idToken;
+        this.localId = localId;
+        this.refreshToken = refreshToken;
+        tokenExpiryTime = Time.time + 3600;
     }
 
     private void OnSignInError(string error)
@@ -89,15 +91,16 @@ public class FirebaseSystem : MonoBehaviour
 
     private void SaveCredentials()
     {
-        PlayerPrefs.SetString("userIdToken", IdToken);
-        PlayerPrefs.SetString("localId", LocalId);
-        PlayerPrefs.SetFloat("tokenExpiry", _tokenExpiryTime);
+        PlayerPrefs.SetString("userIdToken", idToken);
+        PlayerPrefs.SetString("localId", localId);
+        PlayerPrefs.SetString("refreshToken", refreshToken);
+        PlayerPrefs.SetFloat("tokenExpiry", tokenExpiryTime);
         PlayerPrefs.Save();
     }
 
     private void OnApplicationQuit()
     {
         SaveCredentials();
-        Debug.Log("Credentials saved on application quit.");
+        // Debug.Log("Credentials saved on application quit.");
     }
 }

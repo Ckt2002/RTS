@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class LoadBuildingSystem
 {
-    public static IEnumerator LoadBuilding(List<BuildingData> buildingDatas)
+    public static Task LoadBuilding(List<BuildingData> buildingDatas)
     {
+        if (buildingDatas == null) return Task.CompletedTask;
+
         var buildingDictionary = BuildingPooling.Instance.GetObjectDictionary;
         foreach (var data in buildingDatas)
         {
@@ -18,6 +19,6 @@ public class LoadBuildingSystem
             building.SetActive(true);
         }
 
-        yield return null;
+        return Task.CompletedTask;
     }
 }

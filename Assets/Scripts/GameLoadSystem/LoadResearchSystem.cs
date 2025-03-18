@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GameSave;
 using UnityEngine;
 
 public class LoadResearchSystem
 {
-    public static IEnumerator LoadResearch(List<ResearchData> researchDatas)
+    public static Task LoadResearch(List<ResearchData> researchDatas)
     {
+        if (researchDatas == null) return Task.CompletedTask;
+
         var researchSlots = BuildingManager.Instance.ResearchPanel.Slots;
 
         var slotDictionary = new Dictionary<string, ResearchSlot>();
@@ -34,6 +36,6 @@ public class LoadResearchSystem
             }
 
 
-        yield return null;
+        return Task.CompletedTask;
     }
 }

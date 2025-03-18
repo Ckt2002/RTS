@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Text;
+using System.Threading.Tasks;
+using FireBase;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class FirebaseSignIn
 {
-    public static IEnumerator StartSignin(string API_KEY, Action<string, string, string> onSuccess,
+    public static async Task StartSignin(string API_KEY, Action<string, string, string> onSuccess,
         Action<string> onError)
     {
         var url = $"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={API_KEY}";
@@ -14,7 +15,7 @@ public class FirebaseSignIn
 
         using (var request = CreateWebRequest(url, "POST", jsonData))
         {
-            yield return request.SendWebRequest();
+            await request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError ||
                 request.result == UnityWebRequest.Result.ProtocolError)

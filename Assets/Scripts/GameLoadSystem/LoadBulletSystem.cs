@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class LoadBulletSystem
 {
-    public static IEnumerator LoadBullet(List<BulletData> bulletDatas)
+    public static Task LoadBullet(List<BulletData> bulletDatas)
     {
+        if (bulletDatas == null) return Task.CompletedTask;
+
         var bulletDictionary = BulletPooling.Instance.GetObjectDictionary;
         foreach (var data in bulletDatas)
         {
@@ -17,6 +18,6 @@ public class LoadBulletSystem
             bullet.SetActive(true);
         }
 
-        yield return null;
+        return Task.CompletedTask;
     }
 }

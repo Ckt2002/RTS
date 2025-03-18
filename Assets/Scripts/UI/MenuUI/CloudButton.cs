@@ -17,8 +17,6 @@ public class CloudButton : MonoBehaviour, IButton
     {
         selected = !selected;
 
-        Debug.Log(selected);
-
         if (selected)
         {
             FileSaveSystem.isCloud = true;

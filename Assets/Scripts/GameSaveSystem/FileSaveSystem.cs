@@ -33,12 +33,12 @@ public class FileSaveSystem
         }
     }
 
-    private static void SaveGameCloud(GameSaveData gameData, string fileName)
+    private static async void SaveGameCloud(GameSaveData gameData, string fileName)
     {
         try
         {
             var json = JsonUtility.ToJson(gameData, true);
-            CoroutineManager.Instance.StartCoroutine(FirebaseSaveData.SaveData(fileName, json));
+            await FirebaseSaveData.SaveData(fileName, json);
         }
         catch (Exception ex)
         {

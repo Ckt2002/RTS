@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class LoadResourcesSystem
 {
-    public static IEnumerator LoadResources(ResourcesData resourcesData)
+    public static Task LoadResources(ResourcesData resourcesData)
     {
+        if (resourcesData == null) return Task.CompletedTask;
+
         ResourcesManager.Instance.Money = resourcesData.Money;
-        yield return null;
+        return Task.CompletedTask;
     }
 }

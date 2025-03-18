@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GameSave;
-using UnityEngine;
 
 public class LoadCapturePointSystem
 {
-    public static IEnumerator LoadCapturePoint(List<CapturePointData> capturePointDatas)
+    public static Task LoadCapturePoint(List<CapturePointData> capturePointDatas)
     {
+        if (capturePointDatas == null) return Task.CompletedTask;
+
         CapturePointManager.Instance.LoadCapturePoint(capturePointDatas);
 
-        yield return null;
+        return Task.CompletedTask;
     }
 }
