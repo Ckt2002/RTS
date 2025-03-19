@@ -9,13 +9,14 @@ public static class SaveMatchSystem
         return matchData;
     }
 
-    public static void GetMatchData(int currentRound, float timeToNextRound,
+    public static void GetMatchData(int currentRound, float timeToNextRound, bool isInMatch,
         SpawnEnemyData spawnEnemyData)
     {
         matchData = new MatchData
         {
             CurrentRound = currentRound,
             TimeToNexRound = timeToNextRound,
+            IsInMatch = isInMatch,
             SpawnEnemyData = spawnEnemyData
         };
     }

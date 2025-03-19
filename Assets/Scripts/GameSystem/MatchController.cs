@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameSystem;
+using TMPro;
 using UnityEngine;
 
 public class MatchController : MonoBehaviour
 {
     public static MatchController Instance;
 
-    [SerializeField] private float timeToNextRound;
+    private TMP_Text timeText;
+    private TMP_Text roundText;
 
+    [SerializeField] private float timeToNextRound;
     [SerializeField] private int maxRound;
-    private readonly int enemyNumber = 1;
+    [SerializeField] private int enemyNumberEachType = 1;
 
     private int round;
     private float timer;
@@ -20,6 +23,8 @@ public class MatchController : MonoBehaviour
     private Coroutine createEnemyCoroutine;
     private int spawnEnemyInd;
     private string spawnEnemyName = "";
+
+    private bool isInMatch;
 
     private void Awake()
     {
@@ -31,6 +36,7 @@ public class MatchController : MonoBehaviour
 
     private void Start()
     {
+        timer = 10f;
         spawnEnemiesLst = FindObjectsOfType<SpawnEnemy>().ToList();
     }
 
@@ -47,10 +53,11 @@ public class MatchController : MonoBehaviour
             CoroutineManager.Instance.StopManagedCoroutine(createEnemyCoroutine);
     }
 
-    public void LoadMatch(int currentRound, float currentTimeToNextRound)
+    public void LoadMatch(int currentRound, float currentTimeToNextRound, bool isInMatch)
     {
         round = currentRound;
         timer = currentTimeToNextRound;
+        this.isInMatch = isInMatch;
     }
 
     public void LoadCreateEnemy(int spawnInd = 0, string enemyName = "")
@@ -63,14 +70,20 @@ public class MatchController : MonoBehaviour
     {
         var enemyUnitNames = Names.enemyUnitNameLst;
 
-        yield return new WaitForSeconds(1f);
+        // Case 1
+        if (!isInMatch)
+            yield return RunTimer();
 
+        // Case 2
         while (round <= maxRound)
         {
+            roundText.text = round.ToString();
             var nameInd = 0;
 
             for (var spawnIndex = 0; spawnIndex < spawnEnemiesLst.Count; spawnIndex++)
             {
+                if (isInMatch && spawnEnemyName.Equals("")) yield break;
+
                 if (!string.IsNullOrEmpty(enemyName) && spawnIndex < spawnInd) continue;
 
                 var spawnEnemy = spawnEnemiesLst[spawnIndex];
@@ -88,43 +101,57 @@ public class MatchController : MonoBehaviour
                         }
                     }
 
-                    for (; i < enemyNumber;)
+                    for (; i < enemyNumberEachType;)
                     {
                         if (PauseSystem.isPausing)
                         {
-                            SaveMatchSystem.GetMatchData(round, timer, SaveCreateEnemySystem.SaveCreateEnemyProgress(
-                                spawnIndex,
-                                enemyUnitNames[nameInd]));
+                            SaveMatchSystem.GetMatchData(round, timer, true,
+                                SaveCreateEnemySystem.SaveCreateEnemyProgress(
+                                    spawnIndex,
+                                    enemyUnitNames[nameInd]));
                             yield return null;
                             continue;
                         }
 
                         i++;
                         spawnEnemy.SpawnUnit(enemyUnitNames[nameInd]);
-                        yield return null;
+                        yield return new WaitForSeconds(2f);
                     }
 
                     nameInd++;
-                    yield return null;
+                    yield return new WaitForSeconds(30f);
                 }
 
                 yield return null;
             }
 
-            while (timer < timeToNextRound)
-            {
-                if (PauseSystem.isPausing)
-                {
-                    SaveMatchSystem.GetMatchData(round, timer, null);
-                    yield return null;
-                    continue;
-                }
+            // Case 3
+            yield return RunTimer();
 
-                timer += Time.deltaTime;
-                yield return null;
-            }
+            timer = timeToNextRound;
 
             round++;
+        }
+    }
+
+    private IEnumerator RunTimer()
+    {
+        while (timer >= 0)
+        {
+            if (PauseSystem.isPausing)
+            {
+                SaveMatchSystem.GetMatchData(round, timer, false, null);
+                yield return null;
+                continue;
+            }
+
+            timer -= Time.deltaTime;
+
+            var minutes = Mathf.Max(0, Mathf.FloorToInt(timer / 60f));
+            var seconds = Mathf.Max(0, Mathf.FloorToInt(timer % 60f));
+            timeText.text = $"{minutes:00}:{seconds:00}";
+
+            yield return null;
         }
     }
 }
