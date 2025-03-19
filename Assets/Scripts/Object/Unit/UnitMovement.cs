@@ -9,7 +9,7 @@ public class UnitMovement : MonoBehaviour
 
     private Vector3 targetPos;
 
-    private void Start()
+    private void Awake()
     {
         agent.speed = stat.Speed;
         targetPos = agent.transform.position;
@@ -28,6 +28,7 @@ public class UnitMovement : MonoBehaviour
     {
         if (agent.isStopped)
             agent.isStopped = false;
+
         targetPos = targetPosition;
         this.stoppingDistance = stoppingDistance;
     }

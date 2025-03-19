@@ -6,6 +6,7 @@ namespace Assets.Scripts.Data
         EnemyUnit,
         PlayerBuilding,
         EnemyBuilding,
-        Plane
+        Plane,
+        Unable
     }
 }

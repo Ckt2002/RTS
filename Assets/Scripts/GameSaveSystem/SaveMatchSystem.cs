@@ -1,6 +1,6 @@
 ﻿using GameSave;
 
-public class SaveMatchSystem
+public static class SaveMatchSystem
 {
     public static MatchData matchData;
 
@@ -9,7 +9,8 @@ public class SaveMatchSystem
         return matchData;
     }
 
-    public static void GetMatchData(int currentRound, float timeToNextRound, SpawnEnemyData spawnEnemyData)
+    public static void GetMatchData(int currentRound, float timeToNextRound,
+        SpawnEnemyData spawnEnemyData)
     {
         matchData = new MatchData
         {

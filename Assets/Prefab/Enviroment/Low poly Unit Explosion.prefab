@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 771196377927198624}
   - component: {fileID: 6079949142008756887}
   - component: {fileID: 666688698842213753}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 6180223233198277781}
   - component: {fileID: 1111058624236151568}
   - component: {fileID: 8002173362286812638}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Low poly Unit Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

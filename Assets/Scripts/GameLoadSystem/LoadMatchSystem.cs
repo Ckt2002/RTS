@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GameSave;
 
-public class LoadMatchSystem
+public static class LoadMatchSystem
 {
     public static async Task LoadMatch(MatchData matchData)
     {

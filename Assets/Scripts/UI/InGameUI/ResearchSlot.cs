@@ -2,9 +2,10 @@ using System.Collections;
 using System.Linq;
 using GameSystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ResearchSlot : ObjectSlot
+public class ResearchSlot : ObjectSlot, IPointerClickHandler
 {
     [SerializeField] private Image loading;
 
@@ -15,7 +16,12 @@ public class ResearchSlot : ObjectSlot
     public override void BuyObject()
     {
         if (resourcesManager.Money < stat.Money)
+        {
+            Debug.LogWarning("Don't have enough money");
             return;
+        }
+
+        resourcesManager.Money -= stat.Money;
         SetResearchCoroutine();
     }
 
@@ -62,5 +68,16 @@ public class ResearchSlot : ObjectSlot
 
         SetCompleted();
         yield return null;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right && loading.fillAmount > 0)
+        {
+            CoroutineManager.Instance?.StopCoroutine(researchCoroutine);
+            loading.fillAmount = 0;
+            researchCoroutine = null;
+            resourcesManager.Money += stat.Money;
+        }
     }
 }

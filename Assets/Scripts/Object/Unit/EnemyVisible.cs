@@ -8,6 +8,11 @@ public class EnemyVisible : MonoBehaviour
 
     private int playerCombined;
 
+    private void Start()
+    {
+        CheckInVision();
+    }
+
     public void Reset()
     {
         playerCombined = 0;

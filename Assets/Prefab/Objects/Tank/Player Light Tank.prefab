@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1767338948475753667}
   - component: {fileID: 6497080975851353066}
   - component: {fileID: 6085111081662252040}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Ring
   m_TagString: PlayerUnit
   m_Icon: {fileID: 0}
@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 7891107348694365052}
   - component: {fileID: 3831393087832840109}
   - component: {fileID: 4652993413274871462}
-  - component: {fileID: 4541561332719673610}
   m_Layer: 7
   m_Name: Gun
   m_TagString: PlayerUnit
@@ -167,28 +166,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4541561332719673610
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2180044988129819300}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -989910491859983320, guid: d154efa0e3ec60941b8cd2eab292db72, type: 3}
 --- !u!1 &2358945523620204427
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +179,7 @@ GameObject:
   - component: {fileID: 277460034942924087}
   - component: {fileID: 1275385472426843738}
   - component: {fileID: 4415469982852658780}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +225,7 @@ AudioSource:
   m_GameObject: {fileID: 2358945523620204427}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6296e71ac7b6155439694a4d49ad3816, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -344,7 +321,7 @@ AudioSource:
   m_GameObject: {fileID: 2358945523620204427}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 73a8c6b917bba554f9d5a3cf1536a0ea, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -440,7 +417,7 @@ AudioSource:
   m_GameObject: {fileID: 2358945523620204427}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -538,7 +515,6 @@ GameObject:
   - component: {fileID: 4836457629933026401}
   - component: {fileID: 1298390384571929294}
   - component: {fileID: 4862773664188409688}
-  - component: {fileID: 1863065802228590254}
   - component: {fileID: 4903095866267966856}
   - component: {fileID: 8678944682522270878}
   - component: {fileID: 5863271256235224271}
@@ -550,6 +526,8 @@ GameObject:
   - component: {fileID: 4563700242353064204}
   - component: {fileID: 17493935369966944}
   - component: {fileID: 6890000158744204817}
+  - component: {fileID: 6267654735971959833}
+  - component: {fileID: 3396530763239570219}
   m_Layer: 7
   m_Name: Player Light Tank
   m_TagString: PlayerUnit
@@ -627,28 +605,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1863065802228590254
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4797867709216861310}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5147180131510434131, guid: d154efa0e3ec60941b8cd2eab292db72, type: 3}
 --- !u!195 &4903095866267966856
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -833,6 +789,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: {fileID: 5863271256235224271}
+--- !u!114 &6267654735971959833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797867709216861310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ff48ac2a9e89d4c84039530a271d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 15
+--- !u!65 &3396530763239570219
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797867709216861310}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.1540208, y: 4, z: 4.8631344}
+  m_Center: {x: -0.00000017881393, y: 2, z: 0.16327214}
 --- !u!1 &5254564174835174679
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +917,6 @@ GameObject:
   - component: {fileID: 8282618031021874340}
   - component: {fileID: 4592410769910416732}
   - component: {fileID: 510295924877011914}
-  - component: {fileID: 5182996141763855491}
   m_Layer: 7
   m_Name: Turret
   m_TagString: PlayerUnit
@@ -1001,28 +990,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5182996141763855491
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8259606776144988384}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6595089525702598396, guid: d154efa0e3ec60941b8cd2eab292db72, type: 3}
 --- !u!1001 &8702588345605996057
 PrefabInstance:
   m_ObjectHideFlags: 0

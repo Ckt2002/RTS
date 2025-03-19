@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using GameSave;
 
-public class LoadCreateEnemySystem
+public static class LoadCreateEnemySystem
 {
     public static Task LoadCreateEnemy(SpawnEnemyData spawnEnemyData)
     {

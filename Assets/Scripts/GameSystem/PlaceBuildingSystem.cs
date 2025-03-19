@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Data;
 using GameSystem;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlaceBuildingSystem : MonoBehaviour
 {
@@ -41,6 +42,9 @@ public class PlaceBuildingSystem : MonoBehaviour
         buildingSelected.transform.rotation = Quaternion.identity;
         buildingSelected.GetComponent<BuildingController>().SetBuildingTransparent();
         buildingSelected.GetComponent<Collider>().enabled = false;
+        buildingSelected.GetComponent<FogOfWarUnit>().enabled = false;
+        buildingSelected.GetComponent<NavMeshObstacle>().enabled = false;
+        buildingSelected.tag = nameof(Tags.Unable);
         buildingSelected.SetActive(true);
     }
 
@@ -65,7 +69,7 @@ public class PlaceBuildingSystem : MonoBehaviour
             if (buildingCollider.gameObject != buildingSelected && !buildingCollider.CompareTag(Tags.Plane.ToString()))
             {
                 buildingSelected.GetComponent<Collider>().enabled = false;
-                Debug.Log("Cannot place building here. It overlaps with another building.");
+                Debug.LogWarning("Cannot place building here. It overlaps with another building.");
                 return;
             }
 
@@ -79,6 +83,9 @@ public class PlaceBuildingSystem : MonoBehaviour
         IsPlacingBuilding = false;
         buildingSelected.SetActive(false);
         buildingSelected.GetComponent<Collider>().enabled = true;
+        buildingSelected.GetComponent<NavMeshObstacle>().enabled = true;
+        buildingSelected.GetComponent<FogOfWarUnit>().enabled = true;
+        buildingSelected.tag = nameof(Tags.PlayerBuilding);
         buildingSelected = null;
     }
 

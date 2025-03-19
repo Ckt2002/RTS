@@ -21,7 +21,7 @@ public class ResourcesManager : MonoBehaviour
 
     private void Start()
     {
-        Money = 10;
+        Money = 100;
     }
 
     private void Update()

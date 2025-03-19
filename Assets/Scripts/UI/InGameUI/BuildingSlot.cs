@@ -9,7 +9,10 @@ public class BuildingSlot : ObjectSlot
     public override void BuyObject()
     {
         if (resourcesManager.Money < stat.Money)
+        {
+            Debug.LogWarning("Don't have enough money");
             return;
+        }
 
         if (stat.CompareTag(Tags.PlayerBuilding.ToString()))
         {

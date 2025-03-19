@@ -4,9 +4,10 @@ using GameSave;
 using GameSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UnitSlot : ObjectSlot
+public class UnitSlot : ObjectSlot, IPointerClickHandler
 {
     [SerializeField] private Image loading;
     [SerializeField] private TMP_Text unitCountText;
@@ -20,8 +21,13 @@ public class UnitSlot : ObjectSlot
     public override void BuyObject()
     {
         if (resourcesManager.Money < stat.Money)
+        {
+            Debug.LogWarning("Don't have enough money");
             return;
+        }
 
+
+        resourcesManager.Money -= stat.Money;
         var selectedBuilding = buildingManager.buildingSelected;
         var buildingName = selectedBuilding.name.Replace("(Clone)", "");
         var buildingIndex = GetBuildingIndexFromPooling(buildingName, selectedBuilding);
@@ -91,14 +97,16 @@ public class UnitSlot : ObjectSlot
 
                 #endregion
 
-
                 #region Unit spawn position
 
                 var currentBuilding = buildingsQueue.Dequeue();
 
                 var building = BuildingPooling.Instance.BuildingDictionary[currentBuilding.Key][currentBuilding.Value];
-                unit.transform.position = building.GetComponent<FactoryController>().SpawnPoint.position;
+                var buildingComponent = building.GetComponent<FactoryController>();
+                unit.transform.position = buildingComponent.SpawnPoint.position;
                 unit.SetActive(true);
+                var rallyPoint = unit.transform.position + new Vector3(0, 0, 20f);
+                unit.GetComponent<UnitMovement>().SetTargetPosition(rallyPoint, 0.01f);
 
                 unitCountText.text = buildingsQueue.Count.ToString();
 
@@ -121,5 +129,21 @@ public class UnitSlot : ObjectSlot
                 return buildingLst.IndexOf(building);
 
         return -1;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right && buildingsQueue.Count > 0)
+        {
+            CoroutineManager.Instance?.StopCoroutine(buyUnitCoroutine);
+            buyUnitCoroutine = null;
+            loading.fillAmount = 0;
+            buildingsQueue.Dequeue();
+            resourcesManager.Money += stat.Money;
+            unitCountText.text = buildingsQueue.Count.ToString();
+
+            if (buildingsQueue.Count > 0)
+                buyUnitCoroutine ??= CoroutineManager.Instance?.StartManagedCoroutine(CreateUnitsCoroutine());
+        }
     }
 }

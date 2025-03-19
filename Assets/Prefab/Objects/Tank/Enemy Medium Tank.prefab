@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7147403917254165433}
   - component: {fileID: 7455284245723884959}
   - component: {fileID: 7730778966472085017}
-  - component: {fileID: 6468528854128161742}
   m_Layer: 8
   m_Name: Turret
   m_TagString: EnemyUnit
@@ -85,28 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6468528854128161742
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598326392604459092}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2033553359557504459, guid: 6417aded4042b2743bc899d910e3769c, type: 3}
 --- !u!1 &1259437750993073548
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +178,6 @@ GameObject:
   - component: {fileID: 3505474551456922630}
   - component: {fileID: 3496542595742858988}
   - component: {fileID: 4497119097405640953}
-  - component: {fileID: 6946617780782521826}
   - component: {fileID: 5411290608392403113}
   - component: {fileID: 1700824691340456618}
   - component: {fileID: 6424008256431229504}
@@ -212,6 +188,7 @@ GameObject:
   - component: {fileID: 4936438354111701415}
   - component: {fileID: 4005894483918589896}
   - component: {fileID: 8208172017569858239}
+  - component: {fileID: 1572268513947369427}
   m_Layer: 8
   m_Name: Enemy Medium Tank
   m_TagString: EnemyUnit
@@ -288,28 +265,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6946617780782521826
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2902291179824299924}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3083110347591665318, guid: 6417aded4042b2743bc899d910e3769c, type: 3}
 --- !u!195 &5411290608392403113
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -485,6 +440,27 @@ MonoBehaviour:
   - {fileID: 7730778966472085017}
   - {fileID: 3708252512003528133}
   minimapIcon: {fileID: 1259437750993073548}
+--- !u!65 &1572268513947369427
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902291179824299924}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.482188, y: 4, z: 6.549153}
+  m_Center: {x: 0, y: 2, z: 0.33698535}
 --- !u!1 &6725065212871646176
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +474,7 @@ GameObject:
   - component: {fileID: 5956457380976579027}
   - component: {fileID: 2334349757043176539}
   - component: {fileID: 7824756459438807170}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +520,7 @@ AudioSource:
   m_GameObject: {fileID: 6725065212871646176}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 808f3fdabcb13fb409e41858ffe00901, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -640,7 +616,7 @@ AudioSource:
   m_GameObject: {fileID: 6725065212871646176}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -736,7 +712,7 @@ AudioSource:
   m_GameObject: {fileID: 6725065212871646176}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 73a8c6b917bba554f9d5a3cf1536a0ea, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -834,7 +810,6 @@ GameObject:
   - component: {fileID: 5719655130178912890}
   - component: {fileID: 7874446615887169497}
   - component: {fileID: 3708252512003528133}
-  - component: {fileID: 6566638808031498400}
   m_Layer: 8
   m_Name: Gun
   m_TagString: EnemyUnit
@@ -907,28 +882,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6566638808031498400
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7020996911213560346}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7086430704509615589, guid: 6417aded4042b2743bc899d910e3769c, type: 3}
 --- !u!1001 &4554325602242909288
 PrefabInstance:
   m_ObjectHideFlags: 0

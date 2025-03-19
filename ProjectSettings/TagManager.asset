@@ -10,6 +10,7 @@ TagManager:
   - EnemyUnit
   - EnemyBuilding
   - Death
+  - Unable
   layers:
   - Default
   - TransparentFX
@@ -23,9 +24,9 @@ TagManager:
   - Building
   - Minimap
   - Fog
-  - 
-  - 
-  - 
+  - Ring
+  - Explosion
+  - Sound
   - 
   - 
   - 

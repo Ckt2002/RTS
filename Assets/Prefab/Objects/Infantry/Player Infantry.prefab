@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 7322835499235768453}
   - component: {fileID: 3364976819739391631}
   - component: {fileID: 5474182413905964876}
-  - component: {fileID: 1099854074308323691}
   - component: {fileID: 7186538617443296884}
   - component: {fileID: 6174645425193087923}
   - component: {fileID: -6816687108181823428}
@@ -106,6 +105,8 @@ GameObject:
   - component: {fileID: -3528802799540608912}
   - component: {fileID: 8669586086542760556}
   - component: {fileID: 4645444787580170829}
+  - component: {fileID: 2367543088610349144}
+  - component: {fileID: 1264502114886570725}
   m_Layer: 7
   m_Name: Player Infantry
   m_TagString: PlayerUnit
@@ -184,28 +185,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1099854074308323691
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811119095935803216}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5423065205628032882, guid: cd30294c13a1a6344a0265c54a6a7f44, type: 3}
 --- !u!195 &7186538617443296884
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -391,6 +370,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: {fileID: -6816687108181823428}
+--- !u!114 &2367543088610349144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811119095935803216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ff48ac2a9e89d4c84039530a271d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 10
+--- !u!65 &1264502114886570725
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811119095935803216}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.82702863, y: 2.5, z: 1}
+  m_Center: {x: -0.00000014901161, y: 1.25, z: -0.000000007450581}
 --- !u!1 &868545368013787185
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +413,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 727651963329422814}
-  - component: {fileID: 7523334404975010216}
   m_Layer: 7
   m_Name: Turret
   m_TagString: PlayerUnit
@@ -424,28 +436,6 @@ Transform:
   - {fileID: 6953202259233807249}
   m_Father: {fileID: 7322835499235768453}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &7523334404975010216
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868545368013787185}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &1221248692107589196
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +449,7 @@ GameObject:
   - component: {fileID: 8799993135214195631}
   - component: {fileID: 1106767627067384748}
   - component: {fileID: 8683760139558662498}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +495,7 @@ AudioSource:
   m_GameObject: {fileID: 1221248692107589196}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 808f3fdabcb13fb409e41858ffe00901, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -601,7 +591,7 @@ AudioSource:
   m_GameObject: {fileID: 1221248692107589196}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -697,7 +687,7 @@ AudioSource:
   m_GameObject: {fileID: 1221248692107589196}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 73a8c6b917bba554f9d5a3cf1536a0ea, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -795,7 +785,6 @@ GameObject:
   - component: {fileID: 9193225875003505093}
   - component: {fileID: 6058532134213694480}
   - component: {fileID: 3523277278664992908}
-  - component: {fileID: 4630684792213903625}
   m_Layer: 7
   m_Name: Gun
   m_TagString: PlayerUnit
@@ -869,28 +858,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4630684792213903625
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504031821846975574}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3884977191359930679, guid: cd30294c13a1a6344a0265c54a6a7f44, type: 3}
 --- !u!1 &5307446129366928336
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +952,6 @@ GameObject:
   - component: {fileID: 6953202259233807249}
   - component: {fileID: 3270335866872834983}
   - component: {fileID: 5522396429438237661}
-  - component: {fileID: 7049982107837756583}
   m_Layer: 7
   m_Name: Upper
   m_TagString: PlayerUnit
@@ -1059,28 +1025,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7049982107837756583
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5791797036472059194}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3456426489213825212, guid: cd30294c13a1a6344a0265c54a6a7f44, type: 3}
 --- !u!1 &5850000497485090220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,7 +1034,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5770444459146663103}
-  - component: {fileID: 8052360719452915829}
   m_Layer: 7
   m_Name: Fire Point
   m_TagString: Untagged
@@ -1113,28 +1056,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9193225875003505093}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &8052360719452915829
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5850000497485090220}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &7331512023054504900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,7 +1067,6 @@ GameObject:
   - component: {fileID: 5892746564498764603}
   - component: {fileID: 1436081055567882454}
   - component: {fileID: 7605335319828341196}
-  - component: {fileID: 6178142880825316404}
   m_Layer: 7
   m_Name: Wheel
   m_TagString: PlayerUnit
@@ -1219,28 +1139,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6178142880825316404
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7331512023054504900}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1329573321850452206, guid: cd30294c13a1a6344a0265c54a6a7f44, type: 3}
 --- !u!1001 &2173313821458111722
 PrefabInstance:
   m_ObjectHideFlags: 0

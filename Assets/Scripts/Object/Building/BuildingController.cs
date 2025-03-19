@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Data;
 using GameSystem;
 using UnityEngine;
 
@@ -43,6 +44,7 @@ public class BuildingController : MonoBehaviour
     {
         foreach (var child in childrenRenderer)
         {
+            child.tag = nameof(Tags.Unable);
             var mat = child.GetComponent<Renderer>().material;
             mat.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
             var color = mat.color;
@@ -55,12 +57,15 @@ public class BuildingController : MonoBehaviour
     {
         foreach (var child in childrenRenderer)
         {
+            child.tag = nameof(Tags.PlayerBuilding);
             var mat = child.GetComponent<Renderer>().material;
             mat.shader = Shader.Find("Legacy Shaders/Diffuse");
             var color = mat.color;
             color.a = 1;
             mat.color = color;
         }
+
+        GetComponent<FogOfWarUnit>().enabled = true;
     }
 
     private void DieStatusCalculator()

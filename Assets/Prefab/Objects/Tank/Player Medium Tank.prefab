@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 7331920532553359903}
   - component: {fileID: 3070723203541361216}
   - component: {fileID: 1311318533240326529}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ AudioSource:
   m_GameObject: {fileID: 4547467914257731566}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 808f3fdabcb13fb409e41858ffe00901, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -321,7 +321,7 @@ AudioSource:
   m_GameObject: {fileID: 4547467914257731566}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -417,7 +417,7 @@ AudioSource:
   m_GameObject: {fileID: 4547467914257731566}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6533306209423370295, guid: d760eb354cdf37b4db3a92ee78b2236a, type: 2}
   m_audioClip: {fileID: 8300000, guid: 73a8c6b917bba554f9d5a3cf1536a0ea, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -515,7 +515,6 @@ GameObject:
   - component: {fileID: 8558699081661628710}
   - component: {fileID: 5312933803788122075}
   - component: {fileID: 8875458824232400628}
-  - component: {fileID: 1233082765215048808}
   - component: {fileID: 1243702070867653009}
   - component: {fileID: 1710112639871148939}
   - component: {fileID: 454517432569717164}
@@ -527,6 +526,8 @@ GameObject:
   - component: {fileID: 5716447398124841583}
   - component: {fileID: 2650397351696863764}
   - component: {fileID: 6613526935623020174}
+  - component: {fileID: 6249436895125942072}
+  - component: {fileID: 1337907598494603013}
   m_Layer: 7
   m_Name: Player Medium Tank
   m_TagString: PlayerUnit
@@ -604,28 +605,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1233082765215048808
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5075939664198315149}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3083110347591665318, guid: 6417aded4042b2743bc899d910e3769c, type: 3}
 --- !u!195 &1243702070867653009
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -810,6 +789,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: {fileID: 454517432569717164}
+--- !u!114 &6249436895125942072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5075939664198315149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ff48ac2a9e89d4c84039530a271d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 18
+--- !u!65 &1337907598494603013
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5075939664198315149}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.482188, y: 4, z: 6.549153}
+  m_Center: {x: 0, y: 2, z: 0.33698535}
 --- !u!1 &6339662220270321272
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +834,6 @@ GameObject:
   - component: {fileID: 8004141313719986909}
   - component: {fileID: 8625411978926465038}
   - component: {fileID: 1835017003708990415}
-  - component: {fileID: 5453132079273345296}
   m_Layer: 7
   m_Name: Turret
   m_TagString: PlayerUnit
@@ -895,28 +907,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5453132079273345296
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6339662220270321272}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2033553359557504459, guid: 6417aded4042b2743bc899d910e3769c, type: 3}
 --- !u!1 &9064460737265336164
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +918,6 @@ GameObject:
   - component: {fileID: 8514469911584809588}
   - component: {fileID: 4924257762935007849}
   - component: {fileID: 5435236424830033312}
-  - component: {fileID: 6628069093590830776}
   m_Layer: 7
   m_Name: Gun
   m_TagString: PlayerUnit
@@ -1001,28 +990,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6628069093590830776
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9064460737265336164}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7086430704509615589, guid: 6417aded4042b2743bc899d910e3769c, type: 3}
 --- !u!1001 &8039700477039905206
 PrefabInstance:
   m_ObjectHideFlags: 0

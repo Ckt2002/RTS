@@ -18,7 +18,6 @@ public class SaveLoadSystem : MonoBehaviour
         {
             Instance = this;
             LoadGameSlots = new List<LoadSlotInfor>();
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
