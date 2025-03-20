@@ -58,7 +58,7 @@ public class ResearchSlot : ObjectSlot, IPointerClickHandler
                 }
 
                 yield return null;
-                continue;
+                yield return new WaitUntil(() => !PauseSystem.isPausing);
             }
 
             elapsedTime += Time.deltaTime;

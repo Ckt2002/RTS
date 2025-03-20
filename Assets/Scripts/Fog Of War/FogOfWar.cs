@@ -177,4 +177,11 @@ public class FogOfWar : MonoBehaviour
 
         return mapOrigin.position + new Vector3(x - mapSize / 2, 0, z - mapSize / 2);
     }
+
+    public bool IsPositionVisible(Vector3 worldPosition)
+    {
+        var gridPos = WorldToGrid(worldPosition);
+        var index = gridPos.y * resolution + gridPos.x;
+        return fogGrid[index];
+    }
 }

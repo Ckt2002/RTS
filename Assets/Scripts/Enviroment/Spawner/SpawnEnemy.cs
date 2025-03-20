@@ -1,18 +1,21 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] private UnitPooling unitPooling;
 
-    public void SpawnUnit(string enemyName)
+    public IEnumerator SpawnUnit(string enemyName, int currentRound)
     {
         var enemy = unitPooling.GetObjectPool(enemyName);
 
         if (enemy == null)
-            return;
+            yield break;
 
         enemy.transform.position = transform.position;
         enemy.SetActive(true);
-        enemy.GetComponent<EnemyVisible>().Reset();
+        // enemy.GetComponent<EnemyVisible>().Reset();
+
+        yield return null;
     }
 }

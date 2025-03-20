@@ -7,5 +7,6 @@ namespace GameSave
     {
         public int SpawnerIndex;
         public string EnemyName;
+        public int EnemyNumber;
     }
 }

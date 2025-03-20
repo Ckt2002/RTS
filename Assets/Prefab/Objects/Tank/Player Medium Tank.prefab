@@ -525,7 +525,6 @@ GameObject:
   - component: {fileID: 2574123765417585877}
   - component: {fileID: 5716447398124841583}
   - component: {fileID: 2650397351696863764}
-  - component: {fileID: 6613526935623020174}
   - component: {fileID: 6249436895125942072}
   - component: {fileID: 1337907598494603013}
   m_Layer: 7
@@ -645,7 +644,6 @@ MonoBehaviour:
   aiming: {fileID: 2218127361650123724}
   gun: {fileID: 143406082521683941}
   dieStatus: {fileID: 2650397351696863764}
-  vision: {fileID: 6613526935623020174}
 --- !u!114 &454517432569717164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -776,19 +774,6 @@ MonoBehaviour:
   - {fileID: 1835017003708990415}
   - {fileID: 5435236424830033312}
   resetTime: 10
---- !u!114 &6613526935623020174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5075939664198315149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e5321a11888be42a6834f28a386c3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stat: {fileID: 454517432569717164}
 --- !u!114 &6249436895125942072
 MonoBehaviour:
   m_ObjectHideFlags: 0

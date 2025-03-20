@@ -8,7 +8,6 @@ public class BuildingController : MonoBehaviour
     [SerializeField] private BuildingInfor stat;
     [SerializeField] private ObjectDieStatus dieStatus;
     [SerializeField] private List<Renderer> childrenRenderer;
-    [SerializeField] private PlayerObjectVision vision;
 
     private ParticleSystem explosion;
 
@@ -31,13 +30,7 @@ public class BuildingController : MonoBehaviour
     {
         if (PauseSystem.isPausing) return;
 
-        if (!stat.IsAlive())
-        {
-            DieStatusCalculator();
-            return;
-        }
-
-        vision.SensorEnemy();
+        if (!stat.IsAlive()) DieStatusCalculator();
     }
 
     public void SetBuildingTransparent()

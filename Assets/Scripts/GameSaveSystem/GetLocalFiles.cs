@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-public class GetLocalFiles
+public static class GetLocalFiles
 {
     public static string[] GetAllSaveFile()
     {

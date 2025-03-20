@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 namespace GameSave
 {
@@ -6,8 +7,11 @@ namespace GameSave
     public class MatchData
     {
         public int CurrentRound;
-        public float TimeToNexRound;
-        public bool IsInMatch;
+
+        [FormerlySerializedAs("Timer")] [FormerlySerializedAs("TimeToNexRound")]
+        public float RoundTimer;
+
+        [FormerlySerializedAs("IsInMatch")] public bool IsSpawning;
         public SpawnEnemyData SpawnEnemyData;
     }
 }

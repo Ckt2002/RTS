@@ -1,23 +1,33 @@
 ﻿using GameSave;
+using UnityEngine;
 
 public static class SaveMatchSystem
 {
-    public static MatchData matchData;
-
-    public static MatchData ReturnMatchData()
+    public static MatchData SaveMatchData()
     {
-        return matchData;
-    }
+        var matchController = MatchController.Instance;
+        var spawnEnemy = SpawnEnemySystem.Instance;
 
-    public static void GetMatchData(int currentRound, float timeToNextRound, bool isInMatch,
-        SpawnEnemyData spawnEnemyData)
-    {
-        matchData = new MatchData
+        SpawnEnemyData spawnData = null;
+        if (matchController.isSpawning)
+            spawnData = new SpawnEnemyData
+            {
+                SpawnerIndex = spawnEnemy.spawnerIndex,
+                EnemyName = spawnEnemy.enemyNameToSave.ToString(),
+                EnemyNumber = spawnEnemy.enemyNumber
+            };
+
+        var data = new MatchData
         {
-            CurrentRound = currentRound,
-            TimeToNexRound = timeToNextRound,
-            IsInMatch = isInMatch,
-            SpawnEnemyData = spawnEnemyData
+            CurrentRound = matchController.currentRound,
+            RoundTimer = matchController.timer,
+            IsSpawning = matchController.isSpawning,
+            SpawnEnemyData = spawnData
         };
+
+        var json = JsonUtility.ToJson(data, true);
+        Debug.Log(json);
+
+        return data;
     }
 }

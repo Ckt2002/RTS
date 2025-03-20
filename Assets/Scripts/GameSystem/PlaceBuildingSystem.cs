@@ -74,6 +74,7 @@ public class PlaceBuildingSystem : MonoBehaviour
             }
 
         buildingSelected.GetComponent<BuildingController>().SetBuildingOpaque();
+        buildingSelected.GetComponent<NavMeshObstacle>().enabled = true;
         buildingSelected = null;
         IsPlacingBuilding = false;
     }

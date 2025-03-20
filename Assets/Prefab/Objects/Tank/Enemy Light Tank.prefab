@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 7059713933737430642}
   - component: {fileID: 5927432987495846254}
   - component: {fileID: 3057892516022614949}
-  - component: {fileID: 7907047089152326571}
   - component: {fileID: 9068301012845783216}
   - component: {fileID: 1863659150253918400}
   m_Layer: 8
@@ -257,23 +256,6 @@ MonoBehaviour:
   - {fileID: 6176540366285156693}
   - {fileID: 1544845284966541072}
   resetTime: 10
---- !u!114 &7907047089152326571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722714490197208987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 716a9a6f45cf0fe42a0c79235e26d59d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderers:
-  - {fileID: 1536419814525758278}
-  - {fileID: 6176540366285156693}
-  - {fileID: 1544845284966541072}
-  minimapIcon: {fileID: 3554094225128918155}
 --- !u!114 &9068301012845783216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +273,7 @@ MonoBehaviour:
   - {fileID: 6176540366285156693}
   - {fileID: 1544845284966541072}
   minimapIcon: {fileID: 3554094225128918155}
+  stat: {fileID: 2850650789188416234}
 --- !u!65 &1863659150253918400
 BoxCollider:
   m_ObjectHideFlags: 0

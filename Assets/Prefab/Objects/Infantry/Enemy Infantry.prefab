@@ -443,6 +443,7 @@ MonoBehaviour:
   - {fileID: 7260263698934266001}
   - {fileID: 3073609156519095748}
   minimapIcon: {fileID: 496568923656640160}
+  stat: {fileID: 7487843963329801255}
 --- !u!65 &50867566318620807
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using GameSave;
 
-public class LoadUnitSystem
+public static class LoadUnitSystem
 {
     public static Task LoadUnit(List<UnitData> unitDatas)
     {
@@ -16,6 +16,8 @@ public class LoadUnitSystem
             unit.transform.localRotation = data.Rotation.SetRotation();
             unit.GetComponent<ObjectInfor>().CurrentHealth = data.Stat.CurrentHealth;
             unit.GetComponent<UnitController>().SetParticle(data.ParticleData.RunTime);
+            unit.GetComponent<UnitMovement>().LoadGame(data.TargetPosition.SetPosition(), data.Velocity.SetPosition(),
+                data.IsMoving);
             unit.SetActive(true);
         }
 

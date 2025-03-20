@@ -51,7 +51,7 @@ public class LoadSceneManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         LoadScene.Instance?.HideLoadScene();
-        MatchController.Instance?.StartMatch();
+        MatchController.Instance?.RunMatch();
 
         PauseSystem.ResumeGame();
     }

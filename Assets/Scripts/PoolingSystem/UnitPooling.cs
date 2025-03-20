@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UnityEngine;
 
 public class UnitPooling : ObjectPool
 {
@@ -17,5 +18,10 @@ public class UnitPooling : ObjectPool
     {
         yield return base.SpawnObjects(action);
         CallBackAction(action);
+    }
+
+    public Transform GetParent(int index)
+    {
+        return parents[index];
     }
 }

@@ -2,7 +2,8 @@
 
 public class SaveCreateEnemySystem
 {
-    public static SpawnEnemyData SaveCreateEnemyProgress(int spawnPosIndex, string currentEnemySpawnName)
+    public static SpawnEnemyData SaveCreateEnemyProgress(int spawnPosIndex, string currentEnemySpawnName,
+        int currentEnemyNumber)
     {
         return new SpawnEnemyData
         {

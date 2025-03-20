@@ -16,6 +16,8 @@ namespace MenuUI
             else
                 DeleteFileSaveSystem.DeleteFileLocal(fileName);
 
+            var data = SaveLoadSystem.Instance.LoadGameSlots[loadGameSlot.dataIndex];
+            SaveLoadSystem.Instance.LoadGameSlots.Remove(data);
             // Disable current slot
             loadGameSlot.gameObject.SetActive(false);
         }

@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace GameSystem
+﻿namespace GameSystem
 {
-    public class PauseSystem
+    public static class PauseSystem
     {
         public static bool isPausing { get; private set; }
 

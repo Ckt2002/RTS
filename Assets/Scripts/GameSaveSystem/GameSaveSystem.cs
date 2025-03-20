@@ -11,13 +11,11 @@ public class GameSaveSystem
             BulletDatas = SaveBulletSystem.SaveBullets(),
             ResearchDatas = SaveResearchSystem.SaveResearchDatas(),
             ResourcesData = SaveResourcesSystem.SaveResourcesData(),
-            MatchData = SaveMatchSystem.matchData,
+            MatchData = SaveMatchSystem.SaveMatchData(),
             BuyUnitDatas = SaveCreateUnitSystem.SaveCreateUnit(),
             CapturePointDatas = SaveCapturePointSystem.SaveCapturePoint()
         };
 
-        // var json = JsonUtility.ToJson(saveData, true);
-        // Debug.Log(json);
         return saveData;
     }
 }

@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 5658642725997042782}
   - component: {fileID: 1620797497893442075}
   - component: {fileID: 5382775665389466211}
-  - component: {fileID: 3142312618770614728}
   - component: {fileID: 9061345756807672576}
   - component: {fileID: 3355517803351290138}
   m_Layer: 9
@@ -235,7 +234,6 @@ MonoBehaviour:
   childrenRenderer:
   - {fileID: 3006636711998805875}
   - {fileID: 5735115348106119231}
-  vision: {fileID: 3142312618770614728}
   money: 1
   timeToGetMoney: 1
 --- !u!114 &1620797497893442075
@@ -269,19 +267,6 @@ MonoBehaviour:
   - {fileID: 3006636711998805875}
   - {fileID: 5735115348106119231}
   resetTime: 10
---- !u!114 &3142312618770614728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3195785419929522385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e5321a11888be42a6834f28a386c3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stat: {fileID: 9217659371994215250}
 --- !u!114 &9061345756807672576
 MonoBehaviour:
   m_ObjectHideFlags: 0

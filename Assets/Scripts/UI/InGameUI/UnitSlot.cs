@@ -61,8 +61,7 @@ public class UnitSlot : ObjectSlot, IPointerClickHandler
             if (PauseSystem.isPausing)
             {
                 SaveCreateUnitSystem.SaveBuyUnitPref(stat.name, buildingsQueue, 0f);
-                yield return null;
-                continue;
+                yield return new WaitUntil(() => !PauseSystem.isPausing);
             }
 
             if (buildingsQueue.Count > 0)
@@ -86,8 +85,7 @@ public class UnitSlot : ObjectSlot, IPointerClickHandler
                     if (PauseSystem.isPausing)
                     {
                         SaveCreateUnitSystem.SaveBuyUnitPref(stat.name, buildingsQueue, timer);
-                        yield return null;
-                        continue;
+                        yield return new WaitUntil(() => !PauseSystem.isPausing);
                     }
 
                     timer += Time.deltaTime;

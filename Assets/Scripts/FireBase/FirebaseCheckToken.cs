@@ -20,6 +20,7 @@ namespace FireBase
                     var authToken = FirebaseSystem.Instance.idToken;
 
                     action?.Invoke(userId, authToken);
+                    Debug.Log("Token refreshed");
                 }
                 else
                 {

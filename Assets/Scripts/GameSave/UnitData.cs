@@ -9,6 +9,9 @@ namespace GameSave
         public StatData Stat;
         public PositionData Position;
         public RotationData Rotation;
+        public PositionData TargetPosition;
+        public PositionData Velocity;
+        public bool IsMoving;
         public ExplodeParticleData ParticleData;
     }
 }

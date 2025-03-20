@@ -24,6 +24,7 @@ public class SaveLoadGameUI : MonoBehaviour
     {
         ClearSlots();
 
+        var index = 0;
         foreach (var slotData in SaveLoadSystem.Instance.LoadGameSlots)
         {
             GameObject slot;
@@ -39,7 +40,8 @@ public class SaveLoadGameUI : MonoBehaviour
 
             slot.SetActive(true);
             var slotComponent = slot.GetComponent<LoadGameSlot>();
-            slotComponent.SetSlotInfor(slotData.Date, slotData.Name, isSave, slotData.IsCloud);
+            slotComponent.SetSlotInfor(index, slotData.Date, slotData.Name, isSave, slotData.IsCloud);
+            index++;
         }
     }
 

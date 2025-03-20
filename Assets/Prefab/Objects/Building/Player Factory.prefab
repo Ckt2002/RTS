@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 4014172479510459648}
   - component: {fileID: 2319719631909736433}
   - component: {fileID: 2259412466895315687}
-  - component: {fileID: 2475801188803826544}
   - component: {fileID: -8730369951132007181}
   - component: {fileID: 1128506582831901223}
   m_Layer: 9
@@ -159,7 +158,6 @@ MonoBehaviour:
   - {fileID: 8987064008118417749}
   - {fileID: 6571769709869758026}
   - {fileID: 4200717595326346376}
-  vision: {fileID: 2475801188803826544}
   rallyPoint: {fileID: 7512124382474595617}
   spawnPoint: {fileID: 7379739674679468787}
 --- !u!114 &2319719631909736433
@@ -196,19 +194,6 @@ MonoBehaviour:
   - {fileID: 4950713926574004530}
   - {fileID: 5973828292881040542}
   resetTime: 10
---- !u!114 &2475801188803826544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55975176535752055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29e5321a11888be42a6834f28a386c3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stat: {fileID: -2876503424667190840}
 --- !u!114 &-8730369951132007181
 MonoBehaviour:
   m_ObjectHideFlags: 0

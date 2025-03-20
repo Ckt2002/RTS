@@ -11,6 +11,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] protected ObjectDieStatus dieStatus;
 
     private ParticleSystem explosion;
+    private bool movementPaused;
 
     private void Start()
     {
@@ -29,7 +30,19 @@ public class UnitController : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (PauseSystem.isPausing) return;
+        if (PauseSystem.isPausing)
+        {
+            movement.Pause();
+            movementPaused = true;
+            return;
+        }
+
+        if (movementPaused) // Chỉ gọi Resume() khi thoát khỏi trạng thái pause
+        {
+            movement.Resume(); // Tiếp tục di chuyển khi game resume
+            movementPaused = false; // Đánh dấu rằng game không còn bị pause
+        }
+
 
         if (!stat.IsAlive())
         {

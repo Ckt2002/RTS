@@ -15,6 +15,7 @@ public class LoadGameSlot : MonoBehaviour, IButton
     private bool isSaveSlot;
     public bool isCloudData { get; private set; }
     public string fileName { get; private set; }
+    public int dataIndex { get; private set; }
 
     public void ButtonAction()
     {
@@ -23,9 +24,10 @@ public class LoadGameSlot : MonoBehaviour, IButton
         RunLoadGame();
     }
 
-    public void SetSlotInfor(string createdDate, string fileName, bool isSave, bool isCloud = false)
+    public void SetSlotInfor(int dataIndex, string createdDate, string fileName, bool isSave, bool isCloud = false)
     {
         // slotImage = img;
+        this.dataIndex = dataIndex;
         slotFileCreatedDate.text = createdDate;
         slotFileName.text = fileName;
         this.fileName = fileName;
