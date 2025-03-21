@@ -13,22 +13,20 @@ public class FirebaseSignIn
         var url = $"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={API_KEY}";
         var jsonData = "{\"returnSecureToken\": true}";
 
-        using (var request = CreateWebRequest(url, "POST", jsonData))
-        {
-            await request.SendWebRequest();
+        using var request = CreateWebRequest(url, "POST", jsonData);
+        await request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.ConnectionError ||
-                request.result == UnityWebRequest.Result.ProtocolError)
-            {
-                onError?.Invoke(request.error);
-            }
-            else
-            {
-                var responseJson = request.downloadHandler.text;
-                var authResponse = JsonUtility.FromJson<AuthResponse>(responseJson);
-                onSuccess?.Invoke(authResponse.idToken, authResponse.localId, authResponse.refreshToken);
-                Debug.Log($"{authResponse.idToken}, {authResponse.localId}, {authResponse.refreshToken}");
-            }
+        if (request.result == UnityWebRequest.Result.ConnectionError ||
+            request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            onError?.Invoke(request.error);
+        }
+        else
+        {
+            var responseJson = request.downloadHandler.text;
+            var authResponse = JsonUtility.FromJson<AuthResponse>(responseJson);
+            onSuccess?.Invoke(authResponse.idToken, authResponse.localId, authResponse.refreshToken);
+            Debug.Log($"{authResponse.idToken}, {authResponse.localId}, {authResponse.refreshToken}");
         }
     }
 

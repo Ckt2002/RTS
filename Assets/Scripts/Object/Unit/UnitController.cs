@@ -68,9 +68,6 @@ public class UnitController : MonoBehaviour
 
     protected virtual void DieStatusCalculator()
     {
-        dieStatus.PlaySoundAndParticle();
-        dieStatus.DarkRenderer();
-        dieStatus.ResetCalculator();
-        dieStatus.ResetStatus(stat);
+        dieStatus.PlaySoundAndParticle(stat);
     }
 }

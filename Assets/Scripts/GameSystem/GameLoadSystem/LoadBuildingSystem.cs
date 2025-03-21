@@ -15,7 +15,7 @@ public class LoadBuildingSystem
             building.GetComponent<ObjectInfor>().CurrentHealth = data.Stat.CurrentHealth;
             building.transform.position = data.Position.SetPosition();
             building.transform.localRotation = data.Rotation.SetRotation();
-            building.GetComponent<BuildingController>().SetParticle(data.ParticleData.RunTime);
+            if (data.DieData != null) building.GetComponent<ObjectDieStatus>().LoadProgress(data.DieData);
             building.SetActive(true);
         }
 

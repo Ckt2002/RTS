@@ -25,7 +25,7 @@ public class SaveLoadSystem : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Initialize()
     {
         GetLocalSaveFiles();
         GetCloudSaveFiles();

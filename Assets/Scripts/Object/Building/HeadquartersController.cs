@@ -13,6 +13,12 @@ public class HeadquartersController : BuildingController
         InvokeRepeating(nameof(CreateMoney), timeToGetMoney, timeToGetMoney);
     }
 
+    protected override void DieStatusCalculator()
+    {
+        base.DieStatusCalculator();
+        GameResult.GameOver();
+    }
+
     private void CreateMoney()
     {
         resourcesManager.CurrentMoney(money);

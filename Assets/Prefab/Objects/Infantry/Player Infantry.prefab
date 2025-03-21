@@ -131,7 +131,6 @@ Transform:
   - {fileID: 695893606513195887}
   - {fileID: 2387445283302566691}
   - {fileID: 8579621247454687516}
-  - {fileID: 5471232732330940543}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3364976819739391631
@@ -245,7 +244,7 @@ MonoBehaviour:
   damage: 10
   speed: 5
   buyTime: 2
-  fireRate: 5
+  fireRate: 2
   researchTime: 0
   attackRange: 10
 --- !u!114 &6379546822482840792
@@ -321,14 +320,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b565fb3c89bdcea44828daca4cc1f350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 1243675784775729146}
   sound: {fileID: 6656379696072045063}
   renderers:
   - {fileID: 5474182413905964876}
   - {fileID: 5522396429438237661}
   - {fileID: 3523277278664992908}
   - {fileID: 7605335319828341196}
-  resetTime: 10
+  resetTime: 5
 --- !u!114 &-3528802799540608912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1124,70 +1122,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &2173313821458111722
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 7322835499235768453}
-    m_Modifications:
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6837543758540294004, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-      propertyPath: m_Name
-      value: Low poly Unit Explosion
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
---- !u!198 &1243675784775729146 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1111058624236151568, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-  m_PrefabInstance: {fileID: 2173313821458111722}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5471232732330940543 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6180223233198277781, guid: 16817c7afd8f3de42ac1a6ea57718b07, type: 3}
-  m_PrefabInstance: {fileID: 2173313821458111722}
-  m_PrefabAsset: {fileID: 0}

@@ -60,7 +60,7 @@ public class LoadSceneManager : MonoBehaviour
     {
         var poolingCompleted = 0;
         var loadProgress = 0f;
-        var totalPoolingSystem = 3;
+        var totalPoolingSystem = 4;
         var loadSaveGameCompleted = false;
         yield return new WaitForSeconds(1f);
         PauseSystem.PauseGame();
@@ -69,6 +69,7 @@ public class LoadSceneManager : MonoBehaviour
         BuildingPooling.Instance.RunSpawnObjects(() => poolingCompleted++);
         UnitPooling.Instance.RunSpawnObjects(() => poolingCompleted++);
         BulletPooling.Instance.RunSpawnObjects(() => poolingCompleted++);
+        ParticlePooling.Instance.RunSpawnObjects(() => poolingCompleted++);
 
         while (poolingCompleted < totalPoolingSystem)
         {

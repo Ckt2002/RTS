@@ -124,7 +124,6 @@ Transform:
   - {fileID: 8082906062523493508}
   - {fileID: 2279370740510873558}
   - {fileID: 7788756551315524648}
-  - {fileID: 3871923464425461878}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7894763063405777749
@@ -261,12 +260,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b565fb3c89bdcea44828daca4cc1f350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 2376996828039049261}
   sound: {fileID: 2520015036837960460}
   renderers:
   - {fileID: 3006636711998805875}
   - {fileID: 5735115348106119231}
-  resetTime: 10
+  resetTime: 5
 --- !u!114 &9061345756807672576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,70 +715,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &6307120490309565275
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 8478610633331890083}
-    m_Modifications:
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7148845708526669425, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-      propertyPath: m_Name
-      value: Low poly Building Explosion
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
---- !u!198 &2376996828039049261 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8609667175852166006, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-  m_PrefabInstance: {fileID: 6307120490309565275}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3871923464425461878 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7078727650988614445, guid: ec3b2264219e3314f9e6d319b1a69434, type: 3}
-  m_PrefabInstance: {fileID: 6307120490309565275}
-  m_PrefabAsset: {fileID: 0}

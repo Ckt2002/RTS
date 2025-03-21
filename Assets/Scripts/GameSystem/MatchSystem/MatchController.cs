@@ -16,6 +16,7 @@ public class MatchController : MonoBehaviour
     public float timer { get; private set; }
     public int currentRound { get; private set; }
     public bool isSpawning { get; private set; }
+    public bool waitingForNextRound { get; private set; }
     private Coroutine mathCoroutine;
     private SpawnEnemyData spawnProgress;
 
@@ -30,6 +31,7 @@ public class MatchController : MonoBehaviour
     private void Start()
     {
         timer = timeToNextRound;
+        waitingForNextRound = false;
         timeText.text = FormatTime(timer);
         roundText.text = currentRound.ToString();
     }
@@ -41,18 +43,21 @@ public class MatchController : MonoBehaviour
 
     private IEnumerator RoundCoroutine()
     {
-        while (currentRound <= maxRound)
+        while (currentRound < maxRound)
         {
+            waitingForNextRound = true;
             if (PauseSystem.isPausing) yield return new WaitUntil(() => !PauseSystem.isPausing);
 
             yield return TimerCoroutine();
             timer = timeToNextRound;
         }
+
+        if (currentRound == maxRound) GameResult.GameComplete();
     }
 
     private IEnumerator TimerCoroutine()
     {
-        if (!isSpawning)
+        if (!isSpawning && waitingForNextRound)
         {
             while (timer >= 0)
             {
@@ -63,6 +68,7 @@ public class MatchController : MonoBehaviour
                 yield return null;
             }
 
+            waitingForNextRound = false;
             currentRound++;
             roundText.text = currentRound.ToString();
         }
@@ -77,7 +83,6 @@ public class MatchController : MonoBehaviour
         isSpawning = false;
 
         yield return new WaitUntil(() => !CheckEnemyAlive());
-        Debug.Log("All enemy destroyed");
     }
 
     private bool CheckEnemyAlive()
@@ -101,7 +106,8 @@ public class MatchController : MonoBehaviour
         return $"{minutes:00}:{seconds:00}";
     }
 
-    public void LoadMatch(int currentRound, float timer, bool isSpawning, SpawnEnemyData spawnProgress)
+    public void LoadMatch(int currentRound, float timer, bool isSpawning, bool waitingForNextRound,
+        SpawnEnemyData spawnProgress)
     {
         if (mathCoroutine != null)
             StopCoroutine(mathCoroutine);
@@ -110,6 +116,7 @@ public class MatchController : MonoBehaviour
         this.timer = timer;
         this.isSpawning = isSpawning;
         this.spawnProgress = spawnProgress;
+        this.waitingForNextRound = waitingForNextRound;
 
         timeText.text = FormatTime(timer);
         roundText.text = currentRound.ToString();

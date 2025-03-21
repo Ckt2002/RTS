@@ -22,12 +22,20 @@ public class FirebaseSystem : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start()
+    private async void Start()
     {
-        LoadSavedCredentials();
+        try
+        {
+            await LoadSavedCredentials();
+            SaveLoadSystem.Instance.Initialize();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
     }
 
-    private async void LoadSavedCredentials()
+    private async Task LoadSavedCredentials()
     {
         try
         {

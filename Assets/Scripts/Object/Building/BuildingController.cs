@@ -9,23 +9,6 @@ public class BuildingController : MonoBehaviour
     [SerializeField] private ObjectDieStatus dieStatus;
     [SerializeField] private List<Renderer> childrenRenderer;
 
-    private ParticleSystem explosion;
-
-    private void Start()
-    {
-        explosion = GetComponentInChildren<ParticleSystem>();
-    }
-
-    public void SetParticle(float runTime)
-    {
-        if (runTime > 0f)
-        {
-            explosion.Stop();
-            explosion.time = runTime;
-            explosion.Play();
-        }
-    }
-
     private void Update()
     {
         if (PauseSystem.isPausing) return;
@@ -61,11 +44,8 @@ public class BuildingController : MonoBehaviour
         GetComponent<FogOfWarUnit>().enabled = true;
     }
 
-    private void DieStatusCalculator()
+    protected virtual void DieStatusCalculator()
     {
-        dieStatus.PlaySoundAndParticle();
-        dieStatus.DarkRenderer();
-        dieStatus.ResetCalculator();
-        dieStatus.ResetStatus(stat);
+        dieStatus.PlaySoundAndParticle(stat);
     }
 }

@@ -9,7 +9,7 @@ public static class SaveMatchSystem
         var spawnEnemy = SpawnEnemySystem.Instance;
 
         SpawnEnemyData spawnData = null;
-        if (matchController.isSpawning)
+        if (matchController.isSpawning && !matchController.waitingForNextRound)
             spawnData = new SpawnEnemyData
             {
                 SpawnerIndex = spawnEnemy.spawnerIndex,
@@ -22,6 +22,7 @@ public static class SaveMatchSystem
             CurrentRound = matchController.currentRound,
             RoundTimer = matchController.timer,
             IsSpawning = matchController.isSpawning,
+            WaitingForNextRound = matchController.waitingForNextRound,
             SpawnEnemyData = spawnData
         };
 

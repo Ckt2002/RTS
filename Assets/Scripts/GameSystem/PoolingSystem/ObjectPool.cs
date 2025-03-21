@@ -29,7 +29,10 @@ public abstract class ObjectPool : MonoBehaviour
     public GameObject GetObjectPool(string objectName)
     {
         if (objectDictionary == null || objectDictionary.Count == 0)
+        {
+            Debug.Log("Dictionary is null");
             return null;
+        }
 
         if (objectDictionary.TryGetValue(objectName, out var value))
             foreach (var obj in value)
@@ -69,7 +72,7 @@ public abstract class ObjectPool : MonoBehaviour
 
             var unitList = objectDictionary[objectName];
             var parent = parents[0];
-            if (prefab.name.Contains(Names.Enemy))
+            if (prefab.name.Contains(Names.Enemy) || prefab.name.Contains(Names.BuildingParticle))
                 parent = parents[1];
 
             for (var i = 0; i < spawnNumber; i++)

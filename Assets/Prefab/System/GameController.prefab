@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 167336745423366380}
   - component: {fileID: 7444668307244407937}
   - component: {fileID: 5968824704625088463}
-  - component: {fileID: 3802059361032335253}
   - component: {fileID: 4854599207316424841}
+  - component: {fileID: 564964998605459946}
+  - component: {fileID: 4403213191304065738}
+  - component: {fileID: 233563769533651926}
   m_Layer: 0
   m_Name: Game System
   m_TagString: Untagged
@@ -64,7 +66,42 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   buildingsManager: {fileID: 7677645512680823193}
---- !u!114 &3802059361032335253
+--- !u!114 &4854599207316424841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191471128248947473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a1df4db5554515a141fe202962054e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &564964998605459946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191471128248947473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d2428e716f4d7c93a9052f4585520f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnEnemyArr:
+  - {fileID: 0}
+  enemyConfigs:
+  - enemyPrefabName: Enemy Infantry
+    firstAppearRound: 1
+    baseCount: 1
+    incrementPerRound: 2
+  - enemyPrefabName: Enemy Light Tank
+    firstAppearRound: 2
+    baseCount: 1
+    incrementPerRound: 1
+--- !u!114 &4403213191304065738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,10 +115,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 0}
   roundText: {fileID: 0}
-  timeToNextRound: 60
-  maxRound: 3
-  enemyNumberEachType: 10
---- !u!114 &4854599207316424841
+  timeToNextRound: 10
+  maxRound: 1
+--- !u!114 &233563769533651926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,9 +126,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 191471128248947473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a1df4db5554515a141fe202962054e, type: 3}
+  m_Script: {fileID: 11500000, guid: 07b64dfa740b41a3b96f3b5ad8480f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InGameMenuPanel: {fileID: 0}
+  InGameMenu: {fileID: 0}
+  ResultMenu: {fileID: 0}
 --- !u!1 &277544568980159518
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +301,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4044744825090456017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1591577598180720976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3631339179133735702}
+  m_Layer: 0
+  m_Name: Building Particle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3631339179133735702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591577598180720976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2744682171791253390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2379175343800422130
 GameObject:
@@ -534,6 +604,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1728998387555289344}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4173095048569990154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4418702097100738547}
+  m_Layer: 0
+  m_Name: Unit Particle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4418702097100738547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4173095048569990154}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2744682171791253390}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4225925066173642619
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +698,7 @@ Transform:
   - {fileID: 1728998387555289344}
   - {fileID: 4044744825090456017}
   - {fileID: 2855370863690543582}
+  - {fileID: 2744682171791253390}
   m_Father: {fileID: 8583764424263675891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4736175469566028685
@@ -712,6 +814,61 @@ MonoBehaviour:
   gameCamera: {fileID: 0}
   maxSelectDistance: 1000
   outlineMaterial: {fileID: 2100000, guid: 22a011b3a11e0064c96214ce81f222b6, type: 2}
+--- !u!1 &5175452985243932928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2744682171791253390}
+  - component: {fileID: 9101087852534395646}
+  m_Layer: 0
+  m_Name: Particle Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2744682171791253390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175452985243932928}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4418702097100738547}
+  - {fileID: 3631339179133735702}
+  m_Father: {fileID: 4684562404914479015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9101087852534395646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5175452985243932928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043ec3dba0634d3cb5767b6b2f1391db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefabs:
+  - objectPrefab: {fileID: 3425181410230741711, guid: d7168cb258b50a248ab2764afd9dab7a, type: 3}
+    spawnNumber: 20
+  - objectPrefab: {fileID: 1001457024695406457, guid: 598472e063f19c84586a179871aa912b, type: 3}
+    spawnNumber: 20
+  parents:
+  - {fileID: 4418702097100738547}
+  - {fileID: 3631339179133735702}
+  objectsSpawned: []
 --- !u!1 &5646265509234044365
 GameObject:
   m_ObjectHideFlags: 0

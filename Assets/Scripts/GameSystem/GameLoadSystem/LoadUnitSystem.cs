@@ -15,9 +15,9 @@ public static class LoadUnitSystem
             unit.transform.position = data.Position.SetPosition();
             unit.transform.localRotation = data.Rotation.SetRotation();
             unit.GetComponent<ObjectInfor>().CurrentHealth = data.Stat.CurrentHealth;
-            unit.GetComponent<UnitController>().SetParticle(data.ParticleData.RunTime);
-            unit.GetComponent<UnitMovement>().LoadGame(data.TargetPosition.SetPosition(), data.Velocity.SetPosition(),
-                data.IsMoving);
+            unit.GetComponent<UnitMovement>().LoadGame(data.TargetPosition.SetPosition(),
+                data.Velocity.SetPosition(), data.IsMoving);
+            if (data.DieData != null) unit.GetComponent<ObjectDieStatus>().LoadProgress(data.DieData);
             unit.SetActive(true);
         }
 

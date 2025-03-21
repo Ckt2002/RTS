@@ -75,8 +75,6 @@ public class SpawnEnemySystem : MonoBehaviour
 
             enemyNameToSave.Clear();
         }
-
-        Debug.Log("All enemies spawned for this round");
     }
 
     private int CalculateUnitCount(RoundEnemyTypeConfig config, int currentRound)

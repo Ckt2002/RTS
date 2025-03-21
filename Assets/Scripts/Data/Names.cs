@@ -25,6 +25,10 @@ public static class Names
     public const string PlayerGroundBullet = "Player Ground Bullet";
     public const string EnemyGroundBullet = "Enemy Ground Bullet";
 
+    // ParticleName
+    public const string UnitParticle = "Low poly Unit Explosion";
+    public const string BuildingParticle = "Low poly Building Explosion";
+
     // List Enemy
     public static readonly List<string> enemyUnitNameLst = new()
     {

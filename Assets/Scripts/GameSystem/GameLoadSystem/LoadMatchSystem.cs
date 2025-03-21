@@ -8,7 +8,7 @@ public static class LoadMatchSystem
         if (matchData == null) return;
 
         MatchController.Instance.LoadMatch(matchData.CurrentRound, matchData.RoundTimer, matchData.IsSpawning,
-            matchData.SpawnEnemyData);
+            matchData.WaitingForNextRound, matchData.SpawnEnemyData);
         await LoadCreateEnemySystem.LoadCreateEnemy(matchData.SpawnEnemyData);
     }
 }

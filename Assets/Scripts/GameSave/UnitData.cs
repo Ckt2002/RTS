@@ -12,6 +12,6 @@ namespace GameSave
         public PositionData TargetPosition;
         public PositionData Velocity;
         public bool IsMoving;
-        public ExplodeParticleData ParticleData;
+        public ObjectDieData DieData;
     }
 }

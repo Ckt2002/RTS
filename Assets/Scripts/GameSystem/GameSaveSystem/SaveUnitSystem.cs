@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using GameSave;
-using UnityEngine;
 
 public static class SaveUnitSystem
 {
@@ -19,8 +18,7 @@ public static class SaveUnitSystem
                 Position = new PositionData(),
                 Rotation = new RotationData(),
                 TargetPosition = new PositionData(),
-                Velocity = new PositionData(),
-                ParticleData = new ExplodeParticleData()
+                Velocity = new PositionData()
             };
             data.Obj.Name = unitType.Key;
             data.Obj.LstIndex = unit.Key;
@@ -30,8 +28,7 @@ public static class SaveUnitSystem
             data.TargetPosition.GetPosition(moveComponent.targetPos);
             data.Velocity.GetPosition(moveComponent.velocity);
             data.IsMoving = moveComponent.isMoving;
-            data.ParticleData.RunTime = unit.Value.GetComponentInChildren<ParticleSystem>().time;
-
+            if (data.Stat.CurrentHealth <= 0) data.DieData = unit.Value.GetComponent<ObjectDieStatus>().SaveProgress();
             unitDatas.Add(data);
         }
 
