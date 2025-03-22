@@ -659,13 +659,13 @@ MonoBehaviour:
   description: Light tank
   maxHealth: 100
   armor: 100
-  money: 10
+  money: 20
   vision: 15
   damage: 1
   speed: 5
-  buyTime: 5
+  buyTime: 10
   fireRate: 0.5
-  researchTime: 5
+  researchTime: 30
   attackRange: 15
 --- !u!114 &4504148128018716083
 MonoBehaviour:

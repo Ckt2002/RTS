@@ -8,8 +8,7 @@ public class MatchController : MonoBehaviour
 {
     public static MatchController Instance { get; private set; }
 
-    [SerializeField] private TMP_Text timeText;
-    [SerializeField] private TMP_Text roundText;
+    [SerializeField] private TMP_Text timeAndRoundText;
     [SerializeField] private float timeToNextRound;
     [SerializeField] private int maxRound;
 
@@ -32,8 +31,7 @@ public class MatchController : MonoBehaviour
     {
         timer = timeToNextRound;
         waitingForNextRound = false;
-        timeText.text = FormatTime(timer);
-        roundText.text = currentRound.ToString();
+        timeAndRoundText.text = FormatTime(timer);
     }
 
     public void RunMatch()
@@ -50,6 +48,7 @@ public class MatchController : MonoBehaviour
 
             yield return TimerCoroutine();
             timer = timeToNextRound;
+            timeAndRoundText.text = FormatTime(timer);
         }
 
         if (currentRound == maxRound) GameResult.GameComplete();
@@ -64,13 +63,13 @@ public class MatchController : MonoBehaviour
                 if (PauseSystem.isPausing) yield return new WaitUntil(() => !PauseSystem.isPausing);
 
                 timer -= Time.deltaTime;
-                timeText.text = FormatTime(timer);
+                timeAndRoundText.text = FormatTime(timer);
                 yield return null;
             }
 
             waitingForNextRound = false;
             currentRound++;
-            roundText.text = currentRound.ToString();
+            timeAndRoundText.text = SetRoundText(currentRound);
         }
         else
         {
@@ -118,9 +117,18 @@ public class MatchController : MonoBehaviour
         this.spawnProgress = spawnProgress;
         this.waitingForNextRound = waitingForNextRound;
 
-        timeText.text = FormatTime(timer);
-        roundText.text = currentRound.ToString();
+        timeAndRoundText.text = waitingForNextRound ? SetTimeText(timer) : SetRoundText(currentRound);
 
         mathCoroutine ??= StartCoroutine(RoundCoroutine());
+    }
+
+    private string SetRoundText(int currentRound)
+    {
+        return $"Round {currentRound}";
+    }
+
+    private string SetTimeText(float timer)
+    {
+        return FormatTime(timer);
     }
 }

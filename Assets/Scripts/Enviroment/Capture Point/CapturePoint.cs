@@ -20,6 +20,8 @@ public class CapturePoint : MonoBehaviour
         resourcesManager = ResourcesManager.Instance;
         captureCircle.fillAmount = 0f;
         elapsedTime = 0;
+        GetComponent<CapturePointVisibility>().enabled = true;
+        GetComponent<FogOfWarUnit>().enabled = false;
     }
 
     private void OnDrawGizmosSelected()
@@ -84,6 +86,9 @@ public class CapturePoint : MonoBehaviour
 
         captureCircle.fillAmount = 1f;
         captured = true;
+        GetComponent<CapturePointVisibility>().StopCheckVisibility();
+        GetComponent<CapturePointVisibility>().enabled = false;
+        GetComponent<FogOfWarUnit>().enabled = true;
         StartCoroutine(nameof(StartGetMoney));
     }
 

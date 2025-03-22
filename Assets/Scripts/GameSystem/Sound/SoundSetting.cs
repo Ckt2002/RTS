@@ -20,7 +20,6 @@ public class SoundSetting : MonoBehaviour
 
     public void SetMasterVolume()
     {
-        Debug.Log(masterSlider.value);
         soundSystem.SetMasterVolume(masterSlider.value);
     }
 

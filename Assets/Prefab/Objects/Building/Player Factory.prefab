@@ -135,7 +135,7 @@ MonoBehaviour:
   description: Product units
   maxHealth: 100
   armor: 50
-  money: 20
+  money: 50
   vision: 35
 --- !u!114 &4014172479510459648
 MonoBehaviour:

@@ -10,6 +10,7 @@ public abstract class ObjectPool : MonoBehaviour
 
     [HideInInspector] public List<GameObject> objectsSpawned;
 
+    protected Dictionary<string, GameObject> prefabDictionary;
     protected Dictionary<string, List<GameObject>> objectDictionary;
     public Dictionary<string, List<GameObject>> GetObjectDictionary => objectDictionary;
 
@@ -17,6 +18,8 @@ public abstract class ObjectPool : MonoBehaviour
     {
         objectsSpawned = new List<GameObject>();
         objectDictionary = new Dictionary<string, List<GameObject>>();
+        prefabDictionary = new Dictionary<string, GameObject>();
+        foreach (var prefab in objectPrefabs) prefabDictionary.Add(prefab.objectPrefab.name, prefab.objectPrefab);
     }
 
     public List<GameObject> GetObjectByName(string name)
@@ -35,9 +38,19 @@ public abstract class ObjectPool : MonoBehaviour
         }
 
         if (objectDictionary.TryGetValue(objectName, out var value))
+        {
             foreach (var obj in value)
                 if (!obj.activeInHierarchy)
                     return obj;
+
+            var parent = parents[0];
+            if (objectName.Contains(Names.Enemy) || objectName.Contains(Names.BuildingParticle))
+                parent = parents[1];
+
+            var newObj = Instantiate(prefabDictionary[objectName], parent, true);
+            value.Add(newObj);
+            objectsSpawned.Add(newObj);
+        }
 
         return null;
     }

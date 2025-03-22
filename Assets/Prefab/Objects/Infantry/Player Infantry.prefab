@@ -239,11 +239,11 @@ MonoBehaviour:
   description: Infantry
   maxHealth: 50
   armor: 5
-  money: 6
+  money: 15
   vision: 10
   damage: 10
   speed: 5
-  buyTime: 2
+  buyTime: 5
   fireRate: 2
   researchTime: 0
   attackRange: 10

@@ -659,13 +659,13 @@ MonoBehaviour:
   description: Medium tank
   maxHealth: 150
   armor: 20
-  money: 25
+  money: 35
   vision: 18
   damage: 30
   speed: 4
-  buyTime: 8
+  buyTime: 15
   fireRate: 0.2
-  researchTime: 30
+  researchTime: 60
   attackRange: 18
 --- !u!114 &4132296314353189394
 MonoBehaviour:

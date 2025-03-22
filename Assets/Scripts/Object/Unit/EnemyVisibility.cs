@@ -12,6 +12,7 @@ public class EnemyVisibility : MonoBehaviour
     private void Start()
     {
         fogOfWar = FindObjectOfType<FogOfWar>();
+
         StartCoroutine(UpdateVisibility());
     }
 
@@ -19,13 +20,17 @@ public class EnemyVisibility : MonoBehaviour
     {
         while (stat.IsAlive())
         {
-            var isVisible = fogOfWar.IsPositionVisible(transform.position);
-
-            foreach (var renderer in meshRenderers) renderer.enabled = isVisible;
-
-            minimapIcon.SetActive(isVisible);
-
+            CheckVisible();
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    private void CheckVisible()
+    {
+        var isVisible = fogOfWar.IsPositionVisible(transform.position);
+
+        foreach (var renderer in meshRenderers) renderer.enabled = isVisible;
+
+        minimapIcon.SetActive(isVisible);
     }
 }

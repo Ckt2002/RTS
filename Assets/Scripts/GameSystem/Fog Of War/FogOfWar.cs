@@ -180,6 +180,9 @@ public class FogOfWar : MonoBehaviour
 
     public bool IsPositionVisible(Vector3 worldPosition)
     {
+        if (fogGrid == null)
+            return false;
+
         var gridPos = WorldToGrid(worldPosition);
         var index = gridPos.y * resolution + gridPos.x;
         return fogGrid[index];

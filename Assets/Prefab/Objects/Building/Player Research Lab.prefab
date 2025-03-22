@@ -551,7 +551,7 @@ MonoBehaviour:
   description: Research new units
   maxHealth: 100
   armor: 40
-  money: 30
+  money: 80
   vision: 30
 --- !u!114 &2313441400805897201
 MonoBehaviour:

@@ -233,8 +233,8 @@ MonoBehaviour:
   childrenRenderer:
   - {fileID: 3006636711998805875}
   - {fileID: 5735115348106119231}
-  money: 1
-  timeToGetMoney: 1
+  money: 2
+  timeToGetMoney: 5
 --- !u!114 &1620797497893442075
 MonoBehaviour:
   m_ObjectHideFlags: 0
