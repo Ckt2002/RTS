@@ -3,18 +3,18 @@ using System.IO;
 using GameSave;
 using UnityEngine;
 
-public class FileLoadSystem
+public static class FileLoadSystem
 {
     public static GameSaveData LoadGameLocal(string fileName)
     {
         try
         {
             var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var filePath = Path.Combine(desktopPath, fileName);
+            var filePath = Path.Combine(desktopPath, fileName + ".json");
 
             if (!File.Exists(filePath))
             {
-                Debug.LogError("File not found: " + filePath);
+                Debug.LogError($"File not found: {filePath}.json");
                 return null;
             }
 

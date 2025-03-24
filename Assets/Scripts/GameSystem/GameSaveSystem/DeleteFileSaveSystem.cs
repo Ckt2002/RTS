@@ -9,17 +9,13 @@ public class DeleteFileSaveSystem
         try
         {
             var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var filePath = Path.Combine(desktopPath, fileName);
+            var filePath = Path.Combine(desktopPath, fileName + ".json");
 
             if (File.Exists(filePath))
-            {
                 File.Delete(filePath);
-                Debug.Log($"File deleted successfully: {filePath}");
-            }
+            // Debug.Log($"File deleted successfully: {filePath}");
             else
-            {
                 Debug.LogWarning($"File not found: {filePath}");
-            }
         }
         catch (Exception ex)
         {

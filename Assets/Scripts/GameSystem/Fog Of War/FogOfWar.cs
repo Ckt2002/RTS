@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using GameSystem;
 using UnityEngine;
 
 public class FogOfWar : MonoBehaviour
 {
+    public static FogOfWar Instance;
+
     [Header("Fog Settings")] [SerializeField]
     private int resolution = 256;
 
@@ -19,24 +23,33 @@ public class FogOfWar : MonoBehaviour
 
     private readonly List<FogOfWarUnit> visibilityUnits = new();
     private float cellSize;
-    private bool[] exploredGrid;
+    public bool[] exploredGrid { get; private set; }
     private Color[] fogColors;
     private bool[] fogGrid;
 
     private Texture2D fogTexture;
 
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
+
     private void Start()
     {
         Initialize();
-        StartCoroutine(UpdateFogCoroutine());
     }
 
     private void Initialize()
     {
         // Initialize fog texture
-        fogTexture = new Texture2D(resolution, resolution, TextureFormat.RGBA32, false);
-        fogTexture.filterMode = FilterMode.Bilinear;
-        fogTexture.wrapMode = TextureWrapMode.Clamp;
+        fogTexture = new Texture2D(resolution, resolution, TextureFormat.RGBA32, false)
+        {
+            filterMode = FilterMode.Bilinear,
+            wrapMode = TextureWrapMode.Clamp
+        };
 
         // Set fog material texture
         fogMaterial.mainTexture = fogTexture;
@@ -67,10 +80,12 @@ public class FogOfWar : MonoBehaviour
         if (visibilityUnits.Contains(unit)) visibilityUnits.Remove(unit);
     }
 
-    private IEnumerator UpdateFogCoroutine()
+    public IEnumerator UpdateFogCoroutine()
     {
         while (true)
         {
+            if (PauseSystem.isPausing)
+                yield return new WaitUntil(() => !PauseSystem.isPausing);
             UpdateFogOfWar();
             yield return new WaitForSeconds(updateInterval);
         }
@@ -186,5 +201,22 @@ public class FogOfWar : MonoBehaviour
         var gridPos = WorldToGrid(worldPosition);
         var index = gridPos.y * resolution + gridPos.x;
         return fogGrid[index];
+    }
+
+    public bool IsPositionExplored(Vector3 worldPosition)
+    {
+        if (fogColors == null)
+            return false;
+
+        var gridPos = WorldToGrid(worldPosition);
+        var index = gridPos.y * resolution + gridPos.x;
+        return fogColors[index].a == 0f;
+    }
+
+    public Task LoadFogOfWar(bool[] exploredGrid)
+    {
+        this.exploredGrid = exploredGrid;
+
+        return Task.CompletedTask;
     }
 }

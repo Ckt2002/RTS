@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyVisibility : MonoBehaviour
 {
     [SerializeField] private List<MeshRenderer> meshRenderers;
-    [SerializeField] private GameObject minimapIcon;
     [SerializeField] private ObjectInfor stat;
     private FogOfWar fogOfWar;
 
@@ -27,10 +26,8 @@ public class EnemyVisibility : MonoBehaviour
 
     private void CheckVisible()
     {
-        var isVisible = fogOfWar.IsPositionVisible(transform.position);
+        var isVisible = fogOfWar.IsPositionExplored(transform.position);
 
         foreach (var renderer in meshRenderers) renderer.enabled = isVisible;
-
-        minimapIcon.SetActive(isVisible);
     }
 }

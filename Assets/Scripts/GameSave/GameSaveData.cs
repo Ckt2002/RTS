@@ -4,6 +4,8 @@ namespace GameSave
 {
     public class GameSaveData
     {
+        public byte MapType = 1;
+
         public List<UnitData> UnitDatas;
 
         public List<BuildingData> BuildingDatas;
@@ -15,5 +17,6 @@ namespace GameSave
         public List<BuyUnitData> BuyUnitDatas;
         public List<ResearchData> ResearchDatas;
         public List<CapturePointData> CapturePointDatas;
+        public bool[] ExploredGrid;
     }
 }

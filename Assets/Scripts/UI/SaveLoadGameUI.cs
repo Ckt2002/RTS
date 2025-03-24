@@ -40,7 +40,7 @@ public class SaveLoadGameUI : MonoBehaviour
 
             slot.SetActive(true);
             var slotComponent = slot.GetComponent<LoadGameSlot>();
-            slotComponent.SetSlotInfor(index, slotData.Date, slotData.Name, isSave, slotData.IsCloud);
+            slotComponent.SetSlotInfor(index, slotData.Date, slotData.Name, isSave, slotData.IsCloud, slotData.MapType);
             index++;
         }
     }

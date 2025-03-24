@@ -47,12 +47,16 @@ public class SaveLoadSystem : MonoBehaviour
 
         foreach (var filePath in saveFiles)
         {
-            var fileName = Path.GetFileName(filePath);
+            var fileContent = File.ReadAllText(filePath);
+            var saveData = JsonUtility.FromJson<GameSaveData>(fileContent);
+
+            var mapType = saveData.MapType;
+            var fileName = Path.GetFileName(filePath).Replace(".json", "");
             var creationTime = File.GetCreationTime(filePath);
             var formattedCreationTime = creationTime.ToString("HH:mm-dd/MM/yyyy");
 
             var slot = new LoadSlotInfor();
-            slot.SetInfor(fileName, formattedCreationTime, false);
+            slot.SetInfor(fileName, formattedCreationTime, false, mapType);
             AddNewSlot(slot);
         }
     }
@@ -76,7 +80,8 @@ public class SaveLoadSystem : MonoBehaviour
         foreach (var data in cloudData)
         {
             var slot = new LoadSlotInfor();
-            slot.SetInfor(data.Key, data.Value.saveTime, true);
+            var mapType = data.Value.gameData.MapType;
+            slot.SetInfor(data.Key, data.Value.saveTime, true, mapType);
             AddNewSlot(slot);
         }
     }

@@ -8,9 +8,9 @@ public class LoadGameSlot : MonoBehaviour, IButton
 {
     [SerializeField] private Text slotFileCreatedDate;
     [SerializeField] private Text slotFileName;
-    [SerializeField] private Text slotFileRound;
     [SerializeField] private Image slotImage;
     [SerializeField] private Image cloudIcon;
+    [SerializeField] private Sprite[] slotImages;
 
     private bool isSaveSlot;
     public bool isCloudData { get; private set; }
@@ -24,9 +24,10 @@ public class LoadGameSlot : MonoBehaviour, IButton
         RunLoadGame();
     }
 
-    public void SetSlotInfor(int dataIndex, string createdDate, string fileName, bool isSave, bool isCloud = false)
+    public void SetSlotInfor(int dataIndex, string createdDate, string fileName, bool isSave,
+        bool isCloud = false, int mapType = 1)
     {
-        // slotImage = img;
+        slotImage.sprite = slotImages[mapType - 1];
         this.dataIndex = dataIndex;
         slotFileCreatedDate.text = createdDate;
         slotFileName.text = fileName;
@@ -40,17 +41,20 @@ public class LoadGameSlot : MonoBehaviour, IButton
     {
         try
         {
+            var sceneInd = 1;
             if (cloudIcon.IsActive())
             {
                 var gameData = await FirebaseLoadData.LoadFile(slotFileName.text);
-                GameLoadSystem.GetGameSaveData(gameData);
+                GameLoadSystem.GetGameSaveData(gameData, value => sceneInd = value);
             }
             else
             {
-                GameLoadSystem.GetGameSaveData(FileLoadSystem.LoadGameLocal(slotFileName.text));
+                GameLoadSystem.GetGameSaveData(FileLoadSystem.LoadGameLocal(slotFileName.text),
+                    value => sceneInd = value);
             }
 
-            LoadSceneManager.Instance.StartLoadScene(nameof(Scenes.Map1), true);
+            var sceneType = (Scenes)sceneInd;
+            LoadSceneManager.Instance.StartLoadScene(sceneType.ToString(), true);
         }
         catch (Exception e)
         {

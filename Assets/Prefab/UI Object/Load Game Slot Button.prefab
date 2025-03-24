@@ -179,6 +179,10 @@ MonoBehaviour:
   slotFileRound: {fileID: 0}
   slotImage: {fileID: 218170290792576140}
   cloudIcon: {fileID: 1552508870291746412}
+  slotImages:
+  - {fileID: 21300000, guid: 1415b7963230ef94a845c46e77444fae, type: 3}
+  - {fileID: 21300000, guid: 33b8e737a46d7f54a87fae6564dcfa08, type: 3}
+  - {fileID: 21300000, guid: 17e14f5573133b34da2d440266015f44, type: 3}
 --- !u!1 &1776415806322466618
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1415b7963230ef94a845c46e77444fae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17e14f5573133b34da2d440266015f44, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

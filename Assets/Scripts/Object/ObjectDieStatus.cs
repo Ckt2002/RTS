@@ -10,10 +10,10 @@ public class ObjectDieStatus : MonoBehaviour
     [SerializeField] private ObjectSound sound;
     [SerializeField] private List<Renderer> renderers;
     [SerializeField] private float resetTime;
-
     public bool runExplodeAndSound { get; private set; } = true;
     public float particleElapsedTime { get; private set; }
     public float resetElapsedTime { get; private set; }
+    private bool runOne;
     private ParticleSystem particle;
     private string particleName;
     private Coroutine resetCoroutine;
@@ -24,10 +24,14 @@ public class ObjectDieStatus : MonoBehaviour
             particleName = Names.UnitParticle;
         else
             particleName = Names.BuildingParticle;
+
+        runOne = false;
     }
 
     public void PlaySoundAndParticle(ObjectInfor objectStat = null)
     {
+        if (runOne) return;
+
         if (runExplodeAndSound)
         {
             if (particle == null)
@@ -57,17 +61,21 @@ public class ObjectDieStatus : MonoBehaviour
             particle.Play();
         }
 
-        if (resetCoroutine == null) Debug.Log("resetCoroutine is null");
+        runOne = true;
 
         resetCoroutine ??= StartCoroutine(DelayedReset(objectStat, resetTime, particle));
     }
+
 
     public void DarkRenderer()
     {
         foreach (var objectRenderer in renderers)
         {
-            var originalColor = objectRenderer.material.color;
-            var darkerColor = originalColor * 0.5f;
+            var darkerColor = new Color(
+                0,
+                0,
+                0
+            );
             objectRenderer.material.color = darkerColor;
         }
     }
@@ -104,24 +112,25 @@ public class ObjectDieStatus : MonoBehaviour
         resetElapsedTime = 0f;
         particleElapsedTime = 0f;
 
-        ResetStatus(objectStat);
+        yield return ResetStatus(objectStat);
     }
 
-    public void ResetStatus(ObjectInfor objectStat)
+    public IEnumerator ResetStatus(ObjectInfor objectStat)
     {
-        Debug.Log("Resetting");
-        objectStat.ResetStat();
-
-        foreach (var unitRenderer in renderers)
+        foreach (var objectRenderer in renderers)
         {
-            var originalColor = unitRenderer.material.color;
-            var resetColor = originalColor / 0.5f;
-            unitRenderer.material.color = resetColor;
+            var brighterColor = new Color(1, 1, 1);
+
+            objectRenderer.material.color = brighterColor;
+            yield return null;
         }
+
 
         particle = null;
         runExplodeAndSound = false;
         resetCoroutine = null;
+        objectStat.ResetStat();
+        runOne = false;
         gameObject.SetActive(false);
     }
 

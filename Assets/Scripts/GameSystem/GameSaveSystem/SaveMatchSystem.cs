@@ -1,5 +1,4 @@
 ﻿using GameSave;
-using UnityEngine;
 
 public static class SaveMatchSystem
 {
@@ -25,9 +24,6 @@ public static class SaveMatchSystem
             WaitingForNextRound = matchController.waitingForNextRound,
             SpawnEnemyData = spawnData
         };
-
-        var json = JsonUtility.ToJson(data, true);
-        Debug.Log(json);
 
         return data;
     }

@@ -28,7 +28,7 @@ public static class FileSaveSystem
 
             File.WriteAllText(filePath, json);
             var saveTime = DateTime.Now.ToString("HH:mm-dd/MM/yyyy");
-            UpdateSaveLoadSystem(fileName, saveTime, false);
+            UpdateSaveLoadSystem(fileName, saveTime, false, gameData.MapType);
         }
         catch (Exception ex)
         {
@@ -43,7 +43,7 @@ public static class FileSaveSystem
             var json = JsonUtility.ToJson(gameData, true);
             var saveTime = DateTime.Now.ToString("HH:mm-dd/MM/yyyy");
             await FirebaseSaveData.SaveData(fileName, json, saveTime);
-            UpdateSaveLoadSystem(fileName, saveTime, true);
+            UpdateSaveLoadSystem(fileName, saveTime, true, gameData.MapType);
         }
         catch (Exception ex)
         {
@@ -51,10 +51,10 @@ public static class FileSaveSystem
         }
     }
 
-    private static void UpdateSaveLoadSystem(string fileName, string saveTime, bool isCloud)
+    private static void UpdateSaveLoadSystem(string fileName, string saveTime, bool isCloud, byte mapType)
     {
         var slotInfo = new LoadSlotInfor();
-        slotInfo.SetInfor(fileName, saveTime, isCloud);
+        slotInfo.SetInfor(fileName, saveTime, isCloud, mapType);
         SaveLoadSystem.Instance.AddNewSlot(slotInfo);
     }
 }

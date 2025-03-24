@@ -12,6 +12,7 @@ public class MatchController : MonoBehaviour
     [SerializeField] private float timeToNextRound;
     [SerializeField] private int maxRound;
 
+    private bool isLoading;
     public float timer { get; private set; }
     public int currentRound { get; private set; }
     public bool isSpawning { get; private set; }
@@ -36,6 +37,7 @@ public class MatchController : MonoBehaviour
 
     public void RunMatch()
     {
+        StartCoroutine(FogOfWar.Instance.UpdateFogCoroutine());
         mathCoroutine ??= StartCoroutine(RoundCoroutine());
     }
 
@@ -43,12 +45,9 @@ public class MatchController : MonoBehaviour
     {
         while (currentRound < maxRound)
         {
-            waitingForNextRound = true;
             if (PauseSystem.isPausing) yield return new WaitUntil(() => !PauseSystem.isPausing);
 
             yield return TimerCoroutine();
-            timer = timeToNextRound;
-            timeAndRoundText.text = FormatTime(timer);
         }
 
         if (currentRound == maxRound) GameResult.GameComplete();
@@ -56,8 +55,9 @@ public class MatchController : MonoBehaviour
 
     private IEnumerator TimerCoroutine()
     {
-        if (!isSpawning && waitingForNextRound)
+        if ((!isSpawning && waitingForNextRound && isLoading) || (!isLoading && !waitingForNextRound))
         {
+            waitingForNextRound = true;
             while (timer >= 0)
             {
                 if (PauseSystem.isPausing) yield return new WaitUntil(() => !PauseSystem.isPausing);
@@ -71,17 +71,26 @@ public class MatchController : MonoBehaviour
             currentRound++;
             timeAndRoundText.text = SetRoundText(currentRound);
         }
-        else
+        // Nếu dữ liệu lưu đang đến đoạn spawn unit
+        else if (isLoading && isSpawning)
         {
             yield return SpawnEnemySystem.Instance.LoadSpawnEnemy(spawnProgress);
             spawnProgress = null;
         }
 
-        isSpawning = true;
-        yield return SpawnEnemySystem.Instance.RunSpawnUnit(currentRound);
-        isSpawning = false;
+
+        // Không load game, chạy bình thường
+        if (!isLoading)
+        {
+            isSpawning = true;
+            yield return SpawnEnemySystem.Instance.RunSpawnUnit(currentRound);
+            isSpawning = false;
+        }
 
         yield return new WaitUntil(() => !CheckEnemyAlive());
+        timer = timeToNextRound;
+        timeAndRoundText.text = FormatTime(timer);
+        isLoading = false;
     }
 
     private bool CheckEnemyAlive()
@@ -116,8 +125,9 @@ public class MatchController : MonoBehaviour
         this.isSpawning = isSpawning;
         this.spawnProgress = spawnProgress;
         this.waitingForNextRound = waitingForNextRound;
+        isLoading = true;
 
-        timeAndRoundText.text = waitingForNextRound ? SetTimeText(timer) : SetRoundText(currentRound);
+        timeAndRoundText.text = timer > 0 ? SetTimeText(timer) : SetRoundText(currentRound);
 
         mathCoroutine ??= StartCoroutine(RoundCoroutine());
     }

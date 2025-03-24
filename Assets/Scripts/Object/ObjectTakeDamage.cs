@@ -7,7 +7,8 @@ public class ObjectTakeDamage : MonoBehaviour
     public void TakeDamage(int damage)
     {
         var remainDamage = damage - objectInfor.Armor;
-        if (remainDamage < 0) return;
+
+        remainDamage = Mathf.Max(1, remainDamage);
 
         objectInfor.CurrentHealth -= remainDamage;
     }
